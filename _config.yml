@@ -21,11 +21,7 @@
 title: Senior Software Architect
 email: piers2307@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-Piers is a Senior Software Architect with more than 6 years experiences in databases and software development with a variety of technologies. He is especially proficient in .Net using Azure and SQL with a multitude of front end technologies.
-
-He has been involved in many industries including Retail, Logistics and Job Management. When it comes to developing software, Piers has a passion for efficient development processes, designing quality solutions and building robust software architecture. He is very interested in understanding the way systems work and coming up with innovative solutions to complex problems.
-
-In his spare time he has an interest in the history and culture of China as well as developing his Mandarin Chinese language skills.
+  Senior Software Architect at http://ssw.com.au and SSW TV http://tv.ssw.com
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://www.ssw.com.au/people/piers-sinclair" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: SinclairPiers
