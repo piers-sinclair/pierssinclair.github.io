@@ -7,7 +7,7 @@ published: false
 ---
 ![Shanghai](/assets/images/shanghai.jpg)
 
-China is a booming market, yet too often, the western sites we know and love don't work in China. There are so many things to know and do before an application is ready for China, but most organisations don't have any idea where to begin. As a result, most companies miss out on the 1.4 billion users in China, 56 times the population of Australia! Prepping to be ready for China is a daunting task, but one which can reap great rewards.
+China is a booming market, yet too often, the western sites we know and love don't work in China. There are so many things to know and do before an application is ready for China, but most organisations don't have any idea where to begin. As a result, many companies miss out on the 1.4 billion users in China, 56 times the population of Australia! Prepping to be ready for China is a daunting task, but one which can reap great rewards.
 
 Let's take a look at some of the crucial factors that must be considered…
 
