@@ -4,3 +4,5 @@
 
 layout: home
 ---
+
+![Piers Sinclair](/assets/images/2021-07-13-piers.jpg)
