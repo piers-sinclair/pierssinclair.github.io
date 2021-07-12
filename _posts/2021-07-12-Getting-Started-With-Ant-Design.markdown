@@ -3,7 +3,7 @@ layout: post
 title:  "🐜 Getting started using Ant Design with ASP.NET Core, React and Redux"
 date:   2021-07-12 12:52:53 +1000
 categories: jekyll update
-published: true
+published: false
 ---
 China has a vastly different array of technologies that are used daily. One of the most popular libraries in recent years has been [Ant Design](https://ant.design/). Ant Design is a set of UI components originally designed for the React ecosystem. The great thing about Ant Design is that it has a robust set of components and is very comprehensively documented in both English and Chinese!
 
