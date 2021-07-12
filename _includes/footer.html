@@ -5,6 +5,24 @@
 
     <div class="footer-col-wrapper">
       <div class="footer-col">
+      {%- if site.author %}
+        <ul class="contact-list">
+          {% if site.author.name -%}
+            <li class="p-name">{{ site.author.name | escape }}</li>
+          {% endif -%}
+          {% if site.author.jobTitle -%}
+            <li class="p-name">{{ site.author.jobTitle | escape }}</li>
+          {%- endif %}
+          {% if site.author.email -%}
+            <li><a class="u-email" href="mailto:{{ site.author.email }}">{{ site.author.email }}</a></li>
+          {%- endif %}          
+          {% if site.author.website -%}
+          <li><a class="u-link" href="{{ site.author.website }}">{{ site.author.website }}</a></li>
+        {%- endif %}
+        </ul>
+      {%- endif %}
+      </div>
+      <div class="footer-col">
         <p class="feed-subscribe">
           <a href="{{ 'feed.xml' | relative_url }}">
             <svg class="svg-icon orange">
@@ -12,18 +30,6 @@
             </svg><span>Subscribe</span>
           </a>
         </p>
-      {%- if site.author %}
-        <ul class="contact-list">
-          {% if site.author.name -%}
-            <li class="p-name">{{ site.author.name | escape }}</li>
-          {% endif -%}
-          {% if site.author.email -%}
-            <li><a class="u-email" href="mailto:{{ site.author.email }}">{{ site.author.email }}</a></li>
-          {%- endif %}
-        </ul>
-      {%- endif %}
-      </div>
-      <div class="footer-col">
         <p>{{ site.description | escape }}</p>
       </div>
     </div>
