@@ -27,6 +27,9 @@ url: "https://www.piers-sinclair.com" # the base hostname & protocol for your si
 twitter_username: SinclairPiers
 github_username:  pierssinclairssw
 
+disqus:
+  shortname: piers-sinclair
+
 # Build settings
 theme: minima
 plugins:
