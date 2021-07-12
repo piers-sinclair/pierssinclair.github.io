@@ -242,13 +242,13 @@ The UI is starting to shape up nicely:
 
 Now you might be wondering how you can add some nice buttons and functionality to your card? Ant Design has this covered too via the actions field that adds capabilities to the bottom of a card. Additionally, the library comes with built-in icons that you can use out of the box. 
 
-Let's import an edit and settings button to put at the bottom of the card. First import the icons we need
+Let's import an edit and settings button to put at the bottom of the card. First import the icons we need:
 
 ```javascript
 import { EditOutlined, SettingOutlined } from '@ant-design/icons';
 ```
 
-Then add them as actions to the profile card
+Then add them as actions to the profile card:
 
  ```javascript
 <Card
