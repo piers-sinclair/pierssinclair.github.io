@@ -8,7 +8,9 @@ published: false
 
 ![Shanghai](/assets/images/shanghai.jpg)
 
-China is an exploding market with more than 1 billion users to tap into. Tapping into this market as an international organisation can be a daunting task, yet it has the potential to deliver value to companies by vastly increasing reach. Nonetheless, many organisations struggle to break into the market. This fact is due to a range of reasons, from China’s complex set of unique technologies to cultural differences around application usage and connectivity issues as a result of hosting. Before we dive into this topic, let’s take a look at some of the crucial factors that must be considered…
+China is an exploding market with more than 1 billion users to tap into. Tapping into this market as an international organisation can be a daunting task, yet it has the potential to deliver value to companies by vastly increasing reach. Nonetheless, many organisations struggle to break into the market. This fact is due to a range of reasons, from China’s complex set of unique technologies to cultural differences around application usage and connectivity issues as a result of hosting. 
+
+Before we dive into this topic, let’s take a look at some of the crucial factors that must be considered…
 
 * Integration with local single-sign-on offerings like WeChat
 * Login via mobile number and mobile-first development
