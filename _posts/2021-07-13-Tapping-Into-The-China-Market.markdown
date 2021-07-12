@@ -3,11 +3,11 @@ layout: post
 title:  "🧧 Tapping into the China Market"
 date:   2021-07-12 12:51:53 +1000
 categories: china-market
-published: false
+published: true
 ---
 ![Shanghai](/assets/images/shanghai.jpg)
 
-China is a booming market, yet too often, the western sites we know and love don't work in China. There are so many things to know and do before an application is ready for China, but most organisations don't have any idea where to begin. As a result, many companies miss out on the 1.4 billion users in China, 56 times the population of Australia! Prepping to be ready for China is a daunting task, but one which can reap great rewards.
+China is a booming market, yet too often, the western sites we know and love don't work in China. There are so many things to know and do before an application is ready for China, but most organisations don't have any idea where to begin. As a result, many companies miss out on the 1.4 billion users in China, 56 times the population of Australia! Prepping to be ready for China is a daunting task, but one which can reap great rewards. Adam Cogan has a [great blog post](https://adamcogan.com/2018/03/09/learn-the-4-steps-to-get-users-in-china/) that takes a look at some of the design challenges applications face, but I wanted to jump into some of the more technical aspects. 
 
 Let's take a look at some of the crucial factors that must be considered…
 
