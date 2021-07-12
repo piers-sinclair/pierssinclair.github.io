@@ -3,6 +3,8 @@ layout: post
 title:  "🔥 About Piers Sinclair"
 date:   2021-07-12 12:51:53 +1000
 categories: about
+author:
+- Piers Sinclair
 published: true
 ---
 ![Piers Sinclair](/assets/images/2021-07-12-piers.jpg)

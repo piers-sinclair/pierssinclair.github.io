@@ -32,6 +32,7 @@ url: "https://www.piers-sinclair.com" # the base hostname & protocol for your si
 google_analytics: G-9K1LNB2NXN
 
 minima:
+  date_format: "%d %b, %Y"
 
   social_links:
     twitter: SinclairPiers
@@ -46,6 +47,8 @@ disqus:
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
+
 
 # Exclude from processing.
 # The following items will not be processed, by default.
