@@ -19,7 +19,7 @@ Let's take a look at some of the crucial factors that must be considered…
 * Local payment platforms (e.g. WeChat Pay and Alipay)
 * Consideration of local social media alternatives and how they integrate into your app (e.g. WeChat, Youku, BiliBili, Weibo, QQ etc)
 * Local hosting options for better connectivity (e.g. Alibaba Cloud, Huawei Cloud, Tencent Cloud)
-* Colouring and UX design (e.g. red is a very positive colour)
+* Colouring and UX design (e.g. colours may have different connotations than they do in the West)
 * Smooth and consistent translation between Chinese and English
 * Western integrations that may not work (e.g. Facebook)
 * Publication in Chinese app stores
