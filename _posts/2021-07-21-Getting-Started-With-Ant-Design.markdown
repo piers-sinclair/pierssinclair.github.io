@@ -174,10 +174,11 @@ Before we can begin making our profile pretty using Ant Design, we first need to
 npm install antd
 ```
 
-You may also have to install the babel runtime to get Ant Design working
+You may also have to install @babel/runtime and the latest @types/react to get Ant Design working
 
 ```javascript
 npm install @babel/runtime
+npm install @types/react@latest
 ```
 
 # Add a Card
