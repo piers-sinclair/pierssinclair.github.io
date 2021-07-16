@@ -9,10 +9,13 @@ published: false
 ---
 China has a vastly different array of technologies that are used daily. One of the most popular libraries in recent years has been [Ant Design](https://ant.design/). Ant Design is a set of UI components originally designed for the React ecosystem. The great thing about Ant Design is that it has a robust set of components and is very comprehensively documented in both English and Chinese!
 
-Today I'm going to take you through the initial experience I have had getting Ant Design up and running. For this example, I have built a small React app based on the Microsoft ASP.NET Core + React + Redux template packaged with Visual Studio.
+Today I'm going to take you through the initial experience I have had getting Ant Design up and running. For this example, I have built a small React app based on the [Microsoft ASP.NET Core + React + Redux template](https://docs.microsoft.com/en-us/aspnet/core/client-side/spa/react-with-redux?view=aspnetcore-5.0).
 
-![ASP.NET Core + React + Redux](/assets/images/2021-07-12-Getting-Started-With-Ant-Design/ReactReduxTemplate.png)
-**Figure: The Visual studio template I used**
+To install it, run the following command in the vs code terminal:
+
+```powershell
+dotnet new reactredux
+```
 
 From there, I have added a simple User Profile component for displaying dummy user information. Here is the code I started with inside the UserProfile component:
 
