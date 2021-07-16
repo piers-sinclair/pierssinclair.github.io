@@ -155,6 +155,12 @@ Before we can begin making our profile pretty using Ant Design, we first need to
 npm install antd
 ```
 
+You may also have to install the babel runtime to get Ant Design working
+
+```javascript
+npm install @babel/runtime
+```
+
 # Add a Card
 
 To start, let's add a card that will improve the layout of our profile. First, let's import the card library and the Ant Design stylesheet.
