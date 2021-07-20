@@ -41,11 +41,20 @@ class UserProfile extends React.PureComponent<UserProfileProps> {
     }
 
     public render() {
+        const { 
+            userProfile: { 
+                FirstName, 
+                Surname, 
+                JobTitle, 
+                Description 
+            } 
+        } = this.props;     
+
         return (
             <React.Fragment>
-                {this.props.userProfile.FirstName} {this.props.userProfile.Surname}<br/>
-                {this.props.userProfile.JobTitle}<br/>
-                {this.props.userProfile.Description}
+                {FirstName} {Surname}<br/>
+                {JobTitle}<br/>
+                {Description}
             </React.Fragment>
         );
     }
@@ -187,11 +196,11 @@ Now to use it, we can reference it like a normal React component. Super easy!
 Let's start simple and add a card that has a title and some info about us. Jump into the user profile component and replace the code in the react fragment with the following:
 
 ```javascript
-<Card title={this.props.userProfile.FirstName + " " + this.props.userProfile.Surname}>
+<Card title={FirstName + " " + Surname}>
 
-    {this.props.userProfile.JobTitle}<br />
+    {JobTitle}<br />
 
-    {this.props.userProfile.Description}
+    {Description}
 
 </Card>
 ```
@@ -242,11 +251,11 @@ Now that we have the Meta property we can introduce it into our card in any loca
                 className="cover-photo" />}>
     <Meta
         avatar={<Avatar src={require('../images/piers-avatar.jpg')} />}
-        title={this.props.userProfile.FirstName + " " + this.props.userProfile.Surname}
-        description={this.props.userProfile.JobTitle}>
+        title={FirstName + " " + Surname}
+        description={JobTitle}>
     </Meta>
     <br/>
-    {this.props.userProfile.Description}
+    {Description}
 </Card>
 ```
 
