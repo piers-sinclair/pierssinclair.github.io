@@ -183,11 +183,17 @@ npm install @types/react@latest
 
 # Add a Card
 
-To start, let's add a card that will improve the layout of our profile. First, let's import the card library and the Ant Design stylesheet.
+To start, let's add a card that will improve the layout of our profile. 
+
+First, let's import the card library into UserProfile.tsx
 
 ```javascript
 import { Card } from "antd";
+```
 
+Then import the Ant Design stylesheet into our index.tsx file.
+
+```javascript
 import 'antd/dist/antd.css';
 ```
 
@@ -195,7 +201,7 @@ Now to use it, we can reference it like a normal React component. Super easy!
 
 # Populating the card
 
-Let's start simple and add a card that has a title and some info about us. Jump into the user profile component and replace the react fragment tsx with the following:
+Let's start simple and add a card that has a title and some info about us. Jump into the user profile component and replace the code in the react fragment with the following:
 
 ```javascript
 <Card title={this.props.userProfile.FirstName + " " + this.props.userProfile.Surname}>
