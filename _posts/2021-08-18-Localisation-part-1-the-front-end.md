@@ -32,9 +32,9 @@ npm install typescript@latest
 
 Now that you've got the right libraries, the next step is to set up the configuration and resources necessary for react-i18next.
 
-First, we need a configuration file called i18n.ts that goes in ClientApp/src/i18n/
+First, we need a configuration file called `i18n.ts` that goes in `ClientApp/src/i18n/`
 
-In our case, I am configuring Chinese and English. You can also configure different namespaces. To keep it simple, I am starting with two namespaces, "General" and "Home", my configuration looks like the below:
+In this case, I am configuring Chinese and English. You can also configure different namespaces. To keep it simple, I am starting with two namespaces, "General" and "Home", my configuration looks like the below:
 
 #### /ClientApp/src/i18n/i18n.ts
 ```javascript
@@ -271,6 +271,6 @@ And now when we switch to Chinese:
 ![Website translated to Chinese](/assets/images/2021-08-18-Localisation-part-1-the-font-end/set_to_chinese.png)
 **Figure: The dropdown set to Chinese**
 
-Awesome right? Now you can put this dropdown somewhere suitable on your application and switch languages at will!
+Awesome right🌟? Now you can put this dropdown somewhere suitable on your application and switch languages at will!
 
 You can view my website source code at [China Dev Blog](https://github.com/pierssinclairssw/China-Dev-Blog)
