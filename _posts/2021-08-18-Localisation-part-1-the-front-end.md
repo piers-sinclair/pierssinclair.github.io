@@ -12,7 +12,7 @@ Commonly, companies implement their websites wholly in their native language wit
 
 At the most basic level, two different parts of the application need to be localised. Firstly, the frontend, that involves all of the static content on the page. Secondly, the backend, where all dynamic content is stored. 
 
-Today, I will take you through the former by showing you how you can localise your React applications using the React i18next library.
+Today, I will take you through the former by showing you how you can localise your React applications using the react-i18next library.
 
 # Setup
 
