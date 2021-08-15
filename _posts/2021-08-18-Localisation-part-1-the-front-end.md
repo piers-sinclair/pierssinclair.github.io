@@ -36,7 +36,7 @@ First, we need a configuration file called i18n.ts that goes in ClientApp/src/i1
 
 In our case, I am configuring Chinese and English. You can also configure different namespaces. To keep it simple, I am starting with two namespaces, "general" and "home", my configuration looks like the below:
 
-## /ClientApp/src/i18n/i18n.ts
+#### /ClientApp/src/i18n/i18n.ts
 ```javascript
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
@@ -90,7 +90,7 @@ You should see the name and folder structures of these files correspond with the
 
 Here's what they look like:
 
-## /ClientApp/src/i18n/en_us/general.json
+#### /ClientApp/src/i18n/en_us/general.json
 ```json
 {
   "websiteTitle": "China Dev Blog",
@@ -99,13 +99,13 @@ Here's what they look like:
   "language": "English"
 }
 ```
-## /ClientApp/src/i18n/en_us/home.json
+#### /ClientApp/src/i18n/en_us/home.json
 ```json
 {
     "body": "Welcome to my blog website about China integration!"
 }
 ```
-## /ClientApp/src/i18n/zh_cn/general.json
+#### /ClientApp/src/i18n/zh_cn/general.json
 ```json
 {
     "websiteTitle": "中国软件开发博客",
@@ -114,7 +114,7 @@ Here's what they look like:
     "language": "中文"
 }
 ```
-## /ClientApp/src/i18n/zh_cn/home.json
+#### /ClientApp/src/i18n/zh_cn/home.json
 ```json
 {
     "body": "欢迎来到我创建关于中国整合资讯的网页！"
@@ -205,7 +205,7 @@ this.props.i18n.changeLanguage('zh_cn');
 
 To make switching language easy, I implemented a dropdown component using Ant Design. It displays the current language in the dropdown, changing according to what the user has chosen.
 
-/ClientApp/src/components/LanguageDropDown.tsx
+#### /ClientApp/src/components/LanguageDropDown.tsx
 ```javascript
 import * as React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
