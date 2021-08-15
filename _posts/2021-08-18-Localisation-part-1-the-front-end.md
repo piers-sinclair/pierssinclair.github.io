@@ -8,11 +8,11 @@ author:
 published: false
 ---
 
-It is very common that companies implement their websites wholly in their native language without giving thought to the extensibility of this approach in the future. When they later need to expand into another market, it becomes a huge job to enable multi language support across the website. Planning for this problem in advance can make the process of adding new languages much less painful.
+Commonly, companies implement their websites wholly in their native language without considering the extensibility of this approach in the future. When they later need to expand into another market, it becomes a massive job to enable multi-language support across the website. Planning for this problem in advance can make the process of adding new languages much less painful.
 
-At the most basic level, there are two different parts of the application that need to be localised. Firstly, the frontend which involves all of the static content on the page. Secondly, the backend where all dynamic content is stored. 
+At the most basic level, two different parts of the application need to be localised. Firstly, the frontend, that involves all of the static content on the page. Secondly, the backend, where all dynamic content is stored. 
 
-Today I am going to take you through the former by showing you how you can localise your React applications using the React i18next library.
+Today, I will take you through the former by showing you how you can localise your React applications using the React i18next library.
 
 # Setup
 
@@ -22,7 +22,7 @@ Before we begin, we need to install the [react-i18next package](https://react.i1
 npm install react-i18next i18next i18next-browser-languagedetector --save
 ```
 
-I also recommend you update typescript to the latest version since I had some troubles with an older version of typescript
+I also recommend you update TypeScript to the latest version since I had some troubles with an older version of typescript
 
 ```javascript
 npm install typescript@latest
@@ -30,11 +30,11 @@ npm install typescript@latest
 
 # Configuring React i18next
 
-Now that you've got the right libraries, the next step is to setup the configuration and resources necessary for react-i18next.
+Now that you've got the right libraries, the next step is to set up the configuration and resources necessary for react-i18next.
 
-First we need a configuration file called i18n.ts that goes in ClientApp/src/i18n/
+First, we need a configuration file called i18n.ts that goes in ClientApp/src/i18n/
 
-In our case I am configurating Chinese and English. You can also configure different namespaces, to keep it simple I am starting with two namespaces "general" and "home", my configuration looks like the below:
+In our case, I am configuring Chinese and English. You can also configure different namespaces. To keep it simple, I am starting with two namespaces, "general" and "home", my configuration looks like the below:
 
 ## /ClientApp/src/i18n/i18n.ts
 ```javascript
@@ -75,9 +75,9 @@ i18n
 export default i18n;
 ```
 
-In addition to the configuration file we also need to add the translation files themselves. You will need a different translation file for each namespace and language used. These files contain a common variable that is used to denote different translations. For example, you might have a variable named "websiteTitle" and that then has the title of the page in both English, Chinese and any other language you support.
+In addition to the configuration file, we also need to add the translation files themselves. You will need a different translation file for each namespace and language used. These files contain a common variable that is used to denote different translations. For example, you might have a variable named "websiteTitle" that has the page's title in English, Chinese and any other language you support.
 
-I have four translation files named and stored as follows
+I have four translation files named and stored as follows.
 
 ```
 /ClientApp/src/i18n/en_us/general.json
@@ -121,7 +121,7 @@ Here's what they look like:
 }
 ```
 
-# Using our new translations!
+# Using our new translations
 
 Ok, so we've got the translation configured, but how do we use our translation files?
 
@@ -157,9 +157,7 @@ const comp = connect(
 export default withTranslation(['General'], ['Home'])(comp); 
 ```
 
-After that I had to define WithTranslation in my props and then I was good to go. I changed it
-
-From
+After that, I had to define WithTranslation in my props, and then I was good to go. I changed it from
 
 ```javascript
 type UserProfileProps =
@@ -191,11 +189,11 @@ Well it's simply a matter of calling the props, below you can see I am accessing
     {this.props.t('Home:body')}
 ```
 
-You should see these show up as whatever you defined as the default language when you setup the i18n.ts configuration file earlier.
+You should see these show up as whatever you defined as the default language when you set up the i18n.ts configuration file earlier.
 
 # Switching language
 
-Changing language is super easy, just call this.props.i18n.changeLanguage('en_us'); where the parameter passed in is one of the cultures you have defined in your configuration file.
+Changing language is super easy. Just call `this.props.i18n.changeLanguage('en_us');` where the parameter is one of the cultures you have defined in your configuration file.
 
 For example, to switch to Chinese in my implementation, I call:
 
@@ -205,7 +203,7 @@ this.props.i18n.changeLanguage('zh_cn');
 
 # Adding a language dropdown
 
-To make switching language easy I implemented a simple dropdown component using Ant Design. It displays the current language in the dropdown so that it changes according to what the user has chosen.
+To make switching language easy, I implemented a dropdown component using Ant Design. It displays the current language in the dropdown, changing according to what the user has chosen.
 
 /ClientApp/src/components/LanguageDropDown.tsx
 ```javascript
@@ -263,6 +261,6 @@ class LanguageDropDown extends React.PureComponent<LanguageDropDownProps> {
 export default withTranslation(['General'])(LanguageDropDown as any);
 ```
 
-Now you can put this dropdown wherever suits on your application and switch languages at will!
+Now you can put this dropdown somewhere suitable on your application and switch languages at will!
 
 You can view my website source code at [China Dev Blog](https://github.com/pierssinclairssw/China-Dev-Blog)
