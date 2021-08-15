@@ -195,3 +195,11 @@ You should see these show up as whatever you defined as the default language whe
 
 # Switching language
 
+Changing language is super easy, just call this.props.i18n.changeLanguage('en_us'); where the parameter passed in is one of the cultures you have defined in your configuration file.
+
+For example, to switch to Chinese in my implementation, I call:
+
+```javascript
+this.props.i18n.changeLanguage('zh_cn');
+```
+
