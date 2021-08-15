@@ -268,7 +268,7 @@ Here's what it looks like set to English:
 
 And now when we switch to Chinese:
 
-![Website translated to Chinese](/assets/images/2021-08-18-Localisation-part-1-the-font-end/set_to_english.png)
+![Website translated to Chinese](/assets/images/2021-08-18-Localisation-part-1-the-font-end/set_to_chinese.png)
 **Figure: The dropdown set to Chinese**
 
 Awesome right? Now you can put this dropdown somewhere suitable on your application and switch languages at will!
