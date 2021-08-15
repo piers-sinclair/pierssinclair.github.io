@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "🌏 Localisation Part 1 - The frontend using React Redux and react-i18next"
-date:   2021-07-28 12:52:53 +1000
+date:   2021-08-18 12:52:53 +1000
 categories: china-market
 author:
 - Piers Sinclair
