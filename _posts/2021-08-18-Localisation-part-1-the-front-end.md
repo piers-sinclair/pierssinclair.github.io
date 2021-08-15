@@ -36,8 +36,8 @@ First we need a configuration file called i18n.ts that goes in ClientApp/src/i18
 
 In our case I am configurating Chinese and English. You can also configure different namespaces, to keep it simple I am starting with two namespaces "general" and "home", my configuration looks like the below:
 
-## ClientApp/src/i18n/i18n.ts
-```
+## /ClientApp/src/i18n/i18n.ts
+```javascript
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -80,17 +80,17 @@ In addition to the configuration file we also need to add the translation files 
 I have four translation files named and stored as follows
 
 ```
-ClientApp/src/i18n/en_us/general.json
-ClientApp/src/i18n/en_us/home.json
-ClientApp/src/i18n/zh_cn/general.json
-ClientApp/src/i18n/zh_cn/home.json
+/ClientApp/src/i18n/en_us/general.json
+/ClientApp/src/i18n/en_us/home.json
+/ClientApp/src/i18n/zh_cn/general.json
+/ClientApp/src/i18n/zh_cn/home.json
 ```
 
 You should see the name and folder structures of these files correspond with the configuration file i18n.ts
 
 Here's what they look like:
 
-## ClientApp/src/i18n/en_us/general.json
+## /ClientApp/src/i18n/en_us/general.json
 ```json
 {
   "websiteTitle": "China Dev Blog",
@@ -99,13 +99,13 @@ Here's what they look like:
   "language": "English"
 }
 ```
-## ClientApp/src/i18n/en_us/home.json
+## /ClientApp/src/i18n/en_us/home.json
 ```json
 {
     "body": "Welcome to my blog website about China integration!"
 }
 ```
-## ClientApp/src/i18n/zh_cn/general.json
+## /ClientApp/src/i18n/zh_cn/general.json
 ```json
 {
     "websiteTitle": "中国软件开发博客",
@@ -114,7 +114,7 @@ Here's what they look like:
     "language": "中文"
 }
 ```
-## ClientApp/src/i18n/zh_cn/home.json
+## /ClientApp/src/i18n/zh_cn/home.json
 ```json
 {
     "body": "欢迎来到我创建关于中国整合资讯的网页！"
@@ -203,3 +203,66 @@ For example, to switch to Chinese in my implementation, I call:
 this.props.i18n.changeLanguage('zh_cn');
 ```
 
+# Adding a language dropdown
+
+To make switching language easy I implemented a simple dropdown component using Ant Design. It displays the current language in the dropdown so that it changes according to what the user has chosen.
+
+/ClientApp/src/components/LanguageDropDown.tsx
+```javascript
+import * as React from 'react';
+import { WithTranslation, withTranslation } from 'react-i18next';
+import { Menu, Dropdown, Button } from 'antd';
+import { GlobalOutlined, DownOutlined } from '@ant-design/icons';
+
+type LanguageDropDownProps =
+    WithTranslation;
+
+class LanguageDropDown extends React.PureComponent<LanguageDropDownProps> {
+
+    public handleMenuClick(key: string) {
+        const { i18n } = this.props;
+
+        switch (key) {
+            case "1":
+                i18n.changeLanguage('en_us');
+                break;
+            case "2":
+                i18n.changeLanguage('zh_cn');
+                break;
+            default:
+                i18n.changeLanguage('en_us');
+                break;
+        }
+    }
+
+    public render() {
+        const { t } = this.props;
+
+        return (
+            <Dropdown
+                overlay={
+                <Menu onClick={(e) => this.handleMenuClick(e.key)}>
+                    <Menu.Item key="1">
+                        English
+                    </Menu.Item>
+                    <Menu.Item key="2">
+                        中文
+                    </Menu.Item>
+                </Menu>
+            }>
+                <Button>
+                        <GlobalOutlined />
+                        {t('General:language')}
+                        <DownOutlined />
+                </Button>
+            </Dropdown>
+        );
+    }
+}
+
+export default withTranslation(['General'])(LanguageDropDown as any);
+```
+
+Now you can put this dropdown wherever suits on your application and switch languages at will!
+
+You can view my website source code at [China Dev Blog](https://github.com/pierssinclairssw/China-Dev-Blog)
