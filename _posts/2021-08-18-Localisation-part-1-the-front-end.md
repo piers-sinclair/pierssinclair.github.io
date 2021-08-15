@@ -34,7 +34,7 @@ Now that you've got the right libraries, the next step is to set up the configur
 
 First, we need a configuration file called i18n.ts that goes in ClientApp/src/i18n/
 
-In our case, I am configuring Chinese and English. You can also configure different namespaces. To keep it simple, I am starting with two namespaces, "general" and "home", my configuration looks like the below:
+In our case, I am configuring Chinese and English. You can also configure different namespaces. To keep it simple, I am starting with two namespaces, "General" and "Home", my configuration looks like the below:
 
 #### /ClientApp/src/i18n/i18n.ts
 ```javascript
@@ -182,14 +182,14 @@ type UserProfileProps =
 
 Okay, so now all the translations are sitting nicely in the component, but how do we access them?
 
-Well it's simply a matter of calling the props, below you can see I am accessing the General and home namespaces from within my render function to retrieve different translation values:
+Well it's simply a matter of calling the props, below you can see I am accessing the General and Home namespaces from within my render function to retrieve different translation values:
 
 ```javascript
-    {this.props.t('General:home')}
-    {this.props.t('Home:body')}
+{this.props.t('General:home')}
+{this.props.t('Home:body')}
 ```
 
-You should see these show up as whatever you defined as the default language when you set up the i18n.ts configuration file earlier.
+You should see these show up as the default language from the i18n.ts configuration file we set up earlier.
 
 # Switching language
 
@@ -203,7 +203,7 @@ this.props.i18n.changeLanguage('zh_cn');
 
 # Adding a language dropdown
 
-To make switching language easy, I implemented a dropdown component using Ant Design. It displays the current language in the dropdown, changing according to what the user has chosen.
+To make switching language easy, I implemented a dropdown component using Ant Design. It displays the current language in the dropdown, changing according to what the user has chosen. When the dropdown is clicked, all languages are displayed without a translation to make it easier for people to navigate when they have clicked on a language they don't understand.
 
 #### /ClientApp/src/components/LanguageDropDown.tsx
 ```javascript
