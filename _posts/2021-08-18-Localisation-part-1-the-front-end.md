@@ -261,6 +261,16 @@ class LanguageDropDown extends React.PureComponent<LanguageDropDownProps> {
 export default withTranslation(['General'])(LanguageDropDown as any);
 ```
 
-Now you can put this dropdown somewhere suitable on your application and switch languages at will!
+Here's what it looks like set to English:
+
+![Website translated to English](/assets/images/2021-08-18-Localisation-part-1-the-font-end/set_to_english.png)
+**Figure: The dropdown set to English**
+
+And now when we switch to Chinese:
+
+![Website translated to Chinese](/assets/images/2021-08-18-Localisation-part-1-the-font-end/set_to_english.png)
+**Figure: The dropdown set to Chinese**
+
+Awesome right? Now you can put this dropdown somewhere suitable on your application and switch languages at will!
 
 You can view my website source code at [China Dev Blog](https://github.com/pierssinclairssw/China-Dev-Blog)
