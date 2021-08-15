@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "🌏 Localisation Part 1 - The frontend using React Redux and react-i18next"
-date:   2021-08-18 12:52:53 +1000
+date:   2021-08-11 12:52:53 +1000
 categories: china-market
 author:
 - Piers Sinclair
@@ -203,7 +203,9 @@ this.props.i18n.changeLanguage('zh_cn');
 
 # Adding a language dropdown
 
-To make switching language easy, I implemented a dropdown component using Ant Design. It displays the current language in the dropdown, changing according to what the user has chosen. When the dropdown is clicked, all languages are displayed without a translation to make it easier for people to navigate when they have clicked on a language they don't understand.
+To make switching language easy, I implemented a dropdown component using Ant Design (see [my blogpost](https://www.piers-sinclair.com/china-market/2021/07/21/Getting-Started-With-Ant-Design.html) for more info on Ant Design). 
+
+It displays the current language in the dropdown, changing according to what the user has chosen. When the dropdown is clicked, all languages are displayed without a translation to make it easier for people to navigate when they have clicked on a language they don't understand.
 
 #### /ClientApp/src/components/LanguageDropDown.tsx
 ```javascript
