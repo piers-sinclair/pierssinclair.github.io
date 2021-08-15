@@ -22,7 +22,7 @@ Before we begin, we need to install the [react-i18next package](https://react.i1
 npm install react-i18next i18next i18next-browser-languagedetector --save
 ```
 
-I also recommend you update TypeScript to the latest version since I had some troubles with an older version of typescript
+I also recommend you update TypeScript to the latest version since I had some troubles with an older version of TypeScript
 
 ```javascript
 npm install typescript@latest
