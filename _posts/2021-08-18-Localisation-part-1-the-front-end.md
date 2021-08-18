@@ -5,7 +5,7 @@ date:   2021-08-18 12:52:53 +1000
 categories: china-market
 author:
 - Piers Sinclair
-published: false
+published: true
 ---
 
 Commonly, companies implement their websites wholly in their native language without considering the extensibility of this approach in the future. When they later need to expand into another market, it becomes a massive job to enable multi-language support across the website. Planning for this problem in advance can make the process of adding new languages much less painful 🤕.
