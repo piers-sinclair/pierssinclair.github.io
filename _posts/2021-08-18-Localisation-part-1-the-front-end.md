@@ -7,7 +7,7 @@ author:
 - Piers Sinclair
 published: true
 ---
-<p align="center"><img src="/assets/images/2021-08-18-Localisation-part-1-the-font-end/ChineseToEnglish.png" /></p>
+<p align="center" width="100%"><img src="/assets/images/2021-08-18-Localisation-part-1-the-font-end/ChineseToEnglish.png" /></p>
 
 Commonly, companies implement their websites wholly in their native language without considering the extensibility of this approach in the future. When they later need to expand into another market, it becomes a massive job to enable multi-language support across the website. Planning for this problem in advance can make the process of adding new languages much less painful 🤕.
 
