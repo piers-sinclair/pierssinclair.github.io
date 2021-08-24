@@ -8,6 +8,8 @@ author:
 published: true
 ---
 
+![Chinese To English](/assets/images/2021-08-18-Localisation-part-1-the-font-end/ChineseToEnglish.png)
+
 Commonly, companies implement their websites wholly in their native language without considering the extensibility of this approach in the future. When they later need to expand into another market, it becomes a massive job to enable multi-language support across the website. Planning for this problem in advance can make the process of adding new languages much less painful 🤕.
 
 At the most basic level, two different parts of the application need to be localised. Firstly, the frontend, that involves all of the static content on the page. Secondly, the backend, where all dynamic content is stored. 
