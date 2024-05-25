@@ -9,6 +9,8 @@ published: true
 ---
 ![Piers Sinclair](/assets/images/2021-07-12-piers.jpg)
 
+Hey All,
+
 Welcome to my blog!
 
 I'm a Delivery Lead with a strong background in Software Engineering. Over the years, I've taken on various roles including Tech Lead, Product Owner, and Scrum Master. This diverse experience has given me a broad perspective on project delivery.
