@@ -9,7 +9,7 @@ published: true
 ---
 ![Piers Sinclair](/assets/images/2021-07-12-piers.jpg)
 
-### Hey All,
+Hey All,
 
 Welcome to my blog!
 
