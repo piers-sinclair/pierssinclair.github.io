@@ -9,14 +9,18 @@ published: true
 ---
 ![Piers Sinclair](/assets/images/2021-07-12-piers.jpg)
 
-Hey Guys,
+Welcome to my blog!
 
-Welcome to my blog on designing your apps for the China market🧧! 
+I'm a Delivery Lead with a strong background in Software Engineering. Over the years, I've taken on various roles including Tech Lead, Product Owner, and Scrum Master. This diverse experience has given me a broad perspective on project delivery.
 
-I am a Senior Software Architect with more than 6 years of experience in databases and software development with various technologies. I am especially proficient in .Net using Azure and SQL with a multitude of front end technologies.
+I've led projects automating Annual Review processes, enhanced recruitment pipelines as a Product Owner, and served as Scrum Master on Content Management Systems (CMS), Invoicing Systems, and Learning Management Systems (LMS).
 
-I have been involved in many industries, including Retail, Logistics and Job Management. When developing software, I have a passion for efficient development processes, designing quality solutions and building robust software architecture. I am very interested in understanding how systems work and coming up with innovative solutions to complex problems.
+Mentoring junior developers is a passion of mine. I've designed and delivered a structured internship program focused on full-stack development with Angular and .Net. I also coach developers during Sprint Reviews and Code Reviews, promoting continuous learning.
 
-In my spare time, I am interested in the history and culture of China as well as developing my Mandarin Chinese language skills.
+I excel in identifying process improvements and implementing effective solutions. For example, I improved a company's candidate testing procedure, significantly reducing the time to hire. I've also helped stakeholders develop efficient task delegation strategies.
 
-Well, that's me! I'm excited to dive into all sorts of topics with you guys 😃!
+In addition to my Scrum expertise, I handle tasks that ensure smooth operations, from streamlining communication to refining company standards. My dedication to efficiency is evident in every task I undertake.
+
+With conversational proficiency in Chinese, I've successfully led IT teams in China, transforming business strategies and increasing profitability. This adds an extra dimension to my consulting capabilities, especially for businesses looking to expand or improve operations in China.
+
+I'm excited to share insights and dive into various topics with you! 😃
