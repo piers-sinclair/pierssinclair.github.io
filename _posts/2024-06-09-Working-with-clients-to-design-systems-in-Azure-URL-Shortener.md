@@ -199,9 +199,13 @@ Using the [Cache Aside pattern](https://learn.microsoft.com/en-us/azure/architec
 
 [Azure Cache for Redis](https://learn.microsoft.com/en-us/azure/azure-cache-for-redis/cache-overview) is the right tool for this job.
 
+![Caching frequently used URLs](..\assets\diagrams\2024-06-09-Working-with-clients-to-design-systems-in-Azure-URL-Shortener\2.png)
+**Figure: Architecture for caching URLs that are often used **
+
 ## References
 Here are some of the main resources I used to understand this topic:
 - [Design Gurus Course](https://www.designgurus.io/course-play/grokking-the-system-design-interview/doc/638c0b5dac93e7ae59a1af6b)
 - [System Design School Course](https://systemdesignschool.io/problems/url-shortener/solution)
 - [Educative.io Course](https://www.educative.io/courses/grokking-modern-system-design-interview-for-engineers-managers/design-and-deployment-of-tinyurl)
 - [Alex Xu's System Design Book](https://www.amazon.com.au/System-Design-Interview-insiders-Second/dp/B08CMF2CQF0)
+- [ByteByteGo Website](https://bytebytego.com/)
