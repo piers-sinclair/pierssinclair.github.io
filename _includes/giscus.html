@@ -1,0 +1,20 @@
+{%- if page.comments != false and jekyll.environment == "production" -%}
+
+  <script src="https://giscus.app/client.js"
+          data-repo="piers-sinclair/pierssinclairssw.github.io"
+          data-repo-id="MDEwOlJlcG9zaXRvcnkzODQ5NDU4NDk="
+          data-category="General"
+          data-category-id="DIC_kwDOFvHOuc4Cf9Sl"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="bottom"
+          data-theme="dark"
+          data-lang="en"
+          data-loading="lazy"
+          crossorigin="anonymous"
+          async>
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Giscus.</a></noscript>
+{%- endif -%}
