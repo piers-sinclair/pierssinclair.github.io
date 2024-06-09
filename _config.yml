@@ -39,9 +39,6 @@ minima:
     github:  piers-sinclair
     linkedin: piers-sinclair
     youtube_channel: UC3vgxRVdqi11c8xt5KZ6vhg
-    
-disqus:
-  shortname: piers-sinclair
 
 # Build settings
 theme: minima
