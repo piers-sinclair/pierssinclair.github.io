@@ -17,25 +17,25 @@ Let's assume your client somes to you and says:
 
 First establish **functional requirements** by relaying with the client. Here's how the chat might go:
 
-Q: So the system should take a long URL and generate a shorter URL? 
+Q: So the system should take a long URL and generate a shorter URL?\
 A: Yes.
 
-Q: And that shorter URL should redirect users back to the long URL?
+Q: And that shorter URL should redirect users back to the long URL?\
 A: Yes
 
-Q: How long should the short URL be?
+Q: How long should the short URL be?\
 A: I'm open to your recommendation but as short as possible.
 
-Q: Should it be human readable?
+Q: Should it be human readable?\
 A: It doesn't have to be but users should have the option to define a custom one.
 
-Q: Should the URLs expire?
+Q: Should the URLs expire?\
 A: They should live forever but if the users want they can set an expiry date.
 
-Q: Can users delete or archive URLs?
+Q: Can users delete or archive URLs?\
 A: Yes they can do both.
 
-Q: Do you need any analytics on the URLs, for example number of clicks?
+Q: Do you need any analytics on the URLs, for example number of clicks?\
 A: It's a nice-to-have but not MVP
 
 Now we have our baseline functional requirements. Here's a summary:
@@ -52,19 +52,19 @@ Before moving on, repeat back your summary with the client to double check you a
 
 Now we need to establish the **non-functional requirements**. In this case, the non-functional requirements are fairly obvious but it's still good to check you are on the same page. Here's how the chat might go:
 
-Q: I assume when users open the short URL the redirect must be fast and seamless?
+Q: I assume when users open the short URL the redirect must be fast and seamless?\
 A: Yes
 
-Q: I assume that the short URLs must always be working?
+Q: I assume that the short URLs must always be working?\
 A: Yes
 
-Q: For security, we should ensure that short URLs are difficult to guess, do you agree?
+Q: For security, we should ensure that short URLs are difficult to guess, do you agree?\
 A: Yes
 
-Q: How many URLs do you expect to be created daily?
+Q: How many URLs do you expect to be created daily?\
 A: 10 million
 
-Q: How many URLs do you expected to be clicked daily?
+Q: How many URLs do you expected to be clicked daily?\
 A: 1 billion
 
 Now repeat back your summary of the non-functional requirements:
