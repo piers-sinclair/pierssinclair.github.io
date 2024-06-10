@@ -15,7 +15,7 @@ Welcome to my series on Systems Design in Azure, where I take you through design
 Let's assume your client comes to you and says:
 "Please build us a URL shortener similar to TinyUrl.com"
 
-First， establish **functional requirements** by talking to the client. Here's how the chat might go:
+First，establish **functional requirements** by talking to the client. Here's how the chat might go:
 
 Q: So the system should take a long URL and generate a shorter URL?\
 A: Yes.
@@ -105,7 +105,7 @@ However, we still need a table-like structure, complex querying capability, and 
 
 [Azure CosmosDB](https://learn.microsoft.com/en-us/azure/cosmos-db/) is generally the Document DB of choice on Azure, so we will roll with that.
 
-![Storing a Short URL](..\assets\diagrams\2024-06-09-Systems-Design-in-Azure-for-Clients-URL-Shortener\1.png)
+![Storing a Short URL](..\assets\diagrams\2024-06-09-Systems-Design-in-Azure-for-Clients-URL-Shortener\1.png)\
 **Figure: Architecture for storing the short URLs**
 
 ### 3. How will we generate the URLs?
@@ -158,16 +158,16 @@ Note that this URL could be of any size, but that doesn't matter since the user 
 #### 3.3 How to generate the keys?
 There are a few options to consider when generating the keys.
 
-**Sequentially:** We could generate the keys by sequentially iterating to the next value. 
+**Sequentially:** We could generate the keys by sequentially iterating to the next value.\
 **Problem:** This would violate the non-functional requirement around making the URL challenging to guess.
 
-**Random Generation**: We could randomly generate each digit in the key.
+**Random Generation**: We could randomly generate each digit in the key.\
 **Problem:** The more keys we generate, the more chance of a duplicate occurring, slowing down the service as duplicates must be handled.
 
-**Hashing:** We could use a hashing algorithm (e.g. MD5) to create a hashcode based on the URL and take the first 8 digits.
+**Hashing:** We could use a hashing algorithm (e.g. MD5) to create a hashcode based on the URL and take the first 8 digits.\
 **Problem:** It's still relatively likely that a duplicate key will occur, and we will need to handle that problem. For example, we could increment a number every time a collision occurs, append that to the long URL, and repeat the hashing process until the key is unique
 
-**Key Generation Service (KGS)**: Creating a service that runs in the background helps eliminate many of the shortcomings of the previous 3 solutions. The service creates unique keys and stores them in preparation for use by the URL shortener.
+**Key Generation Service (KGS)**: Creating a service that runs in the background helps eliminate many of the shortcomings of the previous 3 solutions. The service creates unique keys and stores them in preparation for use by the URL shortener.\
 **Problem:** This solution introduces additional cost and complexity. We now need to maintain the service and ensure it is highly available so that it is not a single point of failure.
 
 There are other solutions to this problem, but as you can see, each solution has a trade-off.
@@ -178,7 +178,7 @@ To make the service work, we will need a service like [Azure Functions](https://
 
 We will also need a way to store our keys; this can be done in [Azure Cosmos DB for Table](https://learn.microsoft.com/en-us/azure/cosmos-db/table/introduction). Cosmos DB is guaranteed to be 99.9% highly available out-of-the-box, but we can increase that to 99.99% with a different replication strategy.
 
-![Generating Keys for Short URLs](..\assets\diagrams\2024-06-09-Systems-Design-in-Azure-for-Clients-URL-Shortener\2.png)
+![Generating Keys for Short URLs](..\assets\diagrams\2024-06-09-Systems-Design-in-Azure-for-Clients-URL-Shortener\2.png)\
 **Figure: Architecture for the Key Generation Service**
 
 ### 4. How do we ensure high availability?
@@ -199,7 +199,7 @@ Using the [Cache Aside pattern](https://learn.microsoft.com/en-us/azure/architec
 
 [Azure Cache for Redis](https://learn.microsoft.com/en-us/azure/azure-cache-for-redis/cache-overview) is the right tool for this job.
 
-![Caching frequently used URLs](..\assets\diagrams\2024-06-09-Systems-Design-in-Azure-for-Clients-URL-Shortener\2.png)
+![Caching frequently used URLs](..\assets\diagrams\2024-06-09-Systems-Design-in-Azure-for-Clients-URL-Shortener\2.png)\
 **Figure: Architecture for caching URLs that are often used**
 
 ### 5. How can we optimize the deletion and archival of URLs?
@@ -218,6 +218,8 @@ Despite this, we don't need any significant architectural changes, all we have t
 ### 6. How do we track the analytics?
 Analytics was an optional requirement for the client, so you want to address it last. However, it's still worth digging into as it comes with significant extra complexity.
 
+Before we jump in, an assumption is that we are crafting analytics for our client, not for the creators of URLs. Make sure to double check that with the client before architecting!
+
 There's a few factors to consider in designing our analytics service:
 - We need an efficient way to query insights about our data. 
 - We may need to store data in a different schema to optimize reporting analytics.
@@ -225,7 +227,7 @@ There's a few factors to consider in designing our analytics service:
 
 Our existing URLs database is designed for quick read/write of individual URLs, not for querying insights about a group of URLs. For this reason, it's not a good option.
 
-So we need a data solution. In Azure there are many ways to architect a data solution. We are going with a simple to understand one which is Microsoft Fabric. We will need: 
+So we need a data solution. In Azure there are many ways to architect a data solution. We are going with a simple to understand one which is [Microsoft Fabric](https://learn.microsoft.com/en-us/fabric/). We will need: 
 - [Data Factory](https://learn.microsoft.com/en-us/fabric/data-factory/data-factory-overview) for ingesting and transforming the data.
 - [OneLake](https://learn.microsoft.com/en-us/fabric/onelake/onelake-overview) to store the data while we process it
 - [Data Warehouse](https://learn.microsoft.com/en-us/fabric/data-warehouse/) for storing data which has been transformed.
@@ -243,15 +245,22 @@ Now that you've got a nicely designed system, you want to put it together as an 
 
 You want to ensure you stay at a high level and stick to the significant business value delivered in each part. To assist, you will want a nice overview diagram showing how all the pieces fit together. Here's one for our system:
 
-![]()
+![Architecture Overview](..\assets\diagrams\2024-06-09-Systems-Design-in-Azure-for-Clients-URL-Shortener\5.png)\
 **Figure: High-Level Architecture Diagram**
 
 You'll also want to come prepared with a concise list of benefits. Here's one for our system:
+- Highly scalable - each mechanism in the chain has been designed with horizontal scaling in mind.
+- Highly available - All our components support a high degree of availability so there should be minimal downtime issues.
+- URLs won't be easy to guess, they are random.
+- All functional requirements satisfied - including optional analytics
 
-- 
-- 
+And you should also highlight some of the deficiencies, no architecture is perfect and you want the client to understand the trade-offs. Here's some for our system:
+- Maintenance - It's a highly complex solution and will require lots of maintenance.
+- Expensive - There's a lot of 3rd party cloud services here, it's likely to be costly to run.
+- Readability - The short URLs are random letters and numbers, it's short but not that readable.
+- Security - We haven't factored in users limiting access to a short URL.
 
-Remember to [cater to your audience](https://www.ssw.com.au/rules/catering-to-audience/); if you're talking to a Tech Lead, you can get way more into the technical details than when talking to a CEO.
+As a final note, remember to [cater to your audience](https://www.ssw.com.au/rules/catering-to-audience/); if you're talking to a Tech Lead, you can get way more into the technical details than when talking to a CEO.
 
 ## References
 Here are some of the main resources I used to understand this topic:
