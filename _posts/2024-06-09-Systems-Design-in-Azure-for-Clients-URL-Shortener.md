@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "🧩 Working with clients to design systems in Azure - URL Shortener"
+title:  "🧩 Systems Design in Azure for Clients - URL Shortener"
 date:   2024-06-09 12:52:53 +1000
 categories: systems-design
 author:
@@ -105,8 +105,9 @@ However, we still need a table-like structure, complex querying capability, and 
 
 [Azure CosmosDB](https://learn.microsoft.com/en-us/azure/cosmos-db/) is generally the Document DB of choice on Azure, so we will roll with that.
 
-![Storing a Short URL](..\assets\diagrams\2024-06-09-Working-with-clients-to-design-systems-in-Azure-URL-Shortener\1.png)
+![Storing a Short URL](..\assets\diagrams\2024-06-09-Systems-Design-in-Azure-for-Clients-URL-Shortener\1.png)
 **Figure: Architecture for storing the short URLs**
+
 ### 3. How will we generate the URLs?
 To generate a URL, we need a unique ID that replaces the original URL. The client has mentioned they would like it short but are open to your recommendation on how long it should be.
 
@@ -177,7 +178,7 @@ To make the service work, we will need a service like [Azure Functions](https://
 
 We will also need a way to store our keys; this can be done in [Azure Cosmos DB for Table](https://learn.microsoft.com/en-us/azure/cosmos-db/table/introduction). Cosmos DB is guaranteed to be 99.9% highly available out-of-the-box, but we can increase that to 99.99% with a different replication strategy.
 
-![Storing a Short URL](..\assets\diagrams\2024-06-09-Working-with-clients-to-design-systems-in-Azure-URL-Shortener\2.png)
+![Generating Keys for Short URLs](..\assets\diagrams\2024-06-09-Systems-Design-in-Azure-for-Clients-URL-Shortener\2.png)
 **Figure: Architecture for the Key Generation Service**
 
 ### 4. How do we ensure high availability?
@@ -198,7 +199,7 @@ Using the [Cache Aside pattern](https://learn.microsoft.com/en-us/azure/architec
 
 [Azure Cache for Redis](https://learn.microsoft.com/en-us/azure/azure-cache-for-redis/cache-overview) is the right tool for this job.
 
-![Caching frequently used URLs](..\assets\diagrams\2024-06-09-Working-with-clients-to-design-systems-in-Azure-URL-Shortener\2.png)
+![Caching frequently used URLs](..\assets\diagrams\2024-06-09-Systems-Design-in-Azure-for-Clients-URL-Shortener\2.png)
 **Figure: Architecture for caching URLs that are often used **
 
 ### 5. How can we optimize the deletion and archival of URLs?
