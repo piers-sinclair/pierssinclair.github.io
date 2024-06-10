@@ -30,7 +30,7 @@
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="32" value="Send Key" style="edgeStyle=none;html=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" parent="1" source="31" edge="1" target="37">
+                <mxCell id="32" value="Send Key" style="edgeStyle=none;html=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" parent="1" source="31" target="37" edge="1">
                     <mxGeometry x="0.0035" relative="1" as="geometry">
                         <mxPoint x="604" y="217" as="targetPoint"/>
                         <mxPoint as="offset"/>
@@ -72,14 +72,14 @@
                         <mxPoint x="525" y="503" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="40" value="Request Key" style="edgeStyle=none;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="37" target="31">
+                <mxCell id="40" value="Request Key" style="edgeStyle=none;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" parent="1" source="37" target="31" edge="1">
                     <mxGeometry x="0.0035" relative="1" as="geometry">
                         <mxPoint x="572" y="210" as="targetPoint"/>
                         <mxPoint as="offset"/>
                         <mxPoint x="620" y="341" as="sourcePoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="43" value="Creates Key" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="31" target="33">
+                <mxCell id="43" value="Creates Key" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" parent="1" source="31" target="33" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="320" y="322.4725000000001" as="sourcePoint"/>
                         <mxPoint x="470" y="302" as="targetPoint"/>

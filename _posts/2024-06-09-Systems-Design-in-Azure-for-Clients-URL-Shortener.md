@@ -200,13 +200,43 @@ Using the [Cache Aside pattern](https://learn.microsoft.com/en-us/azure/architec
 [Azure Cache for Redis](https://learn.microsoft.com/en-us/azure/azure-cache-for-redis/cache-overview) is the right tool for this job.
 
 ![Caching frequently used URLs](..\assets\diagrams\2024-06-09-Systems-Design-in-Azure-for-Clients-URL-Shortener\2.png)
-**Figure: Architecture for caching URLs that are often used **
+**Figure: Architecture for caching URLs that are often used**
 
 ### 5. How can we optimize the deletion and archival of URLs?
+While many URLs live forever, we know there are a few situations where URLs are archived or deleted.
 
+#### 5.1 Archived URLs
+The first is when the creating user sets an expiry time. When the expiry time is reached, the system can ensure requests for the URL notify the requesting user that it is expired. Manually archived URLs can be treated the same as ones with expiry times, we just set the expiry time to the time the archive was requested.
 
+The archived URLs can remain in the database so the creating user can revisit and see archived URLs if they want. So we don't need any architectural changes. One reason we might want to make database changes is if we wanted to free up the keys of the archived URLs, but our system has such a large volume of keys available that we can accept this as a trade-off. 
+
+#### 5.2 Deleted URLs
+Deleting URLs is a much more destructive action, and it's also likely to happen more rarely than other actions in the system. We will want to ensure the deleted URLs are removed from the system completely.
+
+Despite this, we don't need any significant architectural changes, all we have to do is delete the URL from the URLs database. Again, we could worry about freeing up the keys, but this would introduce architectural complexity for little benefit since we have so many keys available.
 
 ### 6. How do we track the analytics?
+Analytics was an optional requirement for the client, so you want to address it last. However, it's still worth digging into as it comes with significant extra complexity.
+
+There's a few factors to consider in designing our analytics service:
+- We need an efficient way to query insights about our data. 
+- We may need to store data in a different schema to optimize reporting analytics.
+- It does not need to be realtime
+
+Our existing URLs database is designed for quick read/write of individual URLs, not for querying insights about a group of URLs. For this reason, it's not a good option.
+
+So we need a data solution. In Azure there are many ways to architect a data solution. We are going with a simple to understand one which is Microsoft Fabric. We will need: 
+- [Data Factory](https://learn.microsoft.com/en-us/fabric/data-factory/data-factory-overview) for ingesting and transforming the data.
+- [OneLake](https://learn.microsoft.com/en-us/fabric/onelake/onelake-overview) to store the data while we process it
+- [Data Warehouse](https://learn.microsoft.com/en-us/fabric/data-warehouse/) for storing data which has been transformed.
+- [PowerBI](https://learn.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview) for visualizing the data
+
+Our Data factory can retrieve analytics on a schedule, store the data in OneLake while it transforms the data to send onto our structured data warehouse. PowerBI then reads from the data warehouse to create beautiful analytics reports.
+
+Note that Fabric is a SaaS product, so we don't need to manage these resources in Azure, it's all done from within Fabric!
+
+![Analytics Architecture](..\assets\diagrams\2024-06-09-Systems-Design-in-Azure-for-Clients-URL-Shortener\4.png)\
+**Figure: The analytics architecture**
 
 ### Phase 3 - Communicating the Sauce
 Now that you've got a nicely designed system, you want to put it together as an excellent deliverable for your client.
@@ -216,10 +246,17 @@ You want to ensure you stay at a high level and stick to the significant busines
 ![]()
 **Figure: High-Level Architecture Diagram**
 
+You'll also want to come prepared with a concise list of benefits. Here's one for our system:
+
+- 
+- 
+
 Remember to [cater to your audience](https://www.ssw.com.au/rules/catering-to-audience/); if you're talking to a Tech Lead, you can get way more into the technical details than when talking to a CEO.
 
 ## References
 Here are some of the main resources I used to understand this topic:
+- [Azure Architecture Center](https://learn.microsoft.com/en-us/azure/architecture/)
+- [Microsoft Fabric Documentation](https://learn.microsoft.com/en-us/fabric/)
 - [Design Gurus Course](https://www.designgurus.io/course-play/grokking-the-system-design-interview/doc/638c0b5dac93e7ae59a1af6b)
 - [System Design School Course](https://systemdesignschool.io/problems/url-shortener/solution)
 - [Educative.io Course](https://www.educative.io/courses/grokking-modern-system-design-interview-for-engineers-managers/design-and-deployment-of-tinyurl)
