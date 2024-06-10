@@ -193,7 +193,7 @@ We want to scale our URL database horizontally. Luckily, Cosmos DB supports part
 When we retrieve our long URLs, we always provide short URLs. For this reason, we can partition based on the [id we generated for our short URL](https://learn.microsoft.com/en-us/azure/cosmos-db/partitioning-overview#use-item-id-as-the-partition-key). Simple!
 
 #### 4.2 Caching
-Generally, with URLs, a small portion of viral ones receive most of the traffic. It would be awesome to cache these URLs so that the load on the rest of the system is reduced.
+Generally, with URLs, a small portion of viral ones receive most of the traffic. It would be awesome to cache these URLs to reduce the load on the rest of the system.
 
 Using the [Cache Aside pattern](https://learn.microsoft.com/en-us/azure/architecture/patterns/cache-aside) with a least-recently-used eviction policy should naturally lead to the most frequently accessed items being cached.
 
@@ -206,36 +206,36 @@ Using the [Cache Aside pattern](https://learn.microsoft.com/en-us/azure/architec
 While many URLs live forever, we know there are a few situations where URLs are archived or deleted.
 
 #### 5.1 Archived URLs
-The first is when the creating user sets an expiry time. When the expiry time is reached, the system can ensure requests for the URL notify the requesting user that it is expired. Manually archived URLs can be treated the same as ones with expiry times, we just set the expiry time to the time the archive was requested.
+The first is when the creating user sets an expiry time. When the expiry time is reached, the system can ensure that requests for the URL notify the requesting user that it has expired. Manually archived URLs can be treated the same as ones with expiry times; we just set the expiration time to when the archive was requested.
 
-The archived URLs can remain in the database so the creating user can revisit and see archived URLs if they want. So we don't need any architectural changes. One reason we might want to make database changes is if we wanted to free up the keys of the archived URLs, but our system has such a large volume of keys available that we can accept this as a trade-off. 
+The archived URLs can remain in the database so the creating user can revisit and see archived URLs. So we don't need any architectural changes. We might want to make database changes to free up the keys of the archived URLs, but our system has such a large volume of keys available that we can accept this as a trade-off. 
 
 #### 5.2 Deleted URLs
-Deleting URLs is a much more destructive action, and it's also likely to happen more rarely than other actions in the system. We will want to ensure the deleted URLs are removed from the system completely.
+Deleting URLs is a much more destructive action, and it's also likely to happen more rarely than other actions in the system. We want to ensure that the deleted URLs are completely removed from the system.
 
-Despite this, we don't need any significant architectural changes, all we have to do is delete the URL from the URLs database. Again, we could worry about freeing up the keys, but this would introduce architectural complexity for little benefit since we have so many keys available.
+Despite this, we don't need any significant architectural changes. All we have to do is delete the URL from the URLs database. Again, we could worry about freeing up the keys, but this would introduce architectural complexity for little benefit since we have many keys available.
 
 ### 6. How do we track the analytics?
-Analytics was an optional requirement for the client, so you want to address it last. However, it's still worth digging into as it comes with significant extra complexity.
+Analytics was optional for the client, so you want to address it last. However, it's still worth digging into as it involves significant extra complexity.
 
-Before we jump in, an assumption is that we are crafting analytics for our client, not for the creators of URLs. Make sure to double check that with the client before architecting!
+Before we jump in, an assumption is that we are crafting analytics for our client rather than for the creators of URLs. Make sure to double-check that with the client before architecting!
 
-There's a few factors to consider in designing our analytics service:
+There are a few factors to consider in designing our analytics service:
 - We need an efficient way to query insights about our data. 
 - We may need to store data in a different schema to optimize reporting analytics.
-- It does not need to be realtime
+- It does not need to be real-time
 
-Our existing URLs database is designed for quick read/write of individual URLs, not for querying insights about a group of URLs. For this reason, it's not a good option.
+Our existing URLs database is designed for quick read/write of individual URLs rather than for querying insights about a group of URLs. For this reason, there are better options.
 
-So we need a data solution. In Azure there are many ways to architect a data solution. We are going with a simple to understand one which is [Microsoft Fabric](https://learn.microsoft.com/en-us/fabric/). We will need: 
+So we need a data solution. In Azure, there are many ways to architect a data solution. We are going with a simple-to-understand one, [Microsoft Fabric](https://learn.microsoft.com/en-us/fabric/). We will need: 
 - [Data Factory](https://learn.microsoft.com/en-us/fabric/data-factory/data-factory-overview) for ingesting and transforming the data.
 - [OneLake](https://learn.microsoft.com/en-us/fabric/onelake/onelake-overview) to store the data while we process it
-- [Data Warehouse](https://learn.microsoft.com/en-us/fabric/data-warehouse/) for storing data which has been transformed.
+- [Data Warehouse](https://learn.microsoft.com/en-us/fabric/data-warehouse/) to store data that has been transformed.
 - [PowerBI](https://learn.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview) for visualizing the data
 
-Our Data factory can retrieve analytics on a schedule, store the data in OneLake while it transforms the data to send onto our structured data warehouse. PowerBI then reads from the data warehouse to create beautiful analytics reports.
+Our Data factory can retrieve analytics on a schedule and store the data in OneLake while it transforms the data to send to our structured data warehouse. PowerBI then reads from the data warehouse to create beautiful analytics reports.
 
-Note that Fabric is a SaaS product, so we don't need to manage these resources in Azure, it's all done from within Fabric!
+Note that Fabric is a SaaS product, so we don't need to manage these resources in Azure. It's all done from within Fabric!
 
 ![Analytics Architecture](..\assets\diagrams\2024-06-09-Systems-Design-in-Azure-for-Clients-URL-Shortener\4.png)\
 **Figure: The analytics architecture**
@@ -250,14 +250,14 @@ You want to ensure you stay at a high level and stick to the significant busines
 
 You'll also want to come prepared with a concise list of benefits. Here's one for our system:
 - Highly scalable - each mechanism in the chain has been designed with horizontal scaling in mind.
-- Highly available - All our components support a high degree of availability so there should be minimal downtime issues.
-- URLs won't be easy to guess, they are random.
+- Highly available - All our components support high availability, so there should be minimal downtime issues.
+- URLs will be challenging to guess. They are random.
 - All functional requirements satisfied - including optional analytics
 
-And you should also highlight some of the deficiencies, no architecture is perfect and you want the client to understand the trade-offs. Here's some for our system:
-- Maintenance - It's a highly complex solution and will require lots of maintenance.
-- Expensive - There's a lot of 3rd party cloud services here, it's likely to be costly to run.
-- Readability - The short URLs are random letters and numbers, it's short but not that readable.
+It would be best if you also highlighted some of the deficiencies. No architecture is perfect, and you want the client to understand the trade-offs. Here's some for our system:
+- Maintenance - It's a highly complex solution requiring lots of maintenance.
+- Expensive - There are a lot of 3rd party cloud services here, so it's likely to be costly to run.
+- Readability - The short URLs are random letters and numbers. They are short but could be more readable.
 - Security - We haven't factored in users limiting access to a short URL.
 
 As a final note, remember to [cater to your audience](https://www.ssw.com.au/rules/catering-to-audience/); if you're talking to a Tech Lead, you can get way more into the technical details than when talking to a CEO.
