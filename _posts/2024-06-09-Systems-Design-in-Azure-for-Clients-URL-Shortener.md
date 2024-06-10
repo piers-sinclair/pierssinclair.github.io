@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "🧩 Systems Design in Azure for Clients - URL Shortener"
+title:  "🧩 System Design in Azure for Clients - URL Shortener"
 date:   2024-06-09 12:52:53 +1000
 categories: systems-design
 author:
@@ -42,7 +42,7 @@ Now, we have our baseline functional requirements. Here's a summary:
 
 - Create a short URL from a long URL by generating an ID.
 - Short URLs redirect you to the long URL.
-- Short URLs should be as short as possible and not have to be human-readable.
+- Short URLs should be as short as possible and don't have to be human-readable.
 - Users can specify a custom ID.
 - Short URLs can be set to expire but do not expire by default.
 - Short URLs can be archived and deleted.
@@ -116,13 +116,13 @@ For this part, some simple maths should give you a good answer. We want to calcu
 
 The client doesn't care how readable it is, but assuming people will be using these URLs, it should still be relatively easy to process visually. For that reason, it's best to limit the ID to alphanumeric characters.
 
-We could use base36 (0-9 and a-z) or base62 (0-9, a-z and A-Z) for encoding.
-**Base36 Advantage:** It's easier to enter only lowercase letters when typing a URL.
+We could use base36 (0-9 and a-z) or base62 (0-9, a-z and A-Z) for encoding.\
+**Base36 Advantage:** It's easier to enter only lowercase letters when typing a URL.\
 **Base64 Advantage:** We can possibly have a shorter key because it gives more permutations.
 
 We will go with base36, but both are valid options and exploring other encoding types is also valid.
 
-Let's calculate the permutations for base36 with different length keys:
+Let's roughly calculate the permutations for base36 with different length keys:
 
 Length: `6`\
 Permutations: `~2 billion`\
