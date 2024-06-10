@@ -15,7 +15,7 @@ Welcome to my series on Systems Design in Azure, where I take you through design
 Let's assume your client comes to you and says:
 "Please build us a URL shortener similar to TinyUrl.com"
 
-First，establish **functional requirements** by talking to the client. Here's how the chat might go:
+First, establish **functional requirements** by talking to the client. Here's how the chat might go:
 
 Q: So the system should take a long URL and generate a shorter URL?\
 A: Yes.
