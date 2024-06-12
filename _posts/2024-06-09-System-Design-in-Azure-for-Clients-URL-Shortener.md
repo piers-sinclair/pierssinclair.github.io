@@ -1,20 +1,26 @@
 ---
 layout: post
 title:  "🧩 System Design in Azure for Clients - URL Shortener"
-date:   2024-06-09 12:52:53 +1000
+date:   2024-06-13 7:52:53 +1000
 categories: system-design
 author:
 - Piers Sinclair
-published: false
+published: true
 ---
 
 Welcome to my series on System Design in Azure, where I take you through designing a complex system on the Azure platform.
 
-## Phase 1 - Requirements Gathering
+Generally, there are 3 steps I follow when a client asks me to architect a system for them.
 
-Let's assume your client comes to you and says:
+1. Phase 1 - Requirements Gathering
+2. Phase 2 - Technical Deep Dive
+3. Phase 3 - Communicating the Sauce
+
+Now let's take a look at an example where a client asks you to:
+
 "Please build us a URL shortener similar to TinyUrl.com"
 
+## Phase 1 - Requirements Gathering
 First, establish **functional requirements** by talking to the client. Here's how the chat might go:
 
 Q: So the system should take a long URL and generate a shorter URL?\
@@ -74,7 +80,7 @@ Now repeat back your summary of the non-functional requirements:
 - Daily URLs created: 10 million
 - Daily URLs clicked: 1 billion
 
-## Phase 2 - Answering the Technical Questions
+## Phase 2 - Technical Deep Dive
 At this stage, you should have a few technical questions in mind:
 
 1. What are the basic things we will need?
