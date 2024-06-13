@@ -105,7 +105,7 @@ On the other hand, the amount of data to store is significant. Let's assume that
 
 Since there are not many relationships involved and the volume of data is going to be significant, we probably want to lean towards a NoSQL database because:
 - They can scale horizontally.
-- They are optimized for write operations
+- They are optimized for write operations.
 
 However, we still need a table-like structure, complex querying capability, and a relationship between URLs and users. So, a Document DB is the most appropriate type of NoSQL database.
 
