@@ -2,7 +2,7 @@
 layout: post
 title:  "🧩 System Design in Azure for Clients - URL Shortener"
 date:   2024-06-13 7:52:53 +1000
-categories: system-design
+categories: system-design, azure, software-architecture, cloud-architecture, solution-architecture
 author:
 - Piers Sinclair
 published: true
