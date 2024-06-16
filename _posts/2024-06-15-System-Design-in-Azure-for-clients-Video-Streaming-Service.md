@@ -26,6 +26,9 @@ First, establish **functional requirements** by talking to the client. Here's ho
 Q: So the system should let users load videos on the fly and allow real-time playback?\
 A: Yes, it's crucial that the experience is seamless.
 
+Q: How will the users find and view the videos?\
+A: They will be on our public facing website. Users will be able to navigate to a page which has the video in it. There will also be a page for searching the videos.
+
 Q: For playing the videos, can the user jump to different points in time e.g. skip to 10 minutes in?\
 A: Yes, it should support full control.
 
@@ -34,6 +37,9 @@ A: For now, it is just ~1000 videos located on our servers, our team uploads som
 
 Q: Do we need to let external users upload?\
 A: No, not at this stage. It's just for distributing our content to our clients.
+
+Q: And how do you want the videos uploaded, do we need a new website?\
+A: I'm hoping we can add a new page to our existing internal web application, our users login to that everyday so it will be a convenient location.
 
 Q: I assume we will want to be able to delete videos though?\
 A: Oh yes for sure! And archive them too.
@@ -44,10 +50,10 @@ A: Yes, there is a whole bunch of metadata like upload date, title, number of vi
 Q: Do we need a commenting system?\
 A: Nope, maybe later but not for now.
 
-Q: How about authentication, do users need to like/dislike or provide custom input for videos?
+Q: Do users need to like/dislike or provide custom input for videos?\
 A: No, they simply watch them for training.
 
-Q: How about analytics?
+Q: How about analytics?\
 A: No, our top priority is delivering our users a seamless experience.
 
 Now, we have our baseline functional requirements. Here's a summary:
@@ -55,14 +61,16 @@ Now, we have our baseline functional requirements. Here's a summary:
 In scope:
 - Load and playback videos
 - Video playback controls e.g. pause, play, skip ahead
-- Upload videos
+- Upload videos in .mp4 format
+- Searching and displaying videos on the main website
 - Archive/Delete videos
 
 Out of scope:
 - External user upload
+- Upload videos in other file formats
 - Other media e.g. thumbnails
 - Commenting
-- Authentication
+- Authentication (it's handled by the existing app!)
 - Analytics
 
 Before moving on, repeat back your summary with the client to double-check that you are on the same page.
@@ -84,6 +92,9 @@ A: Maybe once a week, and that is unlikely to increase.
 Q: How about security, are there any major concerns?
 A: Nope, all videos are publicly available.
 
+Q: Is it a big deal if we lose uploaded videos?\
+A: Yes, this would be very problematic.
+
 Now repeat back your summary of the non-functional requirements:
 - Low latency and high bandwidth - streaming is data intensive and we want to deliver a seamless user experience
 - High availability - It's a global system and the videos are important for unblocking people
@@ -91,6 +102,7 @@ Now repeat back your summary of the non-functional requirements:
 - Highly scalable - The user base is expected to rapidly increase, so scaling will be important.
 - Usability - Users are going to want a seamless playback experience
 - Storage - Needs to support video content in 4k, that's a very large volume
+- Reliable - It won't be acceptable to lose video data
 - Daily users created: expected to reach 100 million soon
 - Daily videos watched: 100-200 million
 - Uploads: Infrequent, once a week
@@ -102,8 +114,18 @@ At this stage, you should have a few technical questions in mind:
 2. How should we store the data?
 3. How do we ensure videos load quickly?
 4. How do we ensure seamless UX for users?
+5. How should we store thumbnail data?
+6. How do we manage transcoding data?
 
 ### 1. What API endpoints do we need to support?
+
+```csharp
+UploadVideo(videoFile)
+```
+
+```csharp
+SearchVideo(searchString)
+```
 
 ```csharp
 LoadVideo(videoId, videoQuality)
@@ -112,7 +134,7 @@ LoadVideo(videoId, videoQuality)
 This LoadVideo endpoint should request the data for a video, and the details about that video.
 
 ```csharp
-SetStart
+SetStart(videoId, startTime)
 ```
 
 The SetStart endpoint is important for reprioritizing the video load. Since videos are slow to load, we need to tell the server that the user wants to look at a different portion of the video.
@@ -123,6 +145,43 @@ Users will need the ability to play and pause a video but we can manage these ev
 
 - Video Metadata
 - Video file (different sizes for different needs e.g. Low quality, high quality)
+
+Our video meta data is mostly text and since we don't need to support commenting or user data, it likely doesn't have many relationships.The consistency of this data is also not that important, if a user sees some slightly incorrect information it won't be a huge deal. So we can store this data in a NoSQL document database like [Azure Cosmos DB](https://learn.microsoft.com/en-us/azure/cosmos-db/)
+
+However, this isn't the best solution for the video data because there is going to be a lot of data.
+
+[Azure Blob Storage](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-overview) is a safe bet because it is designed for storing this kind of data.
+
+Shading? Based on Video Id
+
+![Storing a Short URL](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-Clients-Video-Streaming-Service/1.png)\
+**Figure: Basic architecture for video playback**
+
+### Transcoding
+
+Important for putting the data into multiple formats e.g. 360p, 720p, 1080p, 2160p etc
+
+Might need queues for this to loosely couple processing....might want a staging storage area followed by encoded followed by distribution to a CDN...at the end notify the meta data storage
+
+### 3. How do we ensure videos load quickly?
+
+So we've got our 
+
+CDNs (could get expensive?)
+
+basically spread out the CDN across many locations (Aus, USA, Asia, Europe etc)
+
+### 4. How do we ensure seamless UX for users?
+
+Chunking - basically transfer the data bit by bit (call MediaKind API?)
+
+Caching - basically store data for videos that are accessed super frequently
+
+Detect slow networks
+
+### 5. Archiving and deleting
+
+Similar strategy as the URLs...but for deleting keep the meta data
 
 ### Phase 3 - Communicating the Sauce
 
