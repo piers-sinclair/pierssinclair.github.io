@@ -211,7 +211,7 @@ Videos per month per location: ` 2 million video views / 6 = ~350k`
 
 Data per month per location: ` 350k * 2GB = 700TB`
 
-If we plug that into the [Azure Calculator that's 500k AUD](https://azure.com/e/99f062001f7348898130bf8895295b38), not cheap at all!
+If we plug that into the [Azure Calculator that's ~500k AUD](https://azure.com/e/99f062001f7348898130bf8895295b38), not cheap at all!
 
 This cost is definitely something you need to call out with your client, unless this is crucial to their platform you will likely need to either adopt an alternative solution or look at various ways to optimize the cost. For our example we will assume the client absolutely needs this speed.
 
