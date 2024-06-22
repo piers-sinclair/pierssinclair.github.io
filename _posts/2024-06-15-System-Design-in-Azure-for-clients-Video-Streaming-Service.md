@@ -159,17 +159,31 @@ However, this isn't the best solution for the video data because there is going 
 
 We also need to decide on a sharding strategy. Video ID is an easy default decision to make, since it is easy to understand, and is simple for upload and viewing of videos. However, it's worth noting that by sharding on Video ID our search functionality will be slower. Search would likely be a lot better in a relational database or using a different sharding strategy. Since scalability and performance of viewing and uploading videos is far more important, this is an acceptance trade-off.
 
-![Storing a Short URL](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-Clients-Video-Streaming-Service/1.png)\
+![Basic architecture for video playback](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-Clients-Video-Streaming-Service/1.png)\
 **Figure: Basic architecture for video playback**
 
 ### 3. How do we ensure videos load quickly?
 
 So we've got our basic infrastructure, but now we need to ensure videos always load quickly globally. There's a few things that can help:
+- Separate App Servers for Upload, View and Search
 - Transcoding Videos
 - A CDN
-- Separate App Servers for Upload, View and Search
+
+### 3.1 Separate App Servers for Upload, View and Search
+
+Uploading is a significantly more demanding task than view and search. We don't want users to be blocked from watching videos because someone is currently uploading a video.
+
+Similarly view is a more demanding task than search. Both view and search are likely to have a huge volume of requests. We wouldn't want searching to be slowed by requests for video streams and vice versa. 
+
+So it's better if we modularize these services into different app servers.
+
+
+![Split App Servers for better load balancing](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-Clients-Video-Streaming-Service/2.png)\
+**Figure: Split App Servers for better load balancing**
 
 ### 3.1 Uploading - Transcoding
+
+
 
 Important for putting the data into multiple formats e.g. 360p, 720p, 1080p, 2160p etc
 
