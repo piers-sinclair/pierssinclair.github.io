@@ -81,15 +81,15 @@ Q: How often do users need to use the system?\
 A: 24 hours, it's a globally used system so load is usually high at all hours. The system is used to train staff, so it would cause problems if people were blocked from viewing the videos.
 
 Q: How big are the videos?\
-A: Up to 4k.
+A: Up to 4k, usually about 5 mins long.
 
 Q: How many videos are we expecting to be watched everyday?\
-A: We currently have 1 million users, but we expect that to reach 100 million in the next couple of years. We expect most users to view 1 or 2 videos a day.
+A: We currently have 10,000 users, but we expect that to reach 1 million in the next couple of years. We expect most users to view 1 or 2 videos a day.
 
 Q: How often do we expect videos to be uploaded?\
 A: Maybe once a week, and that is unlikely to increase.
 
-Q: How about security, are there any major concerns?
+Q: How about security, are there any major concerns?\
 A: Nope, all videos are publicly available.
 
 Q: Is it a big deal if we lose uploaded videos?\
@@ -103,9 +103,10 @@ Now repeat back your summary of the non-functional requirements:
 - Usability - Users are going to want a seamless playback experience
 - Storage - Needs to support video content in 4k, that's a very large volume
 - Reliable - It won't be acceptable to lose video data
-- Daily users created: expected to reach 100 million soon
-- Daily videos watched: 100-200 million
+- Daily users created: expected to reach 1 million soon
+- Daily videos watched: 1-2 million
 - Uploads: Infrequent, once a week
+- Video Size: 4k, 5 min long
 
 ## Phase 2 - Technical Deep Dive
 At this stage, you should have a few technical questions in mind:
@@ -123,15 +124,19 @@ At this stage, you should have a few technical questions in mind:
 UploadVideo(videoFile)
 ```
 
+The UploadVideo endpoint will enable a video to be added to the system.
+
 ```csharp
 SearchVideo(searchString)
 ```
+
+The SearchVideo endpoint will allow users to search for a video to watch.
 
 ```csharp
 LoadVideo(videoId, videoQuality)
 ```
 
-This LoadVideo endpoint should request the data for a video, and the details about that video.
+The LoadVideo endpoint should request the data for a video, and the details about that video.
 
 ```csharp
 SetStart(videoId, startTime)
@@ -139,7 +144,7 @@ SetStart(videoId, startTime)
 
 The SetStart endpoint is important for reprioritizing the video load. Since videos are slow to load, we need to tell the server that the user wants to look at a different portion of the video.
 
-Users will need the ability to play and pause a video but we can manage these events client side.
+Users will also need the ability to play and pause a video but we can manage these events client side.
 
 ### 2. What data do we need to store?
 
@@ -152,24 +157,52 @@ However, this isn't the best solution for the video data because there is going 
 
 [Azure Blob Storage](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-overview) is a safe bet because it is designed for storing this kind of data.
 
-Shading? Based on Video Id
+We also need to decide on a sharding strategy. Video ID is an easy default decision to make, since it is easy to understand, and is simple for upload and viewing of videos. However, it's worth noting that by sharding on Video ID our search functionality will be slower. Search would likely be a lot better in a relational database or using a different sharding strategy. Since scalability and performance of viewing and uploading videos is far more important, this is an acceptance trade-off.
 
 ![Storing a Short URL](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-Clients-Video-Streaming-Service/1.png)\
 **Figure: Basic architecture for video playback**
 
-### Transcoding
+### 3. How do we ensure videos load quickly?
+
+So we've got our basic infrastructure, but now we need to ensure videos always load quickly globally. There's a few things that can help:
+- Transcoding Videos
+- A CDN
+- Separate App Servers for Upload, View and Search
+
+### 3.1 Uploading - Transcoding
 
 Important for putting the data into multiple formats e.g. 360p, 720p, 1080p, 2160p etc
 
 Might need queues for this to loosely couple processing....might want a staging storage area followed by encoded followed by distribution to a CDN...at the end notify the meta data storage
 
-### 3. How do we ensure videos load quickly?
+### 3.2 CDN
 
-So we've got our 
+A CDN can help improve load times for users by providing video data closer to their geographic location. We can replicate our video data out to locations in Europe, North America, Asia, Africa and more to ensure that users all over the globe can access videos quickly. 
 
-CDNs (could get expensive?)
+The major trade-offs of this approach are cost and complexity. CDNs are notriously expensive. Let's do some quick estimates:
 
-basically spread out the CDN across many locations (Aus, USA, Asia, Europe etc)
+Keeping in mind the global delivery non-functional requirement let's assume we have relatively even traffic coming from the following locations:
+- Europe
+- North America
+- Asia Pacific 
+- South America
+- Australia
+- India
+
+Let's assume a 4k Video at 5 min is roughly 2GB...and that the sum of all lower resolutions (2160p, 1080p etc) totals to roughly 2GB as well.
+
+Let's assume clients generally watch videos in 4k.
+
+Videos per month per location: ` 2 million video views / 6 = ~350k`
+
+Data per month per location: ` 350k * 2GB = 700TB`
+
+If we plug that into the [Azure Calculator that's 500k AUD](https://azure.com/e/99f062001f7348898130bf8895295b38), not cheap at all!
+
+This cost is definitely something you need to call out with your client, unless this is crucial to their platform you will likely need to either adopt an alternative solution or look at various ways to optimize the cost. For our example we will assume the client absolutely needs this speed.
+
+![Azure CDN Costs](/assets/images/2024-06-15-System-Design-in-Azure-for-clients-Video-Streaming-Service\azure-cdn-costs.png)\
+**Figure: The 500k cost of Azure CDN!**
 
 ### 4. How do we ensure seamless UX for users?
 
