@@ -242,9 +242,10 @@ We will also still need to retrieve video meta data when we load it. We can inco
 ![Architecture that queries the CDN client-side](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-Clients-Video-Streaming-Service/5.png)\
 **Figure: Architecture that queries the CDN client-side**
 
-### 5. Archiving and deleting
+### 5. How should we store thumbnail data?
+Thumbnails also need to be processed when we upload. Given the limited number of uploads, it's acceptable for the upload server to process store these alongside the transcoded videos.
 
-### 5. How can we optimize the deletion and archival of URLs?
+### 6. Archiving and deleting
 When a user wants to archive a video, there's a few considerations.
 
 First we want to keep the meta data, and the original video in case we need to restore it. However, we don't need to keep the transcoded data, or the data in the CDN because we can restore this later.
@@ -266,15 +267,27 @@ DeleteVideo(videoId)
 
 ### Phase 3 - Communicating the Sauce
 
+Now we've got an awesome architecture diagram to show our client, but we also need to communicate the benefits and deficiencies of our system when we talk to the client.
+
+#### Benefits
+- Streaming Scalability - Video streaming is designed to scale to millions of users and views.
+- Globally Available - Videos are designed to be delivered globally and quickly.
+- Seamless UX - Video playback is built so that content is delivered in chunks, and the quality is optimized based on network connection.
+- Reliable - We have strong mechanisms in place for ensuring data is safe such as storing a copy of the original videos.
+- High Quality Videos - System delivers and stores videos up to 4k which is a lot of data
+
+#### Deficiencies
+- Maintenance - It's a highly complex solution requiring lots of maintenance.
+- Expensive - There are a lot of 3rd party cloud services here, and Azure CDN in particular is going to cost a pretty penny.
+- Uploading Scalability - Upload may not scale well because we have designed it to suit the limited load outlined by the client
+- Search Scalability - Search could get slow because we are sharding on VideoId, however given the low number of videos and the importance of streaming this is an acceptable trade-off
+- Client-Side Complexity - Handling video streaming on the client-side makes the frontend code more complex, and could introduce duplication for different platforms.
+
+🎉 Congratulations - you've got a happy and informed client.
+
 ## References
 
-
-
-
-
-
-- [Design Gurus Course](https://www.designgurus.io/course-play/grokking-the-system-design-interview/doc/638c0b68ac93e7ae59a1b009
-)
+- [Design Gurus Course](https://www.designgurus.io/course-play/grokking-the-system-design-interview/doc/638c0b68ac93e7ae59a1b009)
 - [Geeks for Geeks Article](https://www.geeksforgeeks.org/system-design-of-youtube-a-complete-architecture/ )
 - [System Design Prep Course](https://systemdesignprep.com/youtube)
 - [Alex Xu's System Design Book](https://www.amazon.com.au/System-Design-Interview-insiders-Second/dp/B08CMF2CQF0)
