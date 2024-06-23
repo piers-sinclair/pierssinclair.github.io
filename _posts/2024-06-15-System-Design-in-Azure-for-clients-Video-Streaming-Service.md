@@ -162,7 +162,7 @@ However, there are better solutions for video data because there will be lots of
 #### How do we shard the data?
 We also need to decide on a sharding strategy. Video ID is an easy default decision since it is easy to understand and simple to upload and view videos. However, it's worth noting that by sharding on Video ID, our search functionality will be slower. Search would be better in a relational database or using a different sharding strategy. This trade-off is acceptable since the scalability and performance of viewing videos are far more critical.
 
-![Basic architecture for video playback](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-Clients-Video-Streaming-Service/1.png)\
+![Basic architecture for video playback](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-clients-Video-Streaming-Service/1.png)\
 **Figure: Basic architecture for video playback**
 
 ### 3. How do we ensure videos load quickly?
@@ -180,7 +180,7 @@ Similarly, viewing is a more demanding task than searching. Both view and search
 
 It's better if we modularise these services into different app servers.
 
-![Split App Servers for better load balancing](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-Clients-Video-Streaming-Service/2.png)\
+![Split App Servers for better load balancing](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-clients-Video-Streaming-Service/2.png)\
 **Figure: Split App Servers for better load balancing**
 
 ### 3.2 Uploading - Transcoding
@@ -193,7 +193,7 @@ So, we need a way to transcode the video data. When the user uploads their file,
 - Store it in a transcoded storage area.
 - Update the metadata
 
-![Transcoding first stores in original storage, then in transcoded storage](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-Clients-Video-Streaming-Service/3.png)\
+![Transcoding first stores in original storage, then in transcoded storage](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-clients-Video-Streaming-Service/3.png)\
 **Figure: Transcoding first stores in original storage, then in transcoded storage**
 
 #### What about upload scalability?
@@ -203,7 +203,7 @@ We aren't likely to have a heavy load here because the expected upload frequency
 
 A CDN (e.g. [Azure CDN](https://azure.microsoft.com/en-us/products/cdn), [Akamai CDN](https://www.akamai.com/solutions/content-delivery-network)) can help improve load times for users by providing video data closer to their geographic location. We can replicate our video data in Europe, North America, Asia, Africa, and more to ensure that users all over the globe can access videos quickly.
 
-![Architecture incorporating a CDN serving content quickly and globally](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-Clients-Video-Streaming-Service/4.png)\
+![Architecture incorporating a CDN serving content quickly and globally](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-clients-Video-Streaming-Service/4.png)\
 **Figure: Architecture incorporating a CDN serving content quickly and globally**
 
 #### What's the downside?
@@ -244,7 +244,7 @@ We no longer need those since we do everything on the client side. This change w
 
 We will still need to retrieve video metadata when we load it. We can incorporate this as an endpoint `GetVideoMetadata(videoId)` in our Search API and rename it to Video Metadata API.
 
-![Architecture that queries the CDN client-side](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-Clients-Video-Streaming-Service/5.png)\
+![Architecture that queries the CDN client-side](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-clients-Video-Streaming-Service/5.png)\
 **Figure: Architecture that queries the CDN client-side**
 
 ### 5. How should we store thumbnail data?
