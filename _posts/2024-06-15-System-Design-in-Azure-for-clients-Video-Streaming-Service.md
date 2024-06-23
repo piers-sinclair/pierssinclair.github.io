@@ -8,7 +8,7 @@ author:
 published: false
 ---
 
-Welcome to my series on System Design in Azure, where I take you through designing a complex system on the Azure platform.
+Welcome to my series on system design in Azure, where I take you through designing a complex system on the Azure platform.
 
 Generally, there are 3 steps I follow when a client asks me to architect a system for them.
 
