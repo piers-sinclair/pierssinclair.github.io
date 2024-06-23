@@ -259,7 +259,7 @@ First, we want to keep the metadata and the original video in case we need to re
 
 So, an archive request should set a flag in the metadata and delete all transcoded data. We can add 2 endpoints to the `Upload API` and rename it to `Video Management API`:
 ```csharp
-Archive Video(videoId)
+ArchiveVideo(videoId)
 ```
 
 ```csharp
