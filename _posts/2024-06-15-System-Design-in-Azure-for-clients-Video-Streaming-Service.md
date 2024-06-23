@@ -116,7 +116,7 @@ At this stage, you should have a few technical questions in mind:
 3. How do we ensure videos load quickly?
 4. How do we ensure seamless UX for users?
 5. How should we store thumbnail data?
-6. How do we manage transcoding data?
+6. How do we manage archive and delete?
 
 ### 1. What API endpoints do we need to support?
 
@@ -177,21 +177,30 @@ Similarly view is a more demanding task than search. Both view and search are li
 
 So it's better if we modularize these services into different app servers.
 
-
 ![Split App Servers for better load balancing](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-Clients-Video-Streaming-Service/2.png)\
 **Figure: Split App Servers for better load balancing**
 
-### 3.1 Uploading - Transcoding
+### 3.2 Uploading - Transcoding
 
+When we upload it's going to be important to store the data in multiple formats e.g. 360p, 720p, 1080p, 2160p etc
 
+The reason we need all these formats is to ensure users receive a lower quality format when their network speed cannot support a higher quality one.
 
-Important for putting the data into multiple formats e.g. 360p, 720p, 1080p, 2160p etc
+So, we need a way to transcode the video data. When the user uploads their file, we need to store the original data in Blob storage so we always have a copy. Our upload server can then transcode this file into other formats and do the following:
+- Store it in a transcoded storage area.
+- Update the meta data
 
-Might need queues for this to loosely couple processing....might want a staging storage area followed by encoded followed by distribution to a CDN...at the end notify the meta data storage
+![Transcoding first stores in original storage then in transcoded storage](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-Clients-Video-Streaming-Service/3.png)\
+**Figure: Transcoding first stores in original storage then in transcoded storage**
 
-### 3.2 CDN
+We aren't likely to have heavy load here because the expected upload frequency is once a week, so we don't need to worry as much about designing for scalability. However, this is an important point to call out to the client, just in case they might have different expectations in the future. For example, a service on the scale of YouTube would have far more things to manage in their upload server because they need to deal with a huge volume of uploads. For that scale, you might use message queues to loosely couple different servers, and modularize + parrallelise different upload tasks.
 
-A CDN can help improve load times for users by providing video data closer to their geographic location. We can replicate our video data out to locations in Europe, North America, Asia, Africa and more to ensure that users all over the globe can access videos quickly. 
+### 3.3 CDN
+
+A CDN (e.g. [Azure CDN](https://azure.microsoft.com/en-us/products/cdn), [Akamai CDN](https://www.akamai.com/solutions/content-delivery-network)) can help improve load times for users by providing video data closer to their geographic location. We can replicate our video data out to locations in Europe, North America, Asia, Africa and more to ensure that users all over the globe can access videos quickly.
+
+![Architecture incorporating a CDN serving content quickly and globally](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-Clients-Video-Streaming-Service/4.png)\
+**Figure: Architecture incorporating a CDN serving content quickly and globally**
 
 The major trade-offs of this approach are cost and complexity. CDNs are notriously expensive. Let's do some quick estimates:
 
@@ -211,24 +220,49 @@ Videos per month per location: ` 2 million video views / 6 = ~350k`
 
 Data per month per location: ` 350k * 2GB = 700TB`
 
-If we plug that into the [Azure Calculator that's ~500k AUD](https://azure.com/e/99f062001f7348898130bf8895295b38), not cheap at all!
+If we plug that into the [Azure Calculator that's ~500k AUD per month](https://azure.com/e/99f062001f7348898130bf8895295b38), not cheap at all!
 
-This cost is definitely something you need to call out with your client, unless this is crucial to their platform you will likely need to either adopt an alternative solution or look at various ways to optimize the cost. For our example we will assume the client absolutely needs this speed.
+This cost is definitely something you need to call out with your client, unless this is crucial to their platform you will likely need to either adopt an alternative solution or look at various ways to optimize the cost. For our example we will assume the client absolutely needs this speed for all their videos.
 
 ![Azure CDN Costs](/assets/images/2024-06-15-System-Design-in-Azure-for-clients-Video-Streaming-Service\azure-cdn-costs.png)\
 **Figure: The 500k cost of Azure CDN!**
 
 ### 4. How do we ensure seamless UX for users?
 
-Chunking - basically transfer the data bit by bit (call MediaKind API?)
+When users watch video files, they won't want to wait for the whole video to load before they start watching. Chunking is the way to solve this, and involves transferring data bit-by-bit rather than all at once. [Azure CDN supports chunking out-of-the-box](https://learn.microsoft.com/en-us/azure/cdn/cdn-large-file-optimization?toc=%2Fazure%2Ffrontdoor%2FTOC.json#object-chunking) so lucky for us we don't need to worry about implementing it.
 
-Caching - basically store data for videos that are accessed super frequently
+On the client side, we need to detect that a user has a slow network and serve them lower quality content. Adaptive bitrate streaming is the way to accomplish this and many media players support it out-of-the-box e.g. [Video.js](https://videojs.com/)
 
-Detect slow networks
+Remember how we had a View API and `LoadVideo` and `SetStart` endpoint for viewing videos?
+
+Well we no longer need those, since we are doing everything on the client side. This change will simplify our architecture and ensure that videos are loaded quickly and according to client network speed. Some of the downsides are that the client side will be more complex, and if we have multiple clients (e.g. a mobile app) we may need to implement the logic multiple times.
+
+We will also still need to retrieve video meta data when we load it. We can incorporate this as an endpoint `GetVideoMetadata(videoId)` in our Search API and rename it to Video Metadata API.
+
+![Architecture that queries the CDN client-side](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-Clients-Video-Streaming-Service/5.png)\
+**Figure: Architecture that queries the CDN client-side**
 
 ### 5. Archiving and deleting
 
-Similar strategy as the URLs...but for deleting keep the meta data
+### 5. How can we optimize the deletion and archival of URLs?
+When a user wants to archive a video, there's a few considerations.
+
+First we want to keep the meta data, and the original video in case we need to restore it. However, we don't need to keep the transcoded data, or the data in the CDN because we can restore this later.
+
+So an archive request should set a flag in the metadata and delete all transcoded data. We can add 2 endpoints to the `Upload API` and rename it to `Video Management API`:
+```csharp
+Archive Video(videoId)
+```
+
+```csharp
+RestoreVideo(videoId)
+```
+
+Delete is even simpler, we purge all data using yet another endpoint:
+
+```csharp
+DeleteVideo(videoId)
+```
 
 ### Phase 3 - Communicating the Sauce
 
