@@ -8,7 +8,7 @@ author:
 published: true
 ---
 
-Welcome to my series on System Design in Azure, where I take you through designing a complex system on the Azure platform.
+Welcome to my series on system design in Azure, where I take you through designing a complex system on the Azure platform.
 
 Generally, there are 3 steps I follow when a client asks me to architect a system for them.
 
@@ -18,7 +18,7 @@ Generally, there are 3 steps I follow when a client asks me to architect a syste
 
 Now let's take a look at an example where a client asks you to:
 
-"Please build us a URL shortener similar to TinyUrl.com"
+"Please build us a URL shortener similar to [TinyURL](https://tinyurl.com)"
 
 ## Phase 1 - Requirements Gathering
 First, establish **functional requirements** by talking to the client. Here's how the chat might go:
