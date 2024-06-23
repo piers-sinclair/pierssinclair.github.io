@@ -162,6 +162,8 @@ However, there are better solutions for video data because there will be lots of
 #### How do we shard the data?
 We also need to decide on a sharding strategy. Video ID is an easy default decision since it is easy to understand and simple to upload and view videos. However, it's worth noting that by sharding on Video ID, our search functionality will be slower. Search would be better in a relational database or using a different sharding strategy. This trade-off is acceptable since the scalability and performance of viewing videos are far more critical.
 
+In addition to these data stores, we'll also need [Azure Front Door](https://learn.microsoft.com/en-us/azure/frontdoor/front-door-overview) for load balancing and an [App Service](https://learn.microsoft.com/en-us/azure/app-service/) for the API.
+
 ![Basic architecture for video playback](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-clients-Video-Streaming-Service/1.png)\
 **Figure: Basic architecture for video playback**
 
