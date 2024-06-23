@@ -33,10 +33,10 @@ Q: For playing the videos, can the user jump to different points in time (e.g. s
 A: Yes, it should support complete control.
 
 Q: Where are the videos located?\
-A: For now, just ~1000 videos are located on our servers.
+A: Currently, just ~1000 videos are on our servers.
 
-Q:  Do we need to support uploads?\
-A: our team uploads some new ones now and then.
+Q: Do we need to support uploads?\
+A: Our team uploads some new ones now and then.
 
 Q: Do we need to let external users upload?\
 A: No, not at this stage. It's just for distributing our content to our clients.
@@ -146,22 +146,21 @@ The LoadVideo endpoint should request the data for a video and the details about
 SetStart(videoId, startTime)
 ```
 
-The SetStart endpoint is essential for reprioritising the video load. Since videos are slow to load, we must tell the server that the user wants to look at a different portion of the video.
+The `SetStart` endpoint is essential for reprioritising the video load. Since videos are slow to load, we must tell the server that the user wants to look at a different portion of the video.
 
 Users will also need the ability to play and pause a video, but we can manage these events on the client side.
 
 ### 2. What data do we need to store?
 
 - Video Metadata
-- Video files - different sizes for different needs (e.g. Low quality, high quality)
+- Video files - different sizes for different needs (e.g. low-quality, high-quality)
 
-Our video metadata is mainly text. Since we don't need to support commenting or user data, it likely has few relationships. The consistency of this data is also not that important. It will be fine if a user sees some slightly incorrect information. So we can store this data in a NoSQL document database like [Azure Cosmos DB](https://learn.microsoft.com/en-us/azure/cosmos-db/)
+Our video metadata is mainly text. Since we don't need to support commenting or user data, it likely has few relationships. The consistency of this data is also not that important. It will be fine if a user sees some slightly incorrect information. So, we can store this data in a NoSQL document database like [Azure Cosmos DB](https://learn.microsoft.com/en-us/azure/cosmos-db/).
 
-However, there are better solutions for video data because there will be lots of data.
+However, there are better solutions for video data because there will be lots of data. [Azure Blob Storage](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-overview) is a safe bet because it is designed for storing this kind of data.
 
-[Azure Blob Storage](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-overview) is a safe bet because it is designed for storing this kind of data.
-
-We also need to decide on a sharding strategy. Video ID is an easy default decision since it is easy to understand and simple to upload and view videos. However, it's worth noting that by sharding on Video ID, our search functionality will be slower. Search would be better in a relational database or using a different sharding strategy. This trade-off is acceptable since the scalability and performance of viewing and uploading videos are far more critical.
+#### How do we shard the data?
+We also need to decide on a sharding strategy. Video ID is an easy default decision since it is easy to understand and simple to upload and view videos. However, it's worth noting that by sharding on Video ID, our search functionality will be slower. Search would be better in a relational database or using a different sharding strategy. This trade-off is acceptable since the scalability and performance of viewing videos are far more critical.
 
 ![Basic architecture for video playback](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-Clients-Video-Streaming-Service/1.png)\
 **Figure: Basic architecture for video playback**
@@ -197,7 +196,8 @@ So, we need a way to transcode the video data. When the user uploads their file,
 ![Transcoding first stores in original storage, then in transcoded storage](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-Clients-Video-Streaming-Service/3.png)\
 **Figure: Transcoding first stores in original storage, then in transcoded storage**
 
-We aren't likely to have a heavy load here because the expected upload frequency is once a week, so we don't need to worry as much about designing for scalability. However, this is an important point to call out to the client in case they might have different expectations in the future. For example, a service on the scale of YouTube would have far more things to manage in their upload server because they need to deal with a massive volume of uploads. For that scale, you might use message queues to loosely couple different servers and modularise and parallelise different upload tasks.
+#### What about upload scalability?
+We aren't likely to have a heavy load here because the expected upload frequency is once a week, so we don't need to worry as much about designing for scalability. However, this is an important point to call out to the client in case they have different expectations in the future. For example, a service on the scale of YouTube would have far more things to manage in their upload server because they need to deal with a massive volume of uploads. For that scale, you might use message queues to loosely couple different servers and modularise and parallelise different upload tasks.
 
 ### 3.3 CDN
 
@@ -206,6 +206,7 @@ A CDN (e.g. [Azure CDN](https://azure.microsoft.com/en-us/products/cdn), [Akamai
 ![Architecture incorporating a CDN serving content quickly and globally](/assets/diagrams/2024-06-15-System-Design-in-Azure-for-Clients-Video-Streaming-Service/4.png)\
 **Figure: Architecture incorporating a CDN serving content quickly and globally**
 
+#### What's the downside?
 The significant trade-offs of this approach are cost and complexity. CDNs are notoriously expensive. Let's do some quick estimates:
 
 Keeping in mind the global delivery non-functional requirement, let's assume we have relatively even traffic coming from the following locations:
@@ -224,7 +225,7 @@ Videos per month per location: ` 2 million video views / 6 = ~350k`
 
 Data per month per location: ` 350k * 2GB = 700TB`
 
-If we plug that data into the [Azure Calculator that's ~500k AUD per month](https://azure.com/e/99f062001f7348898130bf8895295b38), not cheap at all!
+If we plug that data into the [Azure Calculator, that's ~500k AUD per month](https://azure.com/e/99f062001f7348898130bf8895295b38), not cheap!
 
 You need to call out this cost with your client. Unless this is crucial to their platform, you will likely need to adopt an alternative solution or look at various ways to optimise the cost. For our example, we assume the client needs this speed for all their videos.
 
@@ -239,7 +240,7 @@ On the client side, we need to detect a slow network user and serve them lower-q
 
 Remember how we had a View API and `LoadVideo` and `SetStart` endpoint for viewing videos?
 
-We no longer need those since we are doing everything on the client side. This change will simplify our architecture and ensure that videos are loaded quickly and according to client network speed. Some downsides are that the client side will be more complex, and if we have multiple clients (e.g. a mobile app), we may need to implement the logic numerous times.
+We no longer need those since we do everything on the client side. This change will simplify our architecture and ensure that videos are loaded quickly and according to client network speed. Some downsides are that the client side will be more complex, and if we have multiple clients (e.g. a mobile app), we may need to implement the logic numerous times.
 
 We will still need to retrieve video metadata when we load it. We can incorporate this as an endpoint `GetVideoMetadata(videoId)` in our Search API and rename it to Video Metadata API.
 
@@ -282,9 +283,9 @@ Now, we've got an awesome architecture diagram to show our client, but we also n
 
 #### Deficiencies
 - Maintenance - It's a highly complex solution requiring lots of maintenance.
-- Expensive - There are a lot of 3rd party cloud services here, and Azure CDN, in particular, is going to cost a pretty penny.
+- Expensive - There are a lot of 3rd party cloud services here, and Azure CDN, in particular, will cost a pretty penny.
 - Uploading Scalability - Upload may not scale well because we have designed it to suit the limited load outlined by the client
-- Search Scalability - Search could get slow because we are sharding on VideoId. However, given the low number of videos and the importance of streaming, this is an acceptable trade-off
+- Search Scalability - Search could get slow because we are sharding on Video ID. However, given the low number of videos and the importance of streaming, this is an acceptable trade-off
 - Client-Side Complexity - Handling video streaming on the client-side makes the frontend code more complex and could introduce duplication for different platforms.
 
 🎉 Congratulations - you've got a happy and informed client.
