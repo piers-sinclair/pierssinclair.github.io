@@ -2,7 +2,8 @@
 layout: post
 title:  "🧩 System Design in Azure for Clients - Video Streaming Service"
 date:   2024-06-23 15:00:00 +1000
-categories: system-design, azure, software-architecture, cloud-architecture, solution-architecture
+categories: system-design
+tags: system-design, azure, software-architecture, cloud-architecture, solution-architecture
 author:
 - Piers Sinclair
 published: true
