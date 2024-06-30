@@ -5,7 +5,7 @@ date:   2024-06-30 08:00:00 +1000
 categories: system-design, azure, software-architecture, cloud-architecture, solution-architecture
 author:
 - Piers Sinclair
-published: false
+published: true
 ---
 
 Welcome to my series on system design in Azure, where I take you through designing a complex system on the Azure platform.
