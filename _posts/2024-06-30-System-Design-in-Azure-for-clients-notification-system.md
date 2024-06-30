@@ -119,15 +119,15 @@ Then, we need to adapt the current system so that it adds a subscription for the
 
 We also need the system to remove a subscription for the user when they click "unsubscribe".
 
-The other addition we need is the user settings page. These settings can also be stored in the user's database and should give the user complete control of the channels where they receive notifications (e.g. Mobile)
+The other addition we need is the user settings page. These settings can also be stored in the users database and should give the user complete control of the channels where they receive notifications (e.g. Mobile)
 
 ### 2. What's the basic infrastructure for sending a notification?
 
 What other components will we need to ensure we can send notifications via different channels?
 
-The first item is a `notification service`. When the API triggers a notification event (e.g. a comment), it will send a request to the `notification service`. This service then reads from the user database to get the list of users to send notifications to.
+The first item is a `notification service`. When the API triggers a notification event (e.g. a comment), it sends a request to the `notification service`. This service then reads from the users database to get the list of users to whom notifications should be sent.
 
-We could have this single service process and send out all the notifications, but that would cause a high load on the system if many notifications came in simultaneously.
+We could have this single service process and send out all the notifications, but if many notifications came in simultaneously, the system would be heavily loaded.
 
 So instead, we can create different `notification channel services` for sending data to different places, such as:
 - Email Service
@@ -174,13 +174,13 @@ Azure Service Bus is a great option here. We can set it up so that it has a [top
 
 ### 3. How do we ensure users aren't bombarded with notifications?
 
-Our notifications aren't mission critical, and there is potential for the user to be sent many notifications in a short time period. For this reason, we should [rate limit](https://learn.microsoft.com/en-us/azure/architecture/patterns/rate-limiting-pattern) the notifications to ensure a better UX.
+Our notifications aren't mission-critical, and there is potential for the user to be sent many notifications in a short period. For this reason, we should [rate limit](https://learn.microsoft.com/en-us/azure/architecture/patterns/rate-limiting-pattern) the notifications to ensure a better UX.
 
-In our case, we can set a limit of 1 notification per post per hour. That way, the user gets notifications of different posts but won't be spammed by multiple comments on the same post. We can easily do rate limiting inside the code of our services.
+In our case, we can set a limit of 1 notification per post per hour. That way, the user gets notifications of different posts but won't be spammed by multiple comments on the same post. We can easily apply a rate limit inside the code of our services.
 
 ### 4. How do we ensure resiliency and report on faults in 3rd party services?
 
-Utilising third-party services like SendGrid is awesome for reducing the code we need to write and ensuring a highly resilient system. However, it can be a pain if the system goes down.
+Utilising third-party services like SendGrid is fantastic for reducing the code we need to write and ensuring a highly resilient system. However, it can be a pain if the system goes down.
 
 There are a few crucial factors to consider:
 - A service might go down for a short period before coming back up
@@ -191,7 +191,7 @@ To solve these problems, we want to ensure that our services implement mechanism
 - Alerting
 - Retry
 
-For logging and alerting, [Application Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) is a powerful tool we can enable on our [Azure Function services](https://learn.microsoft.com/en-us/azure/azure-functions/configure-monitoring?tabs=v2). Application Insights gives us a lot of what we need out-of-the-box, and anything else we need can be done with manual calls to the API.
+For logging and alerting, [Application Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) is a powerful tool we can enable on our [Azure Function services](https://learn.microsoft.com/en-us/azure/azure-functions/configure-monitoring?tabs=v2). Application Insights gives us much of what we need out-of-the-box, and anything else we need can be done with manual calls to the API.
 
 Retry is straightforward. We want to follow the [retry pattern](https://learn.microsoft.com/en-us/azure/architecture/patterns/retry). At a basic level, this involves:
 1. Re-adding the message to the queue when an attempt to process it fails.
