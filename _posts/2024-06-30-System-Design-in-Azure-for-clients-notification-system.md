@@ -213,7 +213,7 @@ Now, we've got an awesome architecture diagram to show our client, but we also n
 
 #### Deficiencies
 - **Complexity:** The system is highly complex, with many moving parts, making deployment more difficult.
-- **Availability:** Our system hasn't factored in whether a country can access our third-party services. This problem is not a huge deal because most customers are in the US.
+- **Global Availability:** Our system hasn't factored in whether a country can access our third-party services. This problem is not a huge deal because most customers are in the US.
 - **Not real-time:** Our notifications may take time to deliver. This delay would be a problem if we needed to send a notification about a login or a security issue.
 
 🎉 Congratulations - you've got a happy and informed client.
