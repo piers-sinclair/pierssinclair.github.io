@@ -27,7 +27,7 @@ Q: What channels do the notifications need to be delivered by?\
 A: We want it to pop-up on their phone, web browser, email and SMS.
 
 Q: How does the system know the user's email and SMS?\
-A: When they sign-up for the discussion board we prompt for their information
+A: When they sign-up for the discussion board we prompt for their information.
 
 Q: Do you have a mobile or desktop app?\
 A: We have a mobile app but no desktop one.
@@ -39,7 +39,7 @@ Q: I assume they need to be able to unsubscribe from a post as well?\
 A: Yes, as it might no longer be relevant to them.
 
 Q: How are the posts and comments stored?\
-A: When the users create a post or comment our web api is called and stores it in an Azure Cosmos DB NoSQL database.
+A: When the users create a post or comment our web api is called and stores it in an [Azure Cosmos DB NoSQL database](https://learn.microsoft.com/en-us/azure/cosmos-db/).
 
 Q: And how about users?\
 A: The users are in a different Azure Cosmos DB instance.
@@ -113,13 +113,13 @@ The first problem to tackle, is how do we adapt the system to track who should g
 This is a fairly easy problem to solve. Firstly, we need the users database to store a list of which posts a user is subscribed to.
 
 Then we need to adapt the current system so that it adds a subscription for the user in these situations:
-- User creates a post
-- User comments on a post
-- User manually subscribes to a post (e.g. via a button)
+- User creates a post.
+- User comments on a post.
+- User manually subscribes to a post (e.g. via a button).
 
 We also need the system to remove a subscription for the user when they click "unsubscribe".
 
-The other addition we need is the user settings page. These settings can also be stored in the users database and should give the user full control of the channels where they receive notifications e.g. Mobile
+The other addition we need is the user settings page. These settings can also be stored in the users database and should give the user full control of the channels where they receive notifications (e.g. Mobile)
 
 ### 2. What's the basic infrastructure for sending a notification?
 
@@ -132,7 +132,8 @@ We could have this single service process and send out all the notifications as 
 So instead, we can create different `notification channel services` for sending data to different places such as:
 - Email Service
 - SMS Service
-- Mobile Service
+- Android Service
+- iOS Service
 - Website Service
 
 For all of our services we can use [Azure Functions](https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview?pivots=programming-language-csharp) because it scales very effectively, we won't need a lot of control over application settings and the logic is unlikely to get significantly more complex over time.
@@ -196,7 +197,7 @@ Retry is straight forward, we want to follow the [retry pattern](https://learn.m
 1. Re-adding the message to the queue when an attempt to process it fails.
 2. Logging the event
 3. Reprocessing it after a certain delay
-4. Repeating this process until a max number of attempts is reached and then logging an error and moving it to the [dead-letter queue](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-dead-letter-queues) the message in that situation.
+4. Repeating this process until a max number of attempts is reached and if still unsuccessful then logging an error and moving the message to the [dead-letter queue](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-dead-letter-queues).
 
 ### Phase 3 - Communicating the Sauce
 
