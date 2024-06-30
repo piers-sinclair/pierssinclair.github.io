@@ -39,7 +39,7 @@ Q: I assume they need to be able to unsubscribe from a post as well?\
 A: Yes, as it might no longer be relevant to them.
 
 Q: How are the posts and comments stored?\
-A: When the users create a post or comment, our web API is called and stores it in an [Azure Cosmos DB NoSQL database](https://learn.microsoft.com/en-us/azure/cosmos-db/).
+A: When users create a post or comment, our web API is called and stores it in an [Azure Cosmos DB NoSQL database](https://learn.microsoft.com/en-us/azure/cosmos-db/).
 
 Q: And how about users?\
 A: The users are in a different Azure Cosmos DB instance.
@@ -87,7 +87,7 @@ Notice how the last question brought into light a new functional requirement? Th
 
 Now repeat back your summary of the non-functional requirements:
 - **Scalable:** The user base is enormous, so it must be able to cope.
-- **User Experience:** The system should feel like it is not intrusive.
+- **User Experience:** The system should feel unintrusive.
 - **Users:** 10 million
 - **Posts per day:** 500 thousand
 - **Comments per post:** 10
@@ -205,7 +205,7 @@ Now, we've got an awesome architecture diagram to show our client, but we also n
 
 #### Benefits
 - **Good UX:** Notifications are rate-limited, and our users have control over their notifications.
-- **Scalable:** all components are designed to be scaled up and down easily.
+- **Scalable:** All components are designed to be scaled up and down easily.
 - **Reliable:** Our components are built so they do not rely on each other via Azure Service Bus.
 - **Fault-tolerant:** In the event of message queue processing failures, the system uses retries and dead-letter queues.
 - **Maintainability:** We have Application Insights to alert us of errors and log issues.
@@ -213,8 +213,8 @@ Now, we've got an awesome architecture diagram to show our client, but we also n
 
 #### Deficiencies
 - **Complexity:** The system is highly complex, with many moving parts, making deployment more difficult.
-- **Availability:** Our system hasn't factored in whether a country has access to our third-party services. This problem is not a huge deal because most customers are in the US.
-- **Not real-time:** Our notifications may not be delivered quickly. This delay would be a problem if we needed to send a notification about a login or a security issue.
+- **Availability:** Our system hasn't factored in whether a country can access our third-party services. This problem is not a huge deal because most customers are in the US.
+- **Not real-time:** Our notifications may take time to deliver. This delay would be a problem if we needed to send a notification about a login or a security issue.
 
 🎉 Congratulations - you've got a happy and informed client.
 
