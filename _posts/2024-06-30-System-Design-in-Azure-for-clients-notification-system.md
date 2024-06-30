@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "🧩 System Design in Azure for Clients - Notification System"
-date:   2024-06-30 08:00:00 +1000
+date:   2024-07-01 08:00:00 +1000
 categories: system-design, azure, software-architecture, cloud-architecture, solution-architecture
 author:
 - Piers Sinclair
