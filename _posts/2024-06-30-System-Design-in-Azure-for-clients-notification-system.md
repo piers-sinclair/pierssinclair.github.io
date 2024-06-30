@@ -18,7 +18,7 @@ Generally, there are 3 steps I follow when a client asks me to architect a syste
 
 Now let's take a look at an example where a client asks you to:
 
-"Please build us a notification system for our discussion board."
+"Please build us a notification system for our discussion board similar to [GitHub Discussions](https://github.com/orgs/community/discussions)"
 
 ## Phase 1 - Requirements Gathering
 First, establish **functional requirements** by talking to the client. Here's how the chat might go:
