@@ -153,7 +153,7 @@ For website notifications we need to follow the [Web Push protocol](https://data
 
 Here's what the system looks like with 3rd party integrations sending out notifications:
 
-![Basic architecture for the notifications system](/assets/diagrams/2024-06-30-System-Design-in-Azure-for-clients-notification-system/1.png)\
+![Basic architecture for the notifications system](/assets/diagrams/2024-06-30-System-Design-in-Azure-for-clients-notification-system/2.png)\
 **Figure: Basic architecture for the notifications system**
 
 Note that if you wanted to simplify working with multiple systems, you could consider using [Azure Notifications Hub](https://azure.microsoft.com/en-au/products/notification-hubs) and [OneSignal](https://onesignal.com/) for push notifications on web, iOS, and Android. However, these providers still need to integrate with Firebase, APNs, etc., adding an extra layer between your code and the notifications. Additionally, these services come with additional costs. Therefore, we won't use these providers in our implementation.
