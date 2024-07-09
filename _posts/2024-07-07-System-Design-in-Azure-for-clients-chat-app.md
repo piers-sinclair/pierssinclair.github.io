@@ -124,7 +124,7 @@ According to [CAP Theorem](https://en.wikipedia.org/wiki/CAP_theorem) **partitio
 
 In our case, **availability** is crucial because our users are chatting in real time.
 
-On the other hand, **consistency** isn't as important as long as we have [eventual consistency](https://en.wikipedia.org/wiki/Eventual_consistency).
+On the other hand, **consistency** isn't as important because it's not a big deal if a user sees slightly incorrect data as long as we have [eventual consistency](https://en.wikipedia.org/wiki/Eventual_consistency).
 
 For these reasons, a Key-Value store database like [Azure Cosmos DB for Table](https://learn.microsoft.com/en-us/azure/cosmos-db/table/introduction) is a good option because it provides Availability and Partition Tolerance (AP) with eventual consistency.
 
