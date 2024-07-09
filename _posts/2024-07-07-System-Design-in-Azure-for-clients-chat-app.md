@@ -28,7 +28,13 @@ Q: Who will use the app?\
 A: It will be used by users on our existing social media website where users can start and participate in discussions.
 
 Q: Where is user data stored?\
-A: We have an instance of Azure SQL which tracks that.
+A: We have an instance of Azure SQL which tracks data.
+
+Q: Can we see a diagram of the existing applications architecture?\
+A: Sure, here you go:
+
+![Existing architecture of the client's social media website](/assets/diagrams/2024-07-07-System-Design-in-Azure-for-clients-chat-app/1.png)\
+**Figure: Existing architecture of the client's social media website**
 
 Q: Is this a real-time system or something more like email?\
 A: Real-time, we already have something like email but our users are complaining that they can't talk more fluidly.
@@ -114,9 +120,21 @@ At this stage, you should have a few technical questions in mind:
 7. How do we enable notifications?
 
 ### 1. How do we store message data? 
-Key-Value Store (aka Azure Cosmos DB for Table)
+According to [CAP Theorem](https://en.wikipedia.org/wiki/CAP_theorem) **partition tolerance** is a necessary requirement of distributed systems to mitigate problems if the network fails. This theory means we need to choose between availability and consistency.
 
-Sharding on conversation Id
+In our case, **availability** is crucial because our users are chatting in real time.
+
+On the other hand, **consistency** isn't as important as long as we have [eventual consistency](https://en.wikipedia.org/wiki/Eventual_consistency).
+
+For these reasons, a Key-Value store database like [Azure Cosmos DB for Table](https://learn.microsoft.com/en-us/azure/cosmos-db/table/introduction) is a good option because it provides Availability and Partition Tolerance (AP) with eventual consistency.
+
+#### 1.1 How do we shard the data?
+We will need some way to shard our message data and there are a few options:
+- **Message ID:** This isn't a good option because retrieval of messages for a chat would need to hit many shards.
+- **User ID:** User ID is a good choice, because we will be able to retrieve all messages for a particular user with ease. The downside is that there is a bit more complexity in data retrieval because when loading a conversation we need to collate data from multiple users and figure out which messages relate to a given chat. It also may mean slower retrieval for large group chats since there will be many users. 
+- **Conversation ID:** Conversation ID is an alternative to User ID. It makes the retrieval logic straightforward since you can load all messages for a given chat. It also makes searching that chat a much easier endeavour. The downside here is we could end up with large shards for particularly active conversations.
+- **Conversation ID + Temporal:**  Shard conversations by the most recent 5000 messages, with each subsequent shard containing the next 5000 messages. This approach alleviates the balancing concerns of sharding on Conversation ID. However, it adds complexity and makes retrieving historical messages slower. Regardless, it's a strong option that we will go with.
+
 
 ### 2. How do we enable real-time communication?
 HTTP and Polling are not good options.
@@ -164,6 +182,8 @@ Now, we've got an awesome architecture diagram to show our client, but we also n
 
 ## References
 
-- [Geeks for Geeks Article](https://www.geeksforgeeks.org/design-notification-services-system-design/)
-- [Alex Xu's System Design Book](https://www.amazon.com.au/System-Design-Interview-insiders-Second/dp/B08CMF2CQF0)
-- [Enjoy Algorithms Blog](https://www.enjoyalgorithms.com/blog/notification-service)
+- [Alex Xu's System Design Book](https://www.amazon.com.au/System-Design-Interview-insiders-Second/dp/B08CMF2CQF)
+- [Enjoy Algorithms Blog](https://www.enjoyalgorithms.com/blog/design-whatsapp)
+- [DesignGurus Course](https://www.designgurus.io/course-play/grokking-the-system-design-interview/doc/638c0b65ac93e7ae59a1afe5)
+- [System Design School](https://systemdesignschool.io/problems/chatapp/solution)
+- [Geeks for Geeks Article](https://systemdesignschool.io/problems/chatapp/solution)
