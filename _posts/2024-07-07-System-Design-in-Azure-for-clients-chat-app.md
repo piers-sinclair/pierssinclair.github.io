@@ -30,6 +30,9 @@ A: It will be used by users on our existing social media website where users can
 Q: Where is user data stored?\
 A: We have an instance of Azure SQL which tracks data.
 
+Q: And what technology is the social media website built in?\
+A: ASP.NET Core and React
+
 Q: Can we see a diagram of the existing applications architecture?\
 A: Sure, here you go:
 
@@ -137,16 +140,29 @@ We will need some way to shard our message data and there are a few options:
 
 
 ### 2. How do we enable real-time communication?
-HTTP and Polling are not good options.
-Long Polling vs Web Socket
+There are lots of ways of enabling communications for chat. In the early days of messaging apps, HTTP was often used. However, it has a problem because it enables strong 1 way communication for sending to the server, but doesn't make receiving messages easy. So there are better options.
 
-User 1 connects to server 1
-User 2 connects to server 2
-Server 1 talks to server 2 via message queues
+[Polling] might be the first candidate to jump to because it enables 2 way communication, but the problem with this approach is that it is noisy and will involve lots of unecessary calls to the service.
+
+[Long Polling](https://www.enjoyalgorithms.com/blog/long-polling-in-system-design0) is a better alternative to polling because it drastically reduces the number of calls to the service. It's not a bad option for a messaging app but we could run into some challenges with managing connections.
+
+[WebSocket](https://en.wikipedia.org/wiki/WebSocket) is an awesome choice for a messaging app because it enables two way communication via a constant connection. As long as users are online they will be able to smoothly send and receive communications.
+
+In Azure we have 2 good options for websocket:
+- [Azure SignalR](https://learn.microsoft.com/en-us/azure/azure-signalr/signalr-overview)
+- [Azure Web PubSub](https://learn.microsoft.com/en-us/azure/azure-web-pubsub/overview)
+
+Either option is fine but we'll go with Azure SignalR because our client has an ASP.NET Web API and SignalR works well with the .NET ecosystem.
+
+We can also isolate our chat app from the main website API using an Azure Function. This will make the chat app scaling more robust because the usage requirements are likely to be different to the social media app.
+
+![Starting architecture of the client's chat app](/assets/diagrams/2024-07-07-System-Design-in-Azure-for-clients-chat-app/2.png)\
+**Figure: Starting architecture of the client's chat app**
 
 ### 3. How do we preserve message sequence?
-Can't use auto increment id because most NoSQL doesn't offer it.
-Need a service to gen ids. Could make ids unique to only the conversation.
+Our architecture enables real-time communication nicely, but we have a problem. There is no guarantee messages will be delivered in order.
+
+To fix this issue we need to auto increment the message IDs in a conversation. Most NoSQL databases do not offer auto increment IDs so our message processing service will need to manage this for us.
 
 ### 4. How do we track user status?
 User login
