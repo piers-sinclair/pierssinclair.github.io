@@ -201,6 +201,8 @@ Storing files is simple, we throw the media in [Azure Blob Storage](https://azur
 
 Once doing lower level designs, you may also want to consider compressing files but we will leave this out of scope for our example.
 
+Media storage could also get expensive, so we may want to impose limits on how much data can be stored by users.
+
 ![Our chat app with media storage](/assets/diagrams/2024-07-07-System-Design-in-Azure-for-clients-chat-app/4.png)\
 **Figure: Our chat app with media storage**
 
@@ -217,8 +219,15 @@ If users are offline it would be good to send them notifications so they know a 
 Now, we've got an awesome architecture diagram to show our client, but we also need to communicate the benefits and deficiencies of our system when we talk to the client.
 
 #### Benefits
+- **Real-time UX:** Users can chat to each other in real-time and see the status of other users
+- **Scalable:** We can support millions of users and our services such as Azure Functions and Azure Cosmos DB can scale horizontally with ease.
+- **Reliable:** The system is resistant to failure becauise it tracks message status and users will have confidence their messages are delivered.
+- **Available:** The system uses azure services which guarantee high availablility
 
 #### Deficiencies
+- **Consistency:** Messages and user status may not always be consistent, but this is not an important priority for a chat app.
+- **Complexity:** It's a very complex system with lots of different pieces the development team needs to understand.
+- **Cost:** We are making use of a lot of expensive services in Azure, so before implementing we should perform a full cost analysis using the [Azure calculator](https://azure.microsoft.com/en-gb/pricing/calculator/)
 
 🎉 Congratulations - you've got a happy and informed client.
 
