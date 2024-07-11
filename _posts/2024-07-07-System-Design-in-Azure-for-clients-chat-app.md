@@ -6,7 +6,7 @@ categories: system-design
 tags: system-design, azure, software-architecture, cloud-architecture, solution-architecture
 author:
 - Piers Sinclair
-published: false
+published: true
 ---
 
 Welcome to my series on system design in Azure, where I take you through designing a complex system on the Azure platform.
@@ -171,13 +171,13 @@ User status is another interesting problem. Tracking manual login and logout of 
 
 In that case, the client won't be able to communicate the status to our server. To solve this problem, we can send a regular heartbeat to check that a user is still there. We can set our [SignalR clients to send a regular ping](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/websockets?view=aspnetcore-8.0#handle-client-disconnects) if the server doesn't receive a ping for 5 minutes, we can assume the user has gone offline. In addition, to ensure a smooth UX, we probably want the client to reconnect when they lose connection [this process is trivial in SignalR](https://learn.microsoft.com/en-us/aspnet/core/signalr/javascript-client?view=aspnetcore-8.0&tabs=visual-studio#automatically-reconnect)
 
-We'll also need to store the user status somewhere. Our chat app will need a way to start new chats and view friends and their statuses. Due to this functionality, we need access to user status outside of the context of a conversation. Thus, we won't want to store it in the same shard as our conversations because we need access to the data outside that context. We'll also want user status communicated quickly to ensure smooth UX and user statuses will frequently change, leading to high numbers of transactions. For these reasons, storing it in a cache is a good option.
+We'll also need to store the user status somewhere. Our chat app will need a way to start new chats and view friends and their statuses. Due to this functionality, we need access to user status outside of the context of a conversation. Thus, we won't want to store it in the same shard as our conversations because we need access to the data outside that context. We'll also want user status communicated quickly to ensure smooth UX, and user statuses will frequently change, leading to high numbers of transactions. For these reasons, storing it in a cache is a good option.
 
 We could use either of the following:
 - [Azure Cosmos DB integrated cache](https://learn.microsoft.com/en-us/azure/cosmos-db/integrated-cache)
 - [Azure Cache for Redis](https://learn.microsoft.com/en-us/azure/azure-cache-for-redis/cache-overview)
 
-We are going with Azure Cache for Redis because we need a way for our users to subscribe to other user's status changes and [Azure Cache for Redis comes with Pub/Sub out-of-the-box](https://learn.microsoft.com/en-us/training/modules/azure-redis-publish-subscribe-streams/). Azure Cosmos DB integrated cache is an acceptable alternative, but we would also need to implement [Azure Service Bus](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview) which introduces more complexity.
+We are going with Azure Cache for Redis because we need a way for our users to subscribe to other users' status changes, and [Azure Cache for Redis comes with Pub/Sub out-of-the-box](https://learn.microsoft.com/en-us/training/modules/azure-redis-publish-subscribe-streams/). Azure Cosmos DB integrated cache is an acceptable alternative, but we would also need to implement [Azure Service Bus](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview) which introduces more complexity.
 
 
 ![Our chat app with Redis Cache for reporting user status](/assets/diagrams/2024-07-07-System-Design-in-Azure-for-clients-chat-app/3.png)\
@@ -188,9 +188,9 @@ Ensuring message delivery involves tracking the status of a message as it progre
 
 1. User 1 sends a message to the messaging service
 2. Messaging service  does the following:
-    1. Stores the message in the database as undelivered
-    2. Sends an acknowledgement to user 1
-    3. Sends the message to user 2.
+ 1. Stores the message in the database as undelivered
+ 2. Sends an acknowledgement to user 1
+ 3. Sends the message to user 2.
 3. User 2's client then returns an acknowledgement to the messaging service.
 4. The messaging service marks the message as delivered in the database.
 
