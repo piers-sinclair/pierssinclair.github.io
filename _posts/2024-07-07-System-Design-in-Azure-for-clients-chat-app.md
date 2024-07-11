@@ -156,6 +156,8 @@ Either option is fine but we'll go with Azure SignalR because our client has an 
 
 We can also isolate our chat app from the main website API using an Azure Function. This will make the chat app scaling more robust because the usage requirements are likely to be different to the social media app.
 
+Finally, you might have noticed that the client is already using Azure Front Door as a load balancer. This won't work for the chat functionality because Azure Front Door doesn't support web socket. Instead, we can use Application Gateway which [does support web socket](https://learn.microsoft.com/en-us/azure/application-gateway/application-gateway-websocket)
+
 ![Starting architecture of the client's chat app](/assets/diagrams/2024-07-07-System-Design-in-Azure-for-clients-chat-app/2.png)\
 **Figure: Starting architecture of the client's chat app**
 
@@ -165,15 +167,21 @@ Our architecture enables real-time communication nicely, but we have a problem. 
 To fix this issue we need to auto increment the message IDs in a conversation. Most NoSQL databases do not offer auto increment IDs so our message processing service will need to manage this for us.
 
 ### 4. How do we track user status?
-User login
-User logout
-User disconnects
+User status is another interesting problem. Tracking manual login and logout of the social media app is straightforward because the client will send through this info to the server, but how about when the user disconnects?
 
-Heartbeat to check if they disconnected
+In that case the client won't communicate the status to our server. To solve this problem we need to send a regular heartbeat to check that a user is still there. We can set our [SignalR clients to send a regular ping](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/websockets?view=aspnetcore-8.0#handle-client-disconnects), if the server doesn't receive a ping for 5 minutes, we can assume the user has gone offline. In addition to ensure a smooth UX we probably want the client to reconnect when they lose connection, [this process is trivial in SignalR](https://learn.microsoft.com/en-us/aspnet/core/signalr/javascript-client?view=aspnetcore-8.0&tabs=visual-studio#automatically-reconnect)
 
-Via Pub Sub and websocket friends find out about status
+We'll also need to store the user status somewhere. Our chat app will need a way to start new chats, view friends and their status. Due to this functionality, we need access to user status outside of the context of a conversation. Thus we won't want to store it in the same shard as our conversations because we need access to the data outside of that context. We'll also want user status communicated quickly to ensure smooth UX, and user statuses will change frequently leading to high numbers of transactions. For these reasons, storing it in a cache is a good option.
 
-Where do we store user status? - Also in Cosmos DB because it's transitory information.
+We could use either of the following:
+- [Azure Cosmos DB integrated cache](https://learn.microsoft.com/en-us/azure/cosmos-db/integrated-cache)
+- [Azure Cache for Redis](https://learn.microsoft.com/en-us/azure/azure-cache-for-redis/cache-overview)
+
+We are going with Azure Cache for Redis because we need a way for our users to subscribe to other user's status changes and [Azure Cache for Redis comes with Pub/Sub out-of-the-box](https://learn.microsoft.com/en-us/training/modules/azure-redis-publish-subscribe-streams/). Azure Cosmos DB integrated cache is a fine alternative, but we would also need to implement [Azure Service Bus](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview) which introduces more complexity.
+
+
+![Our chat app with Redis Cache for reporting user status](/assets/diagrams/2024-07-07-System-Design-in-Azure-for-clients-chat-app/3.png)\
+**Figure: Our chat app with Redis Cache for reporting user status**
 
 ### 5. How do we track message status?
 
