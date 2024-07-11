@@ -42,6 +42,9 @@ A: Sure, here you go:
 Q: Is this a real-time system or something more like email?\
 A: Real-time, we already have something like email but our users are complaining that they can't talk more fluidly.
 
+Q: What are the chats used for? Do they exist temporarily such as for support or are they permanent chats with history?\
+A: Permanent chats with history, it's for a our users to connect with each other.
+
 Q: Do we need to support group chats? If so how many users in a single group chat?\
 A: Yes, the more users the better!
 
@@ -60,9 +63,6 @@ A: Yes, if they are offline.
 Q: Do users need to know who is online and offline?\
 A: That would be useful.
 
-Q: Do we need to show whether a message has been sent and read?\
-A: I think that would be better for the UX.
-
 Q: Do we need to support unsending messages?\
 A: Not for the MVP.
 
@@ -70,9 +70,9 @@ Now, we have our baseline functional requirements. Here's a summary:
 
 In scope:
 - Real-time conversations between users.
+- Permanent conversations with history.
 - Conversation groups of up to 100 people.
 - User status tracking to show online/offline
-- Message status tracking to show sent + read.
 - Notifications for new messages to offline people.
 - File attachments
 
