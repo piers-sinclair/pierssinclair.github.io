@@ -31,7 +31,7 @@ Q: Where is user data stored?\
 A: We have an instance of Azure SQL, which tracks user data.
 
 Q: And what technology is the social media website built in?\
-A: ASP.NET Core and React
+A: ASP.NET Core and React.
 
 Q: Can we see a diagram of the existing application architecture?\
 A: Sure, here you go:
@@ -48,7 +48,7 @@ A: Permanent chats with history it's for our users to connect.
 Q: Do we need to support group chats? If so, how many users are in a single group chat?\
 A: Yes, the more users, the better!
 
-Q: More users means more costs and difficulties with the architecture. Would you be happy with a limit of 100 users?
+Q: More users means more costs and difficulties with the architecture. Would you be happy with a limit of 100 users?\
 A: Oh, I didn't realise that 100 users is enough.
 
 Q: Do we need to support video or phone calls?\
@@ -152,7 +152,7 @@ In Azure, we have 2 good options for connecting via WebSocket:
 - [Azure SignalR](https://learn.microsoft.com/en-us/azure/azure-signalr/signalr-overview)
 - [Azure Web PubSub](https://learn.microsoft.com/en-us/azure/azure-web-pubsub/overview)
 
-Either option is fine, but we'll choose Azure SignalR because our client has an ASP.NET Web API, and SignalR works well with the .NET ecosystem.
+Either option is fine, but we'll choose Azure SignalR because our client has an ASP.NET Web API, and SignalR works well with the .NET ecosystem. See [this link](https://learn.microsoft.com/en-us/azure/azure-web-pubsub/resource-faq#how-do-i-choose-between-azure-signalr-service-and-azure-web-pubsub-service) for more details on the differences between the two.
 
 We can also isolate our chat app from the main website API using an Azure Function. This isolation will make the chat app scaling more robust because the usage requirements will likely differ from those of the social media app.
 
@@ -187,10 +187,10 @@ We are going with Azure Cache for Redis because we need a way for our users to s
 Ensuring message delivery involves tracking the status of a message as it progresses from user 1's device to user 2's device. The flow looks like this:
 
 1. User 1 sends a message to the messaging service
-2. Messaging service  does the following:
- 1. Stores the message in the database as undelivered
- 2. Sends an acknowledgement to user 1
- 3. Sends the message to user 2.
+2. The messaging service does the following:
+    1. Stores the message in the database as undelivered
+    2. Sends an acknowledgement to user 1
+    3. Sends the message to user 2.
 3. User 2's client then returns an acknowledgement to the messaging service.
 4. The messaging service marks the message as delivered in the database.
 
@@ -209,7 +209,7 @@ For now, we will leave these out-of-scope.
 **Figure: Our chat app with media storage**
 
 ### 7. How do we enable notifications for offline users?
-If users are offline, it would be good to send them notifications so they know a new message has come through. To solve this problem, we can, we can have our messaging service check if a user is offline in the user status cache, and if they are, it can send out a notification via a notification system similar to the one in [this article](2024-06-30-System-Design-in-Azure-for-clients-notification-system.md)
+If users are offline, it would be good to send them notifications so they know a new message has come through. To solve this problem, we can, we can have our messaging service check if a user is offline in the user status cache, and if they are, it can send out a notification via a notification system similar to the one in [this article](https://www.piers-sinclair.com/system-design/2024/06/30/System-Design-in-Azure-for-clients-notification-system.html)
 
 
 ![Our chat app with a notification system](/assets/diagrams/2024-07-07-System-Design-in-Azure-for-clients-chat-app/5.png)\
