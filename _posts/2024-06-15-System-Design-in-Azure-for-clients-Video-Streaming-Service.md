@@ -300,6 +300,6 @@ Now, we've got an awesome architecture diagram to show our client, but we also n
 - [Design Gurus Course](https://www.designgurus.io/course-play/grokking-the-system-design-interview/doc/638c0b68ac93e7ae59a1b009)
 - [Geeks for Geeks Article](https://www.geeksforgeeks.org/system-design-of-youtube-a-complete-architecture/ )
 - [System Design Prep Course](https://systemdesignprep.com/youtube)
-- [Alex Xu's System Design Book](https://www.amazon.com.au/System-Design-Interview-insiders-Second/dp/B08CMF2CQF0)
+- [Alex Xu's System Design Book](https://www.amazon.com.au/System-Design-Interview-insiders-Second/dp/B08CMF2CQF)
 - [ByteByteGo Website](https://bytebytego.com/courses/system-design-interview/design-youtube)
 - [Enjoy Algorithms Blog](https://www.enjoyalgorithms.com/blog/design-youtube-system-design-interview-question)

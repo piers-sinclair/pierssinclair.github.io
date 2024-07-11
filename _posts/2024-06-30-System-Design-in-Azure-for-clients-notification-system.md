@@ -222,5 +222,5 @@ Now, we've got an awesome architecture diagram to show our client, but we also n
 ## References
 
 - [Geeks for Geeks Article](https://www.geeksforgeeks.org/design-notification-services-system-design/)
-- [Alex Xu's System Design Book](https://www.amazon.com.au/System-Design-Interview-insiders-Second/dp/B08CMF2CQF0)
+- [Alex Xu's System Design Book](https://www.amazon.com.au/System-Design-Interview-insiders-Second/dp/B08CMF2CQF)
 - [Enjoy Algorithms Blog](https://www.enjoyalgorithms.com/blog/notification-service)

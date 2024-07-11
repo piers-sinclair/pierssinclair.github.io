@@ -278,5 +278,5 @@ Here are some of the main resources I used to understand this topic:
 - [Design Gurus Course](https://www.designgurus.io/course-play/grokking-the-system-design-interview/doc/638c0b5dac93e7ae59a1af6b)
 - [System Design School Course](https://systemdesignschool.io/problems/url-shortener/solution)
 - [Educative.io Course](https://www.educative.io/courses/grokking-modern-system-design-interview-for-engineers-managers/design-and-deployment-of-tinyurl)
-- [Alex Xu's System Design Book](https://www.amazon.com.au/System-Design-Interview-insiders-Second/dp/B08CMF2CQF0)
+- [Alex Xu's System Design Book](https://www.amazon.com.au/System-Design-Interview-insiders-Second/dp/B08CMF2CQF)
 - [ByteByteGo Website](https://bytebytego.com/)
