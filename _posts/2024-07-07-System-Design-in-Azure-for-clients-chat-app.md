@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "🧩 System Design in Azure for Clients - Chat App"
-date:   2024-07-08 01:00:00 +1000
+date:   2024-07-11 01:00:00 +1000
 categories: system-design
 tags: system-design, azure, software-architecture, cloud-architecture, solution-architecture
 author:
