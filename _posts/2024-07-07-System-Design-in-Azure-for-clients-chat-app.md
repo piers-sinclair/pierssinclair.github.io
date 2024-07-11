@@ -118,7 +118,7 @@ At this stage, you should have a few technical questions in mind:
 2. How do we enable real-time communication?
 3. How do we preserve message sequence?
 4. How do we track user status?
-5. How do we track message status?
+5. How do we ensure message delivery?
 6. How do we store files?
 7. How do we enable notifications?
 
@@ -183,16 +183,34 @@ We are going with Azure Cache for Redis because we need a way for our users to s
 ![Our chat app with Redis Cache for reporting user status](/assets/diagrams/2024-07-07-System-Design-in-Azure-for-clients-chat-app/3.png)\
 **Figure: Our chat app with Redis Cache for reporting user status**
 
-### 5. How do we track message status?
+### 5. How do we ensure message delivery?
+Ensuring message delivery involves tracking the status of a message as it progresses from user 1's device to user 2's device. The flow looks like this:
 
-For Sent - Sending user's chat server can respond once it receives the message
-For Read - Receiving user's device can notify the server once they have seen the message.
+1. User 1 sends a message to the messaging service
+2. Messaging service  does the following:
+    1. Stores the message in the database as undelivered
+    2. Sends an acknowledgement to user 1
+    3. Sends the message to user 2.
+3. User 2's client then sends an acknowledgement back to the messaging service.
+4. The messaging service marks the message as delivered in the database.
+
+Through this flow we always know if User 2's client has received a message and can retrieve undelivered messages accordingly.
 
 ### 6. How do we store files?
-Azure Blob storage
+Storing files is simple, we throw the media in [Azure Blob Storage](https://azure.microsoft.com/en-au/products/storage/blobs) and add a reference in our message that is stored in Azure CosmosDB. Then we retrieve the data when required.
 
-### 7. How do we enable notifications?
-See [the notification system article](2024-06-30-System-Design-in-Azure-for-clients-notification-system.md)
+Once doing lower level designs, you may also want to consider compressing files but we will leave this out of scope for our example.
+
+![Our chat app with media storage](/assets/diagrams/2024-07-07-System-Design-in-Azure-for-clients-chat-app/4.png)\
+**Figure: Our chat app with media storage**
+
+### 7. How do we enable notifications for offline users?
+If users are offline it would be good to send them notifications so they know a new message has come through. To solve this problem we can we can have our messaging service check if a user is offline in the user status cache, and if they are it can send out a notification via a notification system similar to the one in [this article](2024-06-30-System-Design-in-Azure-for-clients-notification-system.md)
+
+
+![Our chat app with a notification system](/assets/diagrams/2024-07-07-System-Design-in-Azure-for-clients-chat-app/5.png)\
+**Figure: Our chat app with a notification system**
+
 
 ### Phase 3 - Communicating the Sauce
 
