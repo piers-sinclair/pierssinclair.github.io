@@ -188,9 +188,9 @@ Ensuring message delivery involves tracking the status of a message as it progre
 
 1. User 1 sends a message to the messaging service
 2. The messaging service does the following:
-    1. Stores the message in the database as undelivered
-    2. Sends an acknowledgement to user 1
-    3. Sends the message to user 2.
+    a. Stores the message in the database as undelivered
+    b. Sends an acknowledgement to user 1
+    c. Sends the message to user 2.
 3. User 2's client then returns an acknowledgement to the messaging service.
 4. The messaging service marks the message as delivered in the database.
 
