@@ -249,7 +249,7 @@ Note that Fabric is a SaaS product, so we don't need to manage these resources i
 ![Analytics Architecture](/assets/diagrams/2024-06-09-System-Design-in-Azure-for-Clients-URL-Shortener/4.png)\
 **Figure: The analytics architecture**
 
-### Phase 3 - Communicating the Sauce
+## Phase 3 - Communicating the Sauce
 Now that you've got a nicely designed system, you want to put it together as an excellent deliverable for your client.
 
 You want to ensure you stay at a high level and stick to the significant business value delivered in each part. To assist, you will want a nice overview diagram showing how all the pieces fit together. Here's one for our system:

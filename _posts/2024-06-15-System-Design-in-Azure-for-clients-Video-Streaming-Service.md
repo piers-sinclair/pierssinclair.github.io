@@ -275,18 +275,18 @@ Delete is even simpler. We purge all data using yet another endpoint:
 DeleteVideo(videoId)
 ```
 
-### Phase 3 - Communicating the Sauce
+## Phase 3 - Communicating the Sauce
 
 Now, we've got an awesome architecture diagram to show our client, but we also need to communicate the benefits and deficiencies of our system when we talk to the client.
 
-#### Benefits
+### Benefits
 - Streaming Scalability - Video streaming is designed to scale to millions of users and views.
 - Globally Available - Videos are designed to be delivered globally and quickly.
 - Seamless UX - Video playback is built to deliver content in chunks, and the quality is optimised based on user network connection.
 - Reliable - We have robust mechanisms to ensure data is safe, such as storing a copy of the original videos.
 - High-Quality Videos - The system delivers and stores videos up to 4k, which is lots of data
 
-#### Deficiencies
+### Deficiencies
 - Maintenance - It's a highly complex solution requiring lots of maintenance.
 - Expensive - There are a lot of 3rd party cloud services here, and Azure CDN, in particular, will cost a pretty penny.
 - Uploading Scalability - Upload may not scale well because we have designed it to suit the limited load outlined by the client
