@@ -118,29 +118,43 @@ At this stage, you should have a few technical questions in mind:
 
 ### 1. What APIs are we going to need?
 
-- Open
-- Saved
-- Delete
-- View Version History
-- Search
-- View Recent
-- Download Copy
-- Share
-- Rename
+We will need to support a fair few APIs to get the base functionality. Consider the actions you might want in a file system.
+
+Here's a preliminary list but there's probably lots more ways to extend in the future:
+- Open: Open's a file on your machine.
+- Saved: When a file is created or updated it should be saved.
+- Delete: When a file is flagged for removal.
+- View Version History: See past versions of the file.
+- Search: Search file names (later we could support content or other meta data).
+- View Recent: See a list of documents that have been recently viewed or edited.
+- Download Copy: Get a copy of the file locally on the user's device.
+- Share: Share the file with another person so they can view or edit it.
 
 ### 2. What's the base level architecture? 
 
-Clients -> Load Balancer -> API -> Blob Storage
+Let's start with a simple architecture. We'll have devices of many types (e.g. mobile, tablet, PC).
+
+We'll need an API for communicating with data storage and that can go in an [Azure App Service](https://learn.microsoft.com/en-us/azure/app-service/)
+
+We'll need a nice way to store blob files like [Azure Blob Storage](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction)
+
+Finally we'll need a load balancer like [Azure Front Door](https://learn.microsoft.com/en-us/azure/frontdoor/front-door-overview) to manage traffic to the API.
 
 ### 3. How do we store data so that it is both available and consistent?
 
-CAP Theorem -> Availability and Consistency are not possible at the same time.
+For our system availability is going to be important because users will want access to their documents at any time.
 
-We need ACID for Meta Data so that users see consistent info about the file. Therefore Azure SQL.
+On the other hand, consistency is important because if there are updates to a file, the users need to be notified of that ASAP so they do not end up with conflicts.
 
-On the other hand, files need to be transferred quickly and at high volume. Therefore Azure Blob Storage.
+According to [CAP Theorem](https://en.wikipedia.org/wiki/CAP_theorem) a distributed system can only achieve two out of the three guarantees: Consistency, Availability, and Partition Tolerance. Partition Tolerance is essential in distributed systems, meaning we must balance between Consistency and Availability.
 
-We also need to shard our file data. Sharding by user makes sense since we usually access the files for a specific user.
+To address the need for both high availability and consistency, we employ multiple databases.
+
+We can store our file data in Azure Blob Storage which aims for a balance of high availability and consistency in most situations. It achieves this balance by [adopting a strong consistency model for reads after a write operation](https://learn.microsoft.com/en-us/azure/storage/blobs/concurrency-manage) and [ensuring availability through storage redundancy across different regions](https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy). However, Azure Blob Storage doesn't store all the meta data we need for our files, and it doesn't guarantee ACID compliance because it only offers consistency and durability.
+
+For the meta data consistency is key because the user's should always know the state of a file, so we will use an [Azure SQL database](https://learn.microsoft.com/en-us/azure/azure-sql/database/?view=azuresql) to ensure ACID compliance.
+
+We also need to shard our file data in both Azure Blob Storage and Azure SQL. Sharding by user makes sense since we usually access the files for a specific user.
 
 ### 4. How do we avoid data loss?
 
