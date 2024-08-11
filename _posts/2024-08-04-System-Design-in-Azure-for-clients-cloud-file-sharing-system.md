@@ -121,14 +121,14 @@ At this stage, you should have a few technical questions in mind:
 We will need to support a fair few APIs to get the base functionality. Consider the actions you might want in a file system.
 
 Here's a preliminary list but there's probably lots more ways to extend in the future:
-- Open: Open's a file on your machine.
-- Saved: When a file is created or updated it should be saved.
-- Delete: When a file is flagged for removal.
-- View Version History: See past versions of the file.
-- Search: Search file names (later we could support content or other meta data).
-- View Recent: See a list of documents that have been recently viewed or edited.
-- Download Copy: Get a copy of the file locally on the user's device.
-- Share: Share the file with another person so they can view or edit it.
+- `Open`: Open's a file on your machine.
+- `Save`: When a file is created or updated it should be saved.
+- `Delete`: When a file is flagged for removal.
+- `View Version History`: See past versions of the file.
+- `Search`: Search file names (later we could support content or other meta data).
+- `View Recent`: See a list of documents that have been recently viewed or edited.
+- `Download Copy`: Get a copy of the file locally on the user's device.
+- `Share`: Share the file with another person so they can view or edit it.
 
 ### 2. What's the base level architecture? 
 
@@ -168,21 +168,26 @@ Azure SQL is similar providing the [geo-replication option](https://learn.micros
 
 ### 5. How do we manage the syncing process?
 
+When users make changes to files, it is important that they are communicated quickly to other users because it will affect what other users are doing. 
 
+So we need a notification system, and a way for users to be made aware of changes. There are 2 flows we need to consider, receiving updates and triggering updates
 
-Users need to know in asap if a change happens to their file because it will affect their editing flow.
+#### Receiving Updates
+Notifications will need to happen in real-time. Two options are [Long Polling](https://www.enjoyalgorithms.com/blog/long-polling-in-system-design0) or [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket).
 
-Long polling is an approach for managing notifications.
+Both are valid. WebSocket can be better for more fluid real-time connection and better management of server load. However, we will go with Long polling because it is simpler to implement and maintain. We can always switch to WebSocket later as our user base increases and server load becomes a clear issue.
 
-When a user uploads, it can send a notification to a service bus which the other users subscribe to.
+So when a user opens their client device it will initiate a long polling connection with the server. Then, when a user calls the `Save()` or `Delete()` API this will trigger all of the open long poll requests to return and then reinitiate a new long poll request.
 
 ### 6. How are we going to handle conflicting versions of a document?
 
-If there's a conflict we have a few options
+When users make changes to a file, it's possible that someone has already triggered an update to that file. In that case, the 2 versions will be conflicting. There are a few options we could adopt to manage this:
 
-- Latest version always overwrites (not good because it means the other user's changes will be lost)
-- Prompt to say there is a newer version
-- Save a copy.
+- Have the latest version always overwrite but this would cause users to lose their changes, so it's probably not as great option.
+- Save a copy of the conflicting file. By appending an incrementing number to the end of the file name it ensures the files never conflict. The downside is that user's won't necessarily be aware of the new copy and may have to clean up their files later.
+- Prompt to say there is a newer version and ask what to do. This approach is probably the gold standard in terms of User Experience, however it adds a lot of extra complexity to the code.
+
+In this case, saving a copy is a nice solution because it's simple and easier to implement. We can improve upon the system later with the prompt once other more important issues are addressed or the users flag it as a significant concern.
 
 ### 7. How do we ensure smooth UX when bandwidth is low?
 
