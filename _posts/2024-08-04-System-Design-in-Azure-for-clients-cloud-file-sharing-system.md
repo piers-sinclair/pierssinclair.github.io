@@ -158,9 +158,17 @@ We also need to shard our file data in both Azure Blob Storage and Azure SQL. Sh
 
 ### 4. How do we avoid data loss?
 
-Replicate the data
+Data loss is a significant issue for a cloud file sharing system. Customers will expect that their data is backed up regardless of circumstances. Data loss is often viewed as one of the worst things that can happen to a system
+
+Due to this expectation we need a strategy for managing data loss of both files and meta data.
+
+For Azure Blobs there are [several redundancy options](https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy) but for this system [geo-redundant storage](https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy#redundancy-in-a-secondary-region) makes sense because it lets us create a copy of our files in another region to protect against any possible regional problems.
+
+Azure SQL is similar providing the [geo-replication option](https://learn.microsoft.com/en-us/azure/azure-sql/database/active-geo-replication-overview?view=azuresql) to duplicate the database in another region.
 
 ### 5. How do we manage the syncing process?
+
+
 
 Users need to know in asap if a change happens to their file because it will affect their editing flow.
 
@@ -176,7 +184,7 @@ If there's a conflict we have a few options
 - Prompt to say there is a newer version
 - Save a copy.
 
-### 7. How do we ensure smooth UX when badnwidth is low?
+### 7. How do we ensure smooth UX when bandwidth is low?
 
 - Chunk the data and send it up in [blocks](https://learn.microsoft.com/en-us/rest/api/storageservices/put-block?tabs=microsoft-entra-id).
     - Store duplicate blocks only once
