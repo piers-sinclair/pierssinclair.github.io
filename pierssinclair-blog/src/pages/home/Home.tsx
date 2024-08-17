@@ -25,8 +25,8 @@ const Home: React.FC = () => {
     if (!posts || posts.length === 0) return <div>Loading...</div>;
 
     return (
-        <div className="container mx-auto py-12 px-6 text-center">
-            <div className="mb-8">
+        <div className="container mx-auto py-4 px-4 text-center">
+            <div className="mb-4">
                 <img
                     src="/assets/images/2021-07-13-piers.jpg"
                     loading="lazy"
@@ -34,14 +34,14 @@ const Home: React.FC = () => {
                     className="rounded-lg w-full max-w-3xl h-auto mx-auto"
                 />
             </div>
-            <ul className="space-y-8">
+            <ul className="space-y-4">
                 {posts.map((post) => (
-                    <li key={post.slug} className="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-left mx-auto max-w-3xl">
+                    <li key={post.slug} className="p-4 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 text-left mx-auto max-w-3xl">
                         <p className="text-sm text-gray-400 mb-2">
                             {format(new Date(post.frontmatter.date), 'dd MMM, yyyy')}
                         </p>
                         <Link to={`/post/${post.slug}`} className="group">
-                            <h2 className="text-xl font-semibold text-blue-500 group-hover:text-blue-300 transition duration-300">
+                            <h2 className="text-2xl font-semibold text-blue-500 group-hover:text-blue-300 transition-all duration-300 ease-in-out transform hover:scale-105">
                                 {post.frontmatter.title}
                             </h2>
                         </Link>
