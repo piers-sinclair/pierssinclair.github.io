@@ -15,6 +15,8 @@ const Home: React.FC = () => {
         loadPosts();
     }, []);
 
+    if(!posts || posts.length === 0) return <div>Loading...</div>;
+
     return (
         <div className="container mx-auto py-12 px-4">
             <h1 className="text-4xl font-bold mb-6 text-gray-100">Blog Posts</h1>
