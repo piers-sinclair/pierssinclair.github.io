@@ -1,12 +1,25 @@
-import Header from "./features/header/Header";
+import Header from "./pages/header/Header";
 
 
-function App() {
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import Home from "./pages/home/Home";
+import About from "./pages/about/About";
+import Post from "./pages/post/Post";
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <Header ></Header>
-    </div>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />        
+        <Route path="/post/:slug" element={<Post />} />
+
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
