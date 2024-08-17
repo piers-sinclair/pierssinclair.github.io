@@ -3,7 +3,7 @@ import '../../App.css';
 
 function Header() {
   return (
-      <header className="App-header">
+      <header className="text-3xl font-bold underline">
         Piers Sinclair's Blog
       </header>
   );
