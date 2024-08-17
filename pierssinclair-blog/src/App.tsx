@@ -11,13 +11,15 @@ import Post from "./pages/post/Post";
 const App: React.FC = () => {
   return (
     <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />        
-        <Route path="/post/:slug" element={<Post />} />
+      <div className="bg-gray-800 text-gray-300 min-h-screen">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/post/:slug" element={<Post />} />
 
-      </Routes>
+        </Routes>
+      </div>
     </Router>
   );
 };
