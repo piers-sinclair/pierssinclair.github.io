@@ -88,8 +88,14 @@ A: I expect it to grow to over 50 million in the first few years.
 Q: How much data do you expect users to store on average?\
 A: Maybe 5GB
 
-Q: How much data do you expect them to upload and download per week?
-A: 50 MB for upload and a similar amount for download.
+Q: How often on average is the system used by users?\
+A: Daily
+
+Q: How many files do they usually edit per day?\
+A: 1-2
+
+Q: Do you expect read and writes to be a similar amount?\
+A: Yes
 
 Now repeat back your summary of the non-functional requirements:
 - **Scalable:** The user base is enormous, so it must be able to cope.
@@ -99,8 +105,7 @@ Now repeat back your summary of the non-functional requirements:
 - **Available:** The users should trust that they can get to their files and changes when they want to.
 - **Users:** 50 million
 - **Data per user:** 5GB
-- **Data uploads per user per week:** 50MB
-- **Data downloads per user per week:** 50MB
+- **Read/Write Ratio:** 1:1
 
 ## Phase 2 - Technical Deep Dive
 At this stage, you should have a few technical questions in mind:
@@ -191,20 +196,95 @@ In this case, saving a copy is a nice solution because it's simple and easier to
 
 ### 7. How do we ensure smooth UX when bandwidth is low?
 
-- Chunk the data and send it up in [blocks](https://learn.microsoft.com/en-us/rest/api/storageservices/put-block?tabs=microsoft-entra-id).
-    - Store duplicate blocks only once
-    - Reduced data transfer because only the relevant portion is sent
-    - More resilient to network outage because data is sent up in small portions.
+Users will have different bandwidth requirements depending on connection speed.
 
-If it's a restricted data network (e.g. Mobile networks) then don't download the data until connected to wi-fi or the user requests it.
+To ensure smooth connection we will need to chunk the data. Luckily, [Azure Blobs support this out-of-the-box](https://learn.microsoft.com/en-us/rest/api/storageservices/put-block?tabs=microsoft-entra-id) so it's simple to implement
+
+Chunking our transfers gives a number of benefits:
+- Better resiliency to network outages because data is transferred in small portions
+- Lower amount of data transferred because only a small piece of data which has been modified is sent up.
+- Reduced size of data stored in the cloud because duplicate blocks can be stored only once.
+
+Moreover, different device types will have different storage space requirements. For example, a mobile usually has far less storage capacity than a desktop PC.
+
+For this reason, we want to ensure we only store data when a user requests a file on their device. In the meta data we can store which devices it has been copied to so we know where to update it when changes occur..
 
 ### 8. How much is this going to cost?
 
-Could get expensive - need to carefully consider Azure Blob pricing against what is charged to customers.
+We are going to be storing mass amounts of data, so cloud storage could get expensive. It's worth doing some quick calculations with the Azure calculator to get an idea:
 
-Also need to ensure we are as efficient as possible with data storage e.g. don't store duplicate data twice.
+#### Blob Storage Amount
 
-Also if data hasn't been accessed for a long time, archive it into a cold tier.
+##### Flat Storage
+50 million users * 5GB = 250 million GB
+250 million GB / 1,000 = 250 thousand TB
+
+##### Reads/Writes
+
+We know that the users are using the system everyday and they are editing 1-2 files. Let's assume each time they touch a file they modify 4 blocks.
+
+Let's average out 1-2 files to 1.5 files.
+
+So a rough calculation for reads would be:
+
+1.5 files * 4 blocks * 50 million = 300 million reads per day
+
+300 million * 30 = 9 billion
+
+We know reads and writes have a similar ratio so we assume a similar number of writes.
+
+For the amount of data we can assume 50 KB per block.
+
+9 billion * 50 KB / 1,000,000 = 450 GB
+
+##### Data Summary
+
+- **Flat Storage:** 250 thousand TB
+- **Reads per month:** 9 billion
+- **Writes per month:** 9 billion
+- **Data transferred per month:** 450 GB
+
+#### Azure Calculator
+
+An initial estimate gives us [$17 million AUD](https://azure.com/e/20b7869d8e314a4d9565bd39308e8e8b)
+
+![That's a hefty bill!](/assets/images/2024-08-04-System-Design-in-Azure-for-clients-cloud-file-sharing-system/big-azure-costs.png)
+**Figure: That's a hefty bill!**
+
+We can see most of that cost comes from the storage of the data. There are a few things we should do to minimize this cost:
+
+1. Avoid data duplication. When a block is uploaded we should check if it already exists and if it does then avoid storing it twice.
+2. Archive unused data. Wherever possible we should move unused data to a cold or archived tier.
+
+##### Data Archiving
+
+For data archiving Azure Blobs offer 4 tiers, Hot, Cool, Cold and Archive tier.
+
+We can use [data life cycle management](https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview) to automatically cycle our files to different tiers when they haven't been accessed for a specified time. For example, we could transfer files to the cool tier after 30 days of no modification and to the archive tier 90 days after modification.
+
+Assuming the above policy let's recalculate our Azure costs using the following rough estimates:
+
+Hot Tier: 450 GB (last month of data)
+Cool Tier: 900 GB (last 3 months of data - Hot Tier amount)
+Archive Tier: 249,000 TB (250,000 TB - Hot and Cool Tier)
+
+**Hot Tier Reads:** 9 billion
+**Hot Tier Writes:** 9 billion
+
+**Cool Tier Reads:** < 10 thousand (significantly reduced as the files haven't been accessed in > 30 days)
+**Cool Tier Writes:** 9 billion (same amount of data transferred as hot)
+
+**Hot Tier Reads:** < 10 thousand (significantly reduced as the files haven't been accessed in > 30 days)
+**Hot Tier Writes:** 9 billion (same amount of data transferred as hot)
+
+[New calculation -> $2 million AUD](https://azure.com/e/eeca9192e563492980529a90dce8a0ed)
+
+![A more manageable Azure bill](/assets/images/2024-08-04-System-Design-in-Azure-for-clients-cloud-file-sharing-system/big-azure-costs.png)
+**Figure: A more manageable Azure bill**
+
+That's a huge reduction of price! Still expensive but at least manageable now. 
+
+Clearly costs can vary wildly depending on how we optimize the system. For this reason you would want to do a more detailed deep dive into cost before the real implementation.
 
 ### 9. What security measures do we need in place?
 
