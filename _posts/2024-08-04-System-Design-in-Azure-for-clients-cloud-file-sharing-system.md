@@ -28,7 +28,7 @@ Q: Is this a brand new app or integrating with an existing app?\
 A: It's brand new.
 
 Q: Who will use the app?\
-A: It will be a global app available freely to anyone.
+A: It will be a global app that is available freely to anyone.
 
 Q: What document types do we need to store?\
 A: Text files, Word documents, images, videos, or anything the user wants.
@@ -52,7 +52,7 @@ Now, we have our baseline functional requirements. Here's a summary:
 
 In scope:
 - Store files of any type
-- Share files including permissions
+- Share files, including permissions
 - Files accessible on phones, tablets and PCs
 - Files accessible while offline
 - Files accessible globally
@@ -76,11 +76,11 @@ A: They will want to get to their data whenever they want.
 Q: I assume users will not tolerate data loss?\
 A: Correct, it would cause serious problems.
 
-Q: Since users will be editing the same files frequently, it will be important to see a consistent status of the files so they don't get confused. Do you agree?\
+Q: Since users will be editing the same files frequently, it will be important to receive updates about the status of files so they don't get confused. Do you agree?\
 A: Yes, that sounds logical.
 
 Q: How important is security?\
-A: It will be important, our users are going to expect that their documents are safe from others.
+A: It will be crucial. Our users are going to expect that their documents are safe from others.
 
 Q: How many users do you expect to have?\
 A: I expect it to grow to over 50 million in the first few years.
@@ -152,7 +152,7 @@ Finally, we'll need a load balancer like [Azure Front Door](https://learn.micros
 
 Our system's availability will be critical because users will want access to their documents anytime.
 
-On the other hand, consistency is important because if there are updates to a file, the users need to be notified of that ASAP to avoid conflicts.
+On the other hand, consistency is important because if there are updates to a file, the users must be notified ASAP to avoid conflicts.
 
 According to [CAP Theorem](https://en.wikipedia.org/wiki/CAP_theorem), a distributed system can only achieve two out of the three guarantees: Consistency, Availability, and Partition Tolerance. Partition tolerance is essential in distributed systems, meaning we must choose between consistency and availability.
 
@@ -179,7 +179,7 @@ Azure SQL is similar providing the [geo-replication option](https://learn.micros
 
 ### 5. How do we manage the syncing process?
 
-When users make changes to files, the changes must be communicated quickly to other users because it will affect what other users are doing. 
+When users make changes to files, they must be communicated quickly to other users because it will affect what other users are doing. 
 
 So we need a notification system and a way for users to be aware of changes. We need to consider two flows: receiving updates and triggering updates.
 
