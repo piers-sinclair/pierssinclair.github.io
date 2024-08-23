@@ -101,7 +101,7 @@ Now repeat back your summary of the non-functional requirements:
 - **Scalable:** The user base is enormous, so it must be able to cope.
 - **Reliable:** The users must trust that data will not be lost.
 - **Consistency:** The state of data should always be communicated consistently to users to avoid confusing behaviour.
-- **Secure:** The system should feel real-time.
+- **Secure:** Users should have confidence that their data won't be intercepted by third parties.
 - **Available:** The users should trust that they can get to their files and changes when they want to.
 - **Users:** 50 million
 - **Data per user:** 5GB
@@ -145,6 +145,9 @@ We'll need a nice way to store blob files like [Azure Blob Storage](https://lear
 
 Finally we'll need a load balancer like [Azure Front Door](https://learn.microsoft.com/en-us/azure/frontdoor/front-door-overview) to manage traffic to the API.
 
+![The basic architecture for our file sharing system](/assets/diagrams/2024-08-04-System-Design-in-Azure-for-clients-cloud-file-sharing-system/1.png)\
+**Figure: The basic architecture for our file sharing system**
+
 ### 3. How do we store data so that it is both available and consistent?
 
 For our system availability is going to be important because users will want access to their documents at any time.
@@ -160,6 +163,9 @@ We can store our file data in Azure Blob Storage which aims for a balance of hig
 For the meta data consistency is key because the user's should always know the state of a file, so we will use an [Azure SQL database](https://learn.microsoft.com/en-us/azure/azure-sql/database/?view=azuresql) to ensure ACID compliance.
 
 We also need to shard our file data in both Azure Blob Storage and Azure SQL. Sharding by user makes sense since we usually access the files for a specific user.
+
+![The architecture after we add a metadata database](/assets/diagrams/2024-08-04-System-Design-in-Azure-for-clients-cloud-file-sharing-system/2.png)\
+**Figure: The architecture after we add a metadata database**
 
 ### 4. How do we avoid data loss?
 
@@ -207,7 +213,7 @@ Chunking our transfers gives a number of benefits:
 
 Moreover, different device types will have different storage space requirements. For example, a mobile usually has far less storage capacity than a desktop PC.
 
-For this reason, we want to ensure we only store data when a user requests a file on their device. In the meta data we can store which devices it has been copied to so we know where to update it when changes occur..
+For this reason, we want to ensure we only store data when a user requests a file on their device. In the meta data we can store which devices it has been copied to so we know where to update it when changes occur.
 
 ### 8. How much is this going to cost?
 
@@ -288,22 +294,40 @@ Clearly costs can vary wildly depending on how we optimize the system. For this 
 
 ### 9. What security measures do we need in place?
 
-Data Encryption
+Azure Blob Storage comes with out-of-the-box [service-side encryption](https://learn.microsoft.com/en-us/azure/storage/common/storage-service-encryption), which means we already have a good level of security once the data is in the cloud.
+
+To get the data into the cloud securely, we will need to implement [client-side encryption](https://learn.microsoft.com/en-us/azure/storage/common/storage-service-encryption#client-side-encryption-for-blobs-and-queues) which is well supported by Blob Storage as well
 
 ### 10. How do we enable sharing of data with permissions?
 
-- Auth
-- RBAC
+To support sharing we will need a way for users to authenticate and authorize in the app. We can integrate with [Microsoft Entra](https://learn.microsoft.com/en-us/entra/) to enable tight integration with the Azure eco system. 
+
+We will want to be able to sign on with many providers in our system (e.g. Microsoft, Google, Facebook), because this is a convenient method for our users, it offloads logic to battle-tested 3rd party systems and is often more secure. Enabling login this way is called the [Federated Identity Pattern](https://learn.microsoft.com/en-us/azure/architecture/patterns/federated-identity) and we can achieve it by using a 3rd party service like [Duende IdentityServer](https://duendesoftware.com/products/identityserver) to manage the authentication process and interface with our users in Microsoft Entra ID
+
+So we will need a server which hosts our IdentityServer and a database for storing users and claims added into our architecture.
+
+We will also need a way to share files between users. This sharing can be accomplished using [Shared Access Signatures](https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview). When a file is shared to a user, we can generate a Shared Access Signature, store an encrypted copy in the database and use this to determine who has access.
+
+![The architecture with identity](/assets/diagrams/2024-08-04-System-Design-in-Azure-for-clients-cloud-file-sharing-system/3.png)\
+**Figure: The architecture with identity**
 
 ### Phase 3 - Communicating the Sauce
 
 Now, we've got an awesome architecture diagram to show our client, but we also need to communicate the benefits and deficiencies of our system when we talk to the client.
 
 #### Benefits
-- {{ XXX }}
+- **Highly Available:** Our files are stored in Blob storage providing high availability.
+- **Consistent:** ACID compliant file metadata ensuring that users can reliably retrieve the state of a file.
+- **User Authentication:** Is enabled and provides sharing of files.
+- **Smooth UX:** regardless of bandwidth the system can provide smooth UX.
+- **Cost:**  has been managed to reduce bill shock.
+- **Reliable:** data has redundancies to ensure it won't be lost.
+- **Scalable:** It is ready to be used by millions of users.
 
 #### Deficiencies
-- {{ XXX }}
+- **Expensive:** Costs a lot to run.
+- **Scalability:** Long polling may not continue to be viable as load increases.
+- **Collaborative editing:** Doesn't support real-time collaborative editing of documents.
 
 🎉 Congratulations - you've got a happy and informed client.
 
