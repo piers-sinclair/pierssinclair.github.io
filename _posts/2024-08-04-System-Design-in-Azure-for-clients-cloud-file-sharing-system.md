@@ -1,12 +1,12 @@
 ---
 layout: post
 title:  "🧩 System Design in Azure for Clients - Cloud File Sharing System"
-date:   2024-08-04 01:00:00 +1000
+date:   2024-08-24 01:00:00 +1000
 categories: system-design
 tags: system-design, azure, software-architecture, cloud-architecture, solution-architecture
 author:
 - Piers Sinclair
-published: false
+published: true
 ---
 
 Welcome to my series on system design in Azure, where I take you through designing a complex system on the Azure platform.
