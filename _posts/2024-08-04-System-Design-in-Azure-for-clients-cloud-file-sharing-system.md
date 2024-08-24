@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "🧩 System Design in Azure for Clients - Cloud File Sharing System"
+title:  🧩 System Design in Azure for Clients - Cloud File Sharing System
 date:   2024-08-24 01:00:00 +1000
 categories: system-design
 tags: system-design, azure, software-architecture, cloud-architecture, solution-architecture
@@ -39,7 +39,7 @@ A: Yes.
 Q: Will we need permissions for sharing files?\
 A: Users should be able to share as read-only or edit.
 
-Q: Do we need to support real-time editing of documents between multiple users?
+Q: Do we need to support real-time editing of documents between multiple users?\
 A: Let's keep it simple for now; two users can edit a document, but not simultaneously.
 
 Q: What device types will access the files?\
@@ -252,7 +252,7 @@ For the amount of data, we can assume 50 KB per block.
 
 #### Azure Calculator
 
-An initial estimate gives us [$17 million AUD](https://azure.com/e/20b7869d8e314a4d9565bd39308e8e8b)
+An initial estimate gives us [$17 million AUD per month](https://azure.com/e/20b7869d8e314a4d9565bd39308e8e8b)
 
 ![That's a hefty bill!](/assets/images/2024-08-04-System-Design-in-Azure-for-clients-cloud-file-sharing-system/big-azure-costs.png)
 **Figure: That's a hefty bill!**
@@ -270,20 +270,20 @@ We can use [data life cycle management](https://learn.microsoft.com/en-us/azure/
 
 Assuming the above policy, let's recalculate our Azure costs using the following rough estimates:
 
-Hot Tier: 450 GB (last month of data)
-Cool Tier: 900 GB (previous three months of data - Hot Tier amount)
-Archive Tier: 249,000 TB (250,000 TB - Hot and Cool Tier)
+**Hot Tier:** 450 GB (last month of data)\
+**Cool Tier:** 900 GB (previous three months of data - Hot Tier amount)\
+**Archive Tier:** 249,000 TB (250,000 TB - Hot and Cool Tier)
 
-**Hot Tier Reads:** 9 billion
+**Hot Tier Reads:** 9 billion\
 **Hot Tier Writes:** 9 billion
 
-**Cool Tier Reads:** < 10 thousand (significantly reduced as the files haven't been accessed in > 30 days)
+**Cool Tier Reads:** < 10 thousand (significantly reduced as the files haven't been accessed in > 30 days)\
 **Cool Tier Writes:** 9 billion (the same amount of data transferred as hot)
 
-**Hot Tier Reads:** < 10 thousand (significantly reduced as the files haven't been accessed in > 30 days)
+**Hot Tier Reads:** < 10 thousand (significantly reduced as the files haven't been accessed in > 30 days)\
 **Hot Tier Writes:** 9 billion (same amount of data transferred as hot)
 
-[New calculation -> $2 million AUD](https://azure.com/e/eeca9192e563492980529a90dce8a0ed)
+After performing a new calculation we get [$2 million AUD per month](https://azure.com/e/eeca9192e563492980529a90dce8a0ed).
 
 ![A more manageable Azure bill](/assets/images/2024-08-04-System-Design-in-Azure-for-clients-cloud-file-sharing-system/big-azure-costs.png)
 **Figure: A more manageable Azure bill**
@@ -328,6 +328,7 @@ Now, we've got an awesome architecture diagram to show our client, but we also n
 - **Expensive:** Costs a lot to run.
 - **Scalability:** Long polling may not continue to be viable as load increases.
 - **Collaborative editing:** Doesn't support real-time collaborative editing of documents.
+- **User Experience:** When file conflicts occur, there is room for improvement in how it is managed.
 
 🎉 Congratulations - you've got a happy and informed client.
 

@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="luyTccmV0bs7PwRlDScu" name="Page-1">
-        <mxGraphModel dx="1044" dy="387" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="614" dy="599" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="#ffffff" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -13,7 +13,7 @@
                 <mxCell id="7" value="" style="edgeStyle=none;html=1;startArrow=classic;startFill=1;" parent="1" source="2" target="3" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="15" value="" style="edgeStyle=none;html=1;startArrow=classic;startFill=1;" edge="1" parent="1" source="2" target="13">
+                <mxCell id="15" value="" style="edgeStyle=none;html=1;startArrow=classic;startFill=1;" parent="1" source="2" target="13" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="2" value="File Sharing Web API" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/app_services/App_Services.svg;" parent="1" vertex="1">
@@ -31,7 +31,7 @@
                 <mxCell id="9" value="" style="edgeStyle=none;html=1;startArrow=classic;startFill=1;" parent="1" source="8" target="5" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="14" value="" style="edgeStyle=none;html=1;startArrow=classic;startFill=1;" edge="1" parent="1" source="8" target="13">
+                <mxCell id="14" value="" style="edgeStyle=none;html=1;startArrow=classic;startFill=1;" parent="1" source="8" target="13" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="8" value="Client" style="points=[[0.13,0.02,0],[0.5,0,0],[0.87,0.02,0],[0.885,0.4,0],[0.985,0.985,0],[0.5,1,0],[0.015,0.985,0],[0.115,0.4,0]];verticalLabelPosition=bottom;sketch=0;html=1;verticalAlign=top;aspect=fixed;align=center;pointerEvents=1;shape=mxgraph.cisco19.laptop;fillColor=#005073;strokeColor=none;" parent="1" vertex="1">
@@ -43,13 +43,13 @@
                 <mxCell id="11" value="File Metadata Storage&lt;br&gt;" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/databases/SQL_Database.svg;" parent="1" vertex="1">
                     <mxGeometry x="560" y="270" width="48" height="64" as="geometry"/>
                 </mxCell>
-                <mxCell id="17" value="" style="edgeStyle=none;html=1;startArrow=classic;startFill=1;" edge="1" parent="1" source="13" target="16">
+                <mxCell id="17" value="" style="edgeStyle=none;html=1;startArrow=classic;startFill=1;" parent="1" source="13" target="16" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="13" value="Authentication Server" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/app_services/App_Services.svg;" vertex="1" parent="1">
+                <mxCell id="13" value="Authentication Server" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/app_services/App_Services.svg;" parent="1" vertex="1">
                     <mxGeometry x="220" y="310" width="64" height="64" as="geometry"/>
                 </mxCell>
-                <mxCell id="16" value="Identity Database" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/databases/SQL_Database.svg;" vertex="1" parent="1">
+                <mxCell id="16" value="Identity Database" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/databases/SQL_Database.svg;" parent="1" vertex="1">
                     <mxGeometry x="228" y="430" width="48" height="64" as="geometry"/>
                 </mxCell>
             </root>
