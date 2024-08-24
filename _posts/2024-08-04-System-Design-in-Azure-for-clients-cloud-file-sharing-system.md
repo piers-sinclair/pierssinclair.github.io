@@ -158,7 +158,7 @@ According to [CAP Theorem](https://en.wikipedia.org/wiki/CAP_theorem), a distrib
 
 We employ multiple databases to address the need for both high availability and consistency.
 
-We can store our file data in Azure Blob Storage, which aims to balance high availability and consistency in most situations. It achieves this balance by [adopting a strong consistency model for reads after a write operation](https://learn.microsoft.com/en-us/azure/storage/blobs/concurrency-manage) and [ensuring availability through storage redundancy across different regions](https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy). However, Azure Blob Storage doesn't store all the metadata we need for our files, and it doesn't guarantee ACID compliance because it only offers consistency and durability.
+We can store our file data in Azure Blob Storage, which aims to balance high availability and consistency in most situations. It achieves this balance by [adopting a strong consistency model for reads after a write operation](https://learn.microsoft.com/en-us/azure/storage/blobs/concurrency-manage) and [ensuring availability through storage redundancy across different regions](https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy). However, Azure Blob Storage doesn't store all the metadata we need for our files, and it doesn't guarantee [ACID](https://en.wikipedia.org/wiki/ACID) compliance because it only offers consistency and durability.
 
 For the metadata, consistency is vital because the users should always know the state of a file, so we will use an [Azure SQL database](https://learn.microsoft.com/en-us/azure/azure-sql/database/?view=azuresql) to ensure ACID compliance.
 
