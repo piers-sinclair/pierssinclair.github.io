@@ -9,6 +9,9 @@ author:
 published: true
 ---
 
+![DRY vs WET](/assets/images/2024-12-16-Durable-Dotnet-The-Dry-Trap)\
+**Figure: To DRY or not to DRY?**
+
 I often see the concept of Do Not Repeat Yourself (DRY) championed as the most important concept for software engineers to follow.
 
 It's true that where possible you want to reduce duplication in code to avoid maintaining the same logic in multiple places, and potential synchronization issues.
