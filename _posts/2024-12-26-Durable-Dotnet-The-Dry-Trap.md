@@ -35,8 +35,8 @@ Let's say we are building a system for managing products. To represent a product
 ```csharp
 public class Product
 {
-    public Guid Id { get; set; }
-    public decimal Price { get; set; }
+    public Guid Id { get; set; }
+    public decimal Price { get; set; }
 }
 ```
 
@@ -50,33 +50,33 @@ Here's what they look like:
 ```csharp
 public class PhysicalProduct : Product
 {
-    private const decimal _salesTaxModifier = 1.1M;
-    public decimal GetSellPrice()
- {
-        return Price * _salesTaxModifier;
- }
+    private const decimal _salesTaxModifier = 1.1M;
+    public decimal GetSellPrice()
+    {
+        return Price * _salesTaxModifier;
+    }
 }
 ```
 
 ```csharp
 public class DigitalProduct : Product
 {
-    private const decimal _salesTaxModifier = 1.1M;
-    public decimal GetSellPrice()
- {
-        return Price * _salesTaxModifier;
- }
+    private const decimal _salesTaxModifier = 1.1M;
+    public decimal GetSellPrice()
+    {
+        return Price * _salesTaxModifier;
+    }
 }
 ```
 
 ```csharp
 public class Service : Product
 {
-    private const decimal _salesTaxModifier = 1.1M;
-    public decimal GetSellPrice()
- {
-        return Price * _salesTaxModifier;
- }
+    private const decimal _salesTaxModifier = 1.1M;
+    public decimal GetSellPrice()
+    {
+        return Price * _salesTaxModifier;
+    }
 }
 ```
 
@@ -85,15 +85,15 @@ Now, a clever engineer might come along and say, "Hey, that's a lot of duplicati
 ```csharp
 public class Product
 {
-    public Guid Id { get; set; }
-    public string Name { get; set; }
-    public decimal Price { get; set; }
-    
-    private const decimal _salesTaxModifier = 1.1M;
-    public decimal GetSellPrice()
- {
-        return Price * _salesTaxModifier;
- }
+    public Guid Id { get; set; }
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+    
+    private const decimal _salesTaxModifier = 1.1M;
+    public decimal GetSellPrice()
+    {
+        return Price * _salesTaxModifier;
+    }
 }
 ```
 
@@ -108,12 +108,12 @@ private const decimal _salesTaxModifier = 1.1M;
 private const decimal _discount = 0.95M;
 public decimal GetSellPrice()
 {
-    var sellPrice = Price * _salesTaxModifier;
-    if(this is DigitalProduct || this is Service)
- {
-        sellPrice = sellPrice * _discount; 
- }
-    return sellPrice;
+    var sellPrice = Price * _salesTaxModifier;
+    if(this is DigitalProduct || this is Service)
+    {
+        sellPrice = sellPrice * _discount; 
+    }
+    return sellPrice;
 }
 ```
 
@@ -128,22 +128,22 @@ private const decimal _salesTaxModifier = 1.1M;
 private const decimal _discount = 0.95M;
 public decimal GetSellPrice()
 {
-    decimal sellPrice;
-    if(this is Service)
- {
-        sellPrice = Price;
- }
-    else
- {
-        sellPrice = Price * _salesTaxModifier
- }
+    decimal sellPrice;
+    if(this is Service)
+    {
+        sellPrice = Price;
+    }
+    else
+    {
+        sellPrice = Price * _salesTaxModifier
+    }
 
-    if(this is DigitalProduct || this is Service)
- {
-        sellPrice = sellPrice * _discount; 
- }
+    if(this is DigitalProduct || this is Service)
+    {
+        sellPrice = sellPrice * _discount; 
+    }
 
-    return sellPrice;
+    return sellPrice;
 }
 ```
 
@@ -154,53 +154,53 @@ For this reason, it's better to keep the function local to each product, and thi
 ```csharp
 public interface IProduct
 {
-    Guid Id { get; set; }
-    string Name { get; set; }
-    decimal Price { get; set; }
+    Guid Id { get; set; }
+    string Name { get; set; }
+    decimal Price { get; set; }
 
-    decimal GetSellPrice();
+    decimal GetSellPrice();
 }
 
 public class PhysicalProduct : IProduct
 {
-    public required Guid Id { get; set; }
-    public required string Name { get; set; }
-    public required decimal Price { get; set; }
-    public decimal GetSellPrice()
- {
-        return Price * Constants.SalesTaxModifier;
- }
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public required decimal Price { get; set; }
+    public decimal GetSellPrice()
+    {
+        return Price * Constants.SalesTaxModifier;
+    }
 }
 
 public class DigitalProduct : IProduct
 {
-    public required Guid Id { get; set; }
-    public required string Name { get; set; }
-    public required decimal Price { get; set; }
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public required decimal Price { get; set; }
 
-    private const decimal _discount = 0.95M;
-    public decimal GetSellPrice()
- {
-        return Price * Constants.SalesTaxModifier * _discount;
- }
+    private const decimal _discount = 0.95M;
+    public decimal GetSellPrice()
+    {
+        return Price * Constants.SalesTaxModifier * _discount;
+    }
 }
 
 public class Service : IProduct
 {
-    public required Guid Id { get; set; }
-    public required string Name { get; set; }
-    public required decimal Price { get; set; }
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public required decimal Price { get; set; }
 
-    private const decimal _discount = 0.95M;
-    public decimal GetSellPrice()
- {
-        return Price * _discount;
- }
+    private const decimal _discount = 0.95M;
+    public decimal GetSellPrice()
+    {
+        return Price * _discount;
+    }
 }
 
 public class Constants
 {
-    public const decimal SalesTaxModifier = 1.1M;
+    public const decimal SalesTaxModifier = 1.1M;
 }
 ```
 
@@ -226,16 +226,16 @@ For example, you might have an endpoint for creating and updating your products.
 ```csharp
 public enum Status
 {
-    Active,
-    Inactive
+    Active,
+    Inactive
 }
 
 public class ProductRequest
 {
-    public required Guid Id { get; set; }
-    public required string Name { get; set; }
-    public required decimal Price { get; set; }
-    public required Status Status { get; set; }
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public required decimal Price { get; set; }
+    public required Status Status { get; set; }
 }
 ```
 
@@ -250,22 +250,22 @@ For these reasons, it's better to keep the models of requests separate. Create b
 ```csharp
 public enum Status
 {
-    Active,
-    Inactive
+    Active,
+    Inactive
 }
 
 public class UpdateProductRequest
 {
-    public required Guid Id { get; set; }
-    public required string Name { get; set; }
-    public required decimal Price { get; set; }
-    public required Status Status { get; set; }
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public required decimal Price { get; set; }
+    public required Status Status { get; set; }
 }
 
 public class CreateProductRequest
 {
-    public required string Name { get; set; }
-    public required decimal Price { get; set; }
+    public required string Name { get; set; }
+    public required decimal Price { get; set; }
 }
 ```
 
