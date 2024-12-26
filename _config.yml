@@ -21,10 +21,9 @@
 title: Piers Sinclair
 author:
   name: Piers Sinclair
-  jobTitle: Delivery Lead
-  website: https://www.ssw.com.au/people/piers-sinclair
+  jobTitle: Senior Software Engineer
+  website: https://www.linkedin.com/in/piers-sinclair/
 description: >- # this means to ignore newlines until "baseurl:"
-  Find me working at SSW!
 
 show_excerpts: false # set to true to show excerpts on the homepage
 url: "https://www.piers-sinclair.com" # the base hostname & protocol for your site, e.g. http://example.com
