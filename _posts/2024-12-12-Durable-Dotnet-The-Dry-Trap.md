@@ -17,7 +17,7 @@ Unfortunately, this concept is promoted so religiously that it causes a dangerou
 
 The problem of course, is that when misused DRY causes more headaches and is more dangerous than any duplicated code that could occur in a system.
 
-At this point you might be wondering what could possibly be the problem with reducing duplication?
+You might wonder: what's wrong with reducing duplication?
 
 The answer as usual comes back to tight coupling, separation of concerns and SOLID.
 
@@ -219,6 +219,22 @@ It can be tempting to reuse a class for different requests in your REST API.
 
 For example you might have an endpoint for both creating and updating your products. In this case you might think, why not have 1 ProductRequest model and use it across both?
 
+```csharp
+public enum Status
+{
+    Active,
+    Inactive
+}
+
+public class ProductRequest
+{
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public required decimal Price { get; set; }
+    public required Status Status { get; set; }
+}
+```
+
 It sounds good in theory but the problem is that there are likely to be subtle differences between your endpoints that confuse things.
 
 For example, when creating a product you might not need to provide an ID because the system creates one for you while in your update request the ID might be required so it knows which resource to update.
@@ -226,6 +242,28 @@ For example, when creating a product you might not need to provide an ID because
 Similarly, a status field may not be required on create because it is always created with status "Active", but for update you might be able to set it to either "Inactive" or "Active" meaning you need the status field.
 
 For these reasons, it's better to keep the models of requests separate. Simply create both an UpdateProductRequest.cs and a CreateProductRequest.cs
+
+```csharp
+public enum Status
+{
+    Active,
+    Inactive
+}
+
+public class UpdateProductRequest
+{
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public required decimal Price { get; set; }
+    public required Status Status { get; set; }
+}
+
+public class CreateProductRequest
+{
+    public required string Name { get; set; }
+    public required decimal Price { get; set; }
+}
+```
 
 Remember, it's fairly cheap to reproduce properties across classes but untangling classes that have been closely coupled can be a nightmare.
 
