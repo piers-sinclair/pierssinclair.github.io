@@ -9,7 +9,7 @@ author:
 published: true
 ---
 
-![DRY vs WET](/assets/images/2024-12-16-Durable-Dotnet-The-Dry-Trap)\
+![DRY vs WET](/assets/images/2024-12-16-Durable-Dotnet-The-Dry-Trap/1.png)\
 **Figure: To DRY or not to DRY?**
 
 I often see the concept of Do Not Repeat Yourself (DRY) championed as the most important concept for software engineers to follow.
