@@ -41,13 +41,13 @@ minima:
     youtube_channel: UC3vgxRVdqi11c8xt5KZ6vhg
 
 # Build settings
+markdown: GFM
 theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-redirect-from
 
-markdown: GFM
 
 # Exclude from processing.
 # The following items will not be processed, by default.
