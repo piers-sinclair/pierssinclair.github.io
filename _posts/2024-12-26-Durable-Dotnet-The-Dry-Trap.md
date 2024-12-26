@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  🧩 Durable .NET - The Dry Trap
-date:   2024-12-12 01:00:00 +1000
+title: 🥅 Durable .NET - The Dry Trap
+date:  2024-12-26 01:00:00 +1000
 categories: dotnet
-tags: clean-code, dry, wet, solid, object-oriented-programming, oop
+tags: clean-code, dry, wet, solid, object-oriented-programming, oop, separation-of-concerns, tight-coupling
 author:
 - Piers Sinclair
 published: true
