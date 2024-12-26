@@ -30,7 +30,7 @@ Let's take a look at a few examples.
 
 ### Scenario #1 - The Product Class
 
-Let's say we are building a system for processing orders in an online store. To represent an order we have a `Product` class:
+Let's say we are building a system for managing products. To represent an product we have a `Product` class:
 
 ```csharp
 public class Product
@@ -95,6 +95,7 @@ public class Product
         return Price * _salesTaxModifier;
     }
 }
+```
 
 At first glance it looks like a great idea, the logic is identitical. The problem is that while the logic is the same right now, it's unlikely to remain the same because it has a logically different purpose. There is no guarantee that a product's price will always remain the same among all product types.
 
