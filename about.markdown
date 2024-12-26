@@ -11,7 +11,7 @@ Hey All,
 
 Welcome to my blog!
 
-I'm a Delivery Lead with a strong background in Software Engineering. Over the years, I've taken on various roles including Tech Lead, Product Owner, and Scrum Master. This diverse experience has given me a broad perspective on project delivery.
+I'm a software engineer with a background in fullstack web development with .NET, SQL and Azure. Over the years, I've taken on various roles including Tech Lead, Product Owner, and Scrum Master. This diverse experience has given me a broad perspective on project delivery.
 
 I've led projects automating Annual Review processes, enhanced recruitment pipelines as a Product Owner, and served as Scrum Master on Content Management Systems (CMS), Invoicing Systems, and Learning Management Systems (LMS).
 
