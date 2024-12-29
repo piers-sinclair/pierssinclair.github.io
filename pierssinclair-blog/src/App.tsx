@@ -11,7 +11,7 @@ import Post from "./pages/post/Post";
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="bg-gray-800 text-gray-300 min-h-screen">
+      <div className="bg-zinc-900 text-gray-300 min-h-screen">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />

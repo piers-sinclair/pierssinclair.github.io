@@ -27,7 +27,7 @@ const BlogPost: React.FC = () => {
             <p className="text-gray-400 mb-4">{format(new Date(post.frontmatter.date), 'dd MMM, yyyy')} · {post.frontmatter.author}</p>
             <hr className="border-gray-700 mb-8" />
   
-            <div className="prose prose-lg prose-invert max-w-none">
+            <div className="prose prose-lg prose-invert max-w-none text-sm">
                 <ReactMarkdown>{post.content}</ReactMarkdown>
             </div>
         </div>

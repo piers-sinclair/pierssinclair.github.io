@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+img {
+    margin: 0 !important;
+    display: inline !important;
+}
