@@ -41,7 +41,7 @@ const Home: React.FC = () => {
                             {format(new Date(post.frontmatter.date), 'dd MMM, yyyy')}
                         </p>
                         <Link to={`/post/${post.slug}`} className="group">
-                            <h2 className="text-2xl font-semibold text-blue-500 group-hover:text-blue-300 transition-all duration-300 ease-in-out transform hover:scale-105">
+                            <h2 className="text-2xl text-blue-400 group-hover:text-blue-200 transition-all duration-300 ease-in-out transform hover:scale-105">
                                 {post.frontmatter.title}
                             </h2>
                         </Link>
