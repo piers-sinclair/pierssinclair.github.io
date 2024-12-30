@@ -199,11 +199,11 @@ Retry is straightforward. We want to follow the [retry pattern](https://learn.mi
 3. Reprocessing it after a delay
 4. Repeating this process until a maximum number of attempts is reached, and if still unsuccessful, then logging an error and moving the message to the [dead-letter queue](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-dead-letter-queues).
 
-### Phase 3 - Communicating the Sauce
+## Phase 3 - Communicating the Sauce
 
 Now, we've got an awesome architecture diagram to show our client, but we also need to communicate the benefits and deficiencies of our system when we talk to the client.
 
-#### Benefits
+### Benefits
 - **Good UX:** Notifications are rate-limited, and our users have control over their notifications.
 - **Scalable:** All components are designed to be scaled up and down easily.
 - **Reliable:** Our components are built so they do not rely on each other via Azure Service Bus.
@@ -211,7 +211,7 @@ Now, we've got an awesome architecture diagram to show our client, but we also n
 - **Maintainability:** We have Application Insights to alert us of errors and log issues.
 
 
-#### Deficiencies
+### Deficiencies
 - **Complexity:** The system is highly complex, with many moving parts, making deployment more difficult.
 - **Global Availability:** Our system hasn't factored in whether a country can access our third-party services. This problem is not a huge deal because most customers are in the US.
 - **Not real-time:** Our notifications may take time to deliver. This delay would be a problem if we needed to send a notification about a login or a security issue.

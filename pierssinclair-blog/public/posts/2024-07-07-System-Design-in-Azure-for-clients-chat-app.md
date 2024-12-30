@@ -215,17 +215,17 @@ If users are offline, it would be good to send them notifications so they know a
 **Figure: Our chat app with a notification system**
 
 
-### Phase 3 - Communicating the Sauce
+## Phase 3 - Communicating the Sauce
 
 Now, we've got an awesome architecture diagram to show our client, but we also need to communicate the benefits and deficiencies of our system when we talk to the client.
 
-#### Benefits
+### Benefits
 - **Real-time UX:** Users can chat in real-time and see the status of other users.
 - **Scalable:** We can support millions of users, and our services, such as Azure Functions and Azure Cosmos DB, can easily scale horizontally.
 - **Reliable:** The system is resistant to failure because it tracks message status, and users will have confidence that their messages have been delivered.
 - **Available:** The system uses Azure services, which guarantee high availability.
 
-#### Deficiencies
+### Deficiencies
 - **Consistency:** Messages and user status may not always be consistent, but this is not a critical priority for a chat app.
 - **Complexity:** It's a very complex system with many different pieces the development team needs to understand.
 - **Cost:** We are making use of a lot of expensive services in Azure, so before implementing, we should perform a complete cost analysis using the [Azure calculator](https://azure.microsoft.com/en-gb/pricing/calculator/)
