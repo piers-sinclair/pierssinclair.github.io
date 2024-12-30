@@ -1,8 +1,6 @@
 ---
 layout: post
 title:  "🧩 System Design in Azure for Clients - URL Shortener"
-redirect_from:
-  - /system-design,/azure,/software-architecture,/cloud-architecture,/solution-architecture/2024/06/12/System-Design-in-Azure-for-Clients-URL-Shortener.html
 date:   2024-06-13 7:52:53 +1000
 categories: system-design
 tags: system-design, azure, software-architecture, cloud-architecture, solution-architecture

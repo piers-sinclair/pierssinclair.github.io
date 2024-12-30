@@ -1,8 +1,6 @@
 ---
 layout: post
 title:  "🧩 System Design in Azure for Clients - Video Streaming Service"
-redirect_from:
-  - /system-design,/azure,/software-architecture,/cloud-architecture,/solution-architecture/2024/06/23/System-Design-in-Azure-for-clients-Video-Streaming-Service.html
 date:   2024-06-23 15:00:00 +1000
 categories: system-design
 tags: system-design, azure, software-architecture, cloud-architecture, solution-architecture
