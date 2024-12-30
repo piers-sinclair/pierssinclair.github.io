@@ -5,7 +5,6 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Home from "./pages/home/Home";
-import About from "./pages/about/About";
 import Post from "./pages/post/Post";
 
 const App: React.FC = () => {
@@ -15,7 +14,7 @@ const App: React.FC = () => {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/about/:slug" element={<Post />} />
           <Route path="/post/:slug" element={<Post />} />
 
         </Routes>

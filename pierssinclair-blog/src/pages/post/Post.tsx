@@ -12,6 +12,7 @@ const BlogPost: React.FC = () => {
         if(!slug)
             return;
 
+        console.log(slug);
         const loadPost = async (fileName: string) => { 
             const post = await fetchPost(fileName);
             setPost(post);
