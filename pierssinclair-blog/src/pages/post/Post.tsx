@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
 import { useParams } from "react-router-dom";
 import { fetchPost, PostModel } from "../../utils/postUtils";
 import { format } from "date-fns";
 import Giscus from '@giscus/react';
+import MarkdownRenderer from "../../components/MarkdownRenderer";
+
 
 const BlogPost: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
@@ -13,7 +14,6 @@ const BlogPost: React.FC = () => {
         if (!slug)
             return;
 
-        console.log(slug);
         const loadPost = async (fileName: string) => {
             const post = await fetchPost(fileName);
             setPost(post);
@@ -30,7 +30,7 @@ const BlogPost: React.FC = () => {
             <hr className="border-gray-700 mb-8" />
 
             <div className="prose prose-lg prose-invert max-w-none text-sm">
-                <ReactMarkdown>{post.content}</ReactMarkdown>
+            <MarkdownRenderer content={post.content} />
             </div>
             <Giscus
                 repo="piers-sinclair/pierssinclairssw.github.io"
