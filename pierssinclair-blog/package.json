@@ -9,13 +9,13 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.105",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@types/react-router-dom": "^5.3.3",
     "buffer": "^6.0.3",
     "date-fns": "^3.6.0",
+    "feed": "^4.2.2",
     "front-matter": "^4.0.2",
+    "marked": "^15.0.4",
     "postcss-selector-parser": "^6.0.10",
     "prism-react-renderer": "^2.4.1",
     "react": "^18.3.1",
@@ -30,10 +30,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run generate:rss && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "generate:rss": "tsc src/utils/generateRSS.ts --outDir dist && node dist/generateRSS.js"
   },
   "eslintConfig": {
     "extends": [
@@ -55,7 +56,9 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/node": "^16.18.122",
     "@types/react-syntax-highlighter": "^15.5.13",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.17",
+    "ts-node": "^10.9.2"
   }
 }

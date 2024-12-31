@@ -11,6 +11,12 @@
 # production
 /build
 
+# scripts
+/dist
+
+# feed
+/public/feed.xml
+
 # misc
 .DS_Store
 .env.local
