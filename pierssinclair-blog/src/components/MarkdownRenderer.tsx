@@ -11,18 +11,20 @@ interface MarkdownRendererProps {
 
 const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
   return (
-    <ReactMarkdown remarkPlugins={[remarkGfm]}
-    components={{
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      components={{
         code({ className, children }) {
           const match = /language-(\w+)/.exec(className || '');
-            if(match) console.log(match[1]);
-          return match ? (
-            <SyntaxHighlighter style={vscDarkPlus} className="custom-syntax-highlighter" language={match[1]}>
-              {String(children).replace(/\n$/, '')}
-            </SyntaxHighlighter>
-          ) : (
-            <code className={className}>{children}</code>
-          );
+          if (match) {
+            return (
+              <SyntaxHighlighter style={vscDarkPlus} className="custom-syntax-highlighter" language={match[1]}>
+                {String(children).replace(/\n$/, '')}
+              </SyntaxHighlighter>
+            );
+          } else {
+            return <code className="inline-code">{children}</code>;
+          }
         },
       }}
     >
