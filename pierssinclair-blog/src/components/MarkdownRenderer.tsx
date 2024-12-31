@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
+import './MarkdownRenderer.css';
 
 interface MarkdownRendererProps {
   content: string;
@@ -16,7 +17,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
           const match = /language-(\w+)/.exec(className || '');
             if(match) console.log(match[1]);
           return match ? (
-            <SyntaxHighlighter style={vscDarkPlus} language={match[1]}>
+            <SyntaxHighlighter style={vscDarkPlus} className="custom-syntax-highlighter" language={match[1]}>
               {String(children).replace(/\n$/, '')}
             </SyntaxHighlighter>
           ) : (
