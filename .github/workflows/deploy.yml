@@ -30,6 +30,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: checkfiles
+        run: ls -la ./build
+
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v1
         with:
