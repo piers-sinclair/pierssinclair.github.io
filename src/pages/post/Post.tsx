@@ -33,7 +33,7 @@ const BlogPost: React.FC = () => {
             <MarkdownRenderer content={post.content} />
             </div>
             <Giscus
-                repo="piers-sinclair/pierssinclairssw.github.io"
+                repo="piers-sinclair/pierssinclair.github.io"
                 repoId="MDEwOlJlcG9zaXRvcnkzODQ5NDU4NDk="
                 category="General"
                 categoryId="DIC_kwDOFvHOuc4Cf9Sl"
