@@ -27,12 +27,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: List source directory
-        run: ls -la src/utils/
-
-      - name: List source directory
-        run: ls -la
-
       - name: Build
         run: npm run build
 
