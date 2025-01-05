@@ -7,13 +7,13 @@
     <title>Redirecting...</title>
   </head>
   <body>
-    <p>Redirecting to the homepage...</p>
+    <p>Redirecting...</p>
     <script>
       const path = window.location.pathname;
-      const search = window.location.search;      
-      const newUrl = `${window.location.origin}${path}${search}`;
-
-      window.location.href = newUrl;
+      const search = window.location.search;
+      const origin = window.location.origin;      
+      const newUrl = `${origin}${path}${search}`;
+      window.location.replace(newUrl);
     </script>
   </body>
 </html>
