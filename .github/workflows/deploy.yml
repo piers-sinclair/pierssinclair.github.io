@@ -30,8 +30,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: checkfiles
-        run: ls -la ./build
+      - name: Copy Routes For Static Hosting
+        run: npm run postBuild
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v1
