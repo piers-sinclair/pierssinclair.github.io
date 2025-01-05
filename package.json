@@ -34,7 +34,7 @@
     "build": "npm run generate:rss && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "generate:rss": "tsc src/utils/generateRSS.ts --outDir dist && node dist/generateRSS.js"
+    "generate:rss": "tsc ./src/utils/generateRSS.ts --outDir dist && node ./dist/generateRSS.js"
   },
   "eslintConfig": {
     "extends": [
