@@ -1,5 +1,9 @@
 [
     {
+      "from": "/system-design/2024/06/30/System-Design-in-Azure-for-clients-notification-system.html",
+      "to": "/post/2024-06-30-System-Design-in-Azure-for-clients-notification-system"
+    },
+    {
       "from": "/system-design,/azure,/software-architecture,/cloud-architecture,/solution-architecture/2024/06/12/System-Design-in-Azure-for-Clients-URL-Shortener.html",
       "to": "/post/2024-06-09-System-Design-in-Azure-for-Clients-URL-Shortener"
     },
