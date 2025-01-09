@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table"
 import { DataTable } from "@/components/ui/data-table";
-import { ArrowUpDown } from "lucide-react"
-import { Button } from "@/components/ui/button";
-import SortableHeaderButton from "@/components/ui/sortable-header-button";
+import SortableHeader from "@/components/ui/sortable-header";
 
 export type Book = {
     order: number
@@ -15,19 +13,19 @@ export type Book = {
 export const columns: ColumnDef<Book>[] = [
     {
         accessorKey: "order",
-        header: ({ column }) => <SortableHeaderButton column={column} title="#" />,
+        header: ({ column }) => <SortableHeader column={column} title="#" />,
     },
     {
         accessorKey: "name",
-        header: ({ column }) => <SortableHeaderButton column={column} title="Name" />,
+        header: ({ column }) => <SortableHeader column={column} title="Name" />,
     },
     {
         accessorKey: "author",
-        header: ({ column }) => <SortableHeaderButton column={column} title="Author" />,
+        header: ({ column }) => <SortableHeader column={column} title="Author" />,
     },
     {
         accessorKey: "difficulty",
-        header: ({ column }) => <SortableHeaderButton column={column} title="Difficulty (1-5)" />,
+        header: ({ column }) => <SortableHeader column={column} title="Difficulty (1-5)" />,
     },
 ]
 

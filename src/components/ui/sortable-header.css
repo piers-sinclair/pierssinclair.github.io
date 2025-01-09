@@ -1,4 +1,4 @@
-.sortable-header-button {
+.sortable-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -17,6 +17,6 @@
     transition: transform 0.2s;
   }
   
-  .sortable-header-button:hover .sortable-header-icon {
+  .sortable-header:hover .sortable-header-icon {
     transform: rotate(180deg);
   }
