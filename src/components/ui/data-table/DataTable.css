@@ -1,0 +1,3 @@
+.no-hover-highlight tr:hover {
+    background-color: transparent !important;
+  }
