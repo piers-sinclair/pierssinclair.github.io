@@ -3,6 +3,7 @@ import { ColumnDef } from "@tanstack/react-table"
 import { DataTable } from "@/components/ui/data-table";
 import { ArrowUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button";
+import SortableHeaderButton from "@/components/ui/sortable-header-button";
 
 export type Book = {
     order: number
@@ -14,39 +15,19 @@ export type Book = {
 export const columns: ColumnDef<Book>[] = [
     {
         accessorKey: "order",
-        header:({ column }) => {
-            return (
-              <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-              >
-                Order
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-              </Button>
-            )
-          },
+        header: ({ column }) => <SortableHeaderButton column={column} title="Order" />,
     },
     {
         accessorKey: "name",
-        header: ({ column }) => {
-            return (
-              <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-              >
-                Name
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-              </Button>
-            )
-          },
+        header: ({ column }) => <SortableHeaderButton column={column} title="Name" />,
     },
     {
         accessorKey: "author",
-        header: "Author",
+        header: ({ column }) => <SortableHeaderButton column={column} title="Author" />,
     },
     {
         accessorKey: "difficulty",
-        header: "Difficulty (1-5)",
+        header: ({ column }) => <SortableHeaderButton column={column} title="Difficulty (1-5)" />,
     },
 ]
 
@@ -104,11 +85,11 @@ const ReadingList: React.FC = () => {
             <div className="prose prose-lg prose-invert max-w-none text-sm">
                 <div className="overflow-x-auto">
 
-                {data ? (
-            <DataTable columns={columns} data={data} />
-        ) : (
-            <p>Loading data...</p>
-        )}
+                    {data ? (
+                        <DataTable columns={columns} data={data} />
+                    ) : (
+                        <p>Loading data...</p>
+                    )}
                     <table className="min-w-full table-auto border-collapse">
                         <thead>
                             <tr>
