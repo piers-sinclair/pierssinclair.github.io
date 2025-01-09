@@ -1,0 +1,35 @@
+{
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/"
+        }
+    ],
+    "redirects": [
+        {
+            "source": "/system-design/2024/06/30/System-Design-in-Azure-for-clients-notification-system.html",
+            "destination": "/post/2024-06-30-System-Design-in-Azure-for-clients-notification-system",
+            "permanent": true
+        },
+        {
+            "source": "/system-design/2024/08/23/System-Design-in-Azure-for-clients-cloud-file-sharing-system.html",
+            "destination": "/post/2024-08-04-System-Design-in-Azure-for-clients-cloud-file-sharing-system",
+            "permanent": true
+        },
+        {
+            "source": "/system-design/2024/06/12/System-Design-in-Azure-for-Clients-URL-Shortener.html",
+            "destination": "/post/2024-06-09-System-Design-in-Azure-for-Clients-URL-Shortener",
+            "permanent": true
+        },
+        {
+            "source": "/system-design%2C/azure%2C/software-architecture%2C/cloud-architecture%2C/solution-architecture/2024/06/12/System-Design-in-Azure-for-Clients-URL-Shortener.html",
+            "destination": "/post/2024-06-09-System-Design-in-Azure-for-Clients-URL-Shortener",
+            "permanent": true
+        },
+        {
+            "source": "/system-design%2C/azure%2C/software-architecture%2C/cloud-architecture%2C/solution-architecture/2024/06/23/System-Design-in-Azure-for-clients-Video-Streaming-Service.html",
+            "destination": "/post/2024-06-15-System-Design-in-Azure-for-clients-Video-Streaming-Service",
+            "permanent": true
+        }
+    ]
+}
