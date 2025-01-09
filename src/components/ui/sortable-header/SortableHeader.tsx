@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowUpDown } from 'lucide-react';
-import './sortable-header.css';
+import './SortableHeader.css';
 
 interface SortableHeaderProps {
   column: any;

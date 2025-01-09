@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchPost, PostModel } from "../../utils/postUtils";
+import { fetchPost, PostModel } from "../../lib/postUtils";
 import { format } from "date-fns";
 import Giscus from '@giscus/react';
-import MarkdownRenderer from "../../components/MarkdownRenderer/MarkdownRenderer";
+import MarkdownRenderer from "../../components/markdown-renderer/MarkdownRenderer";
 
 
 const BlogPost: React.FC = () => {

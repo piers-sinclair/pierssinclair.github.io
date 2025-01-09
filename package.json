@@ -42,7 +42,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "jest",
-    "generate:rss": "tsx src/utils/generateRss.ts"
+    "generate:rss": "tsx src/lib/generateRss.ts"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
