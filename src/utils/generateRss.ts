@@ -1,5 +1,5 @@
-import * as fs from "fs";
-import * as path from "path";
+import fs from "fs";
+import path from "path";
 import { marked } from "marked";
 import { Feed } from "feed";
 import { fetchPostMetadata } from "./postUtils";
@@ -15,7 +15,7 @@ import { fetchPostMetadata } from "./postUtils";
   
   const baseUrl = "https://www.pierssinclair.com";
   
-  let feed = new Feed({
+  const feed = new Feed({
     title: "Piers Sinclair's Blog",
     description: "A feed of my blog posts",
     id: baseUrl,

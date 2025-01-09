@@ -1,5 +1,4 @@
-const fm = require("front-matter");
-  
+import frontMatter from 'front-matter';
 
 export interface PostModel {
     content: string;
@@ -34,7 +33,7 @@ export const fetchPost = async (fileName: string) => {
 }
 
 export const fetchPostMetadata = (fileName: string, fileContent: string) => {
-  const { attributes: frontmatter, body: content } = fm(fileContent);
+  const { attributes: frontmatter, body: content } = frontMatter(fileContent);
   return { frontmatter, content, slug: fileName.replace(".md", "") } as PostModel;
 
 }
