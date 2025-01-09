@@ -7,6 +7,10 @@ img {
     display: inline !important;
 }
 
+.no-hover-highlight tr:hover {
+  background-color: transparent !important;
+}
+
 @layer base {
   :root {
         --background: 0 0% 100%;

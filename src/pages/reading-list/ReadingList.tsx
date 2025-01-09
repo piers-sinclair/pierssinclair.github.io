@@ -15,7 +15,7 @@ export type Book = {
 export const columns: ColumnDef<Book>[] = [
     {
         accessorKey: "order",
-        header: ({ column }) => <SortableHeaderButton column={column} title="Order" />,
+        header: ({ column }) => <SortableHeaderButton column={column} title="#" />,
     },
     {
         accessorKey: "name",
