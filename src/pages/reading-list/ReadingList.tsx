@@ -1,6 +1,75 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { ColumnDef } from "@tanstack/react-table"
+import { DataTable } from "@/components/ui/data-table/DataTable";
+import SortableHeader from "@/components/ui/sortable-header/SortableHeader";
+
+export type Book = {
+    order: number
+    name: string
+    author: string
+    difficulty: string
+}
+
+export const columns: ColumnDef<Book>[] = [
+    {
+        accessorKey: "order",
+        header: ({ column }) => <SortableHeader column={column} title="#" />,
+    },
+    {
+        accessorKey: "name",
+        header: ({ column }) => <SortableHeader column={column} title="Name" />,
+    },
+    {
+        accessorKey: "author",
+        header: ({ column }) => <SortableHeader column={column} title="Author" />,
+    },
+    {
+        accessorKey: "difficulty",
+        header: ({ column }) => <SortableHeader column={column} title="Difficulty (1-5)" />,
+    },
+]
+
+async function getData(): Promise<Book[]> {
+    return [
+        {
+            order: 1,
+            name: "Clean Code: A Handbook of Agile Software Craftsmanship",
+            author: "Robert C. Martin",
+            difficulty: "⭐",
+        },
+        {
+            order: 2,
+            name: "Adaptive Code: Agile coding with design patterns and SOLID principles",
+            author: "Gary McLean Hall",
+            difficulty: "⭐⭐",
+        },
+        {
+            order: 3,
+            name: "Clean Architecture: A Craftsman's Guide to Software Structure and Design",
+            author: "Robert C. Martin",
+            difficulty: "⭐⭐⭐⭐",
+        },
+        {
+            order: 4,
+            name: "Domain-driven Design: Tackling Complexity in the Heart of Software",
+            author: "Eric Evans",
+            difficulty: "⭐⭐⭐⭐⭐",
+        }
+    ]
+}
 
 const ReadingList: React.FC = () => {
+    const [data, setData] = useState<any>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await getData();
+            setData(result);
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <div className="container mx-auto py-12 max-w-screen-md">
             <h1 className="text-5xl font-bold mb-4 text-gray-100">Reading List</h1>
@@ -9,40 +78,16 @@ const ReadingList: React.FC = () => {
             <br />
             <br />
             They are in the order I would read them.
-
+            <br />
+            <br />
             <div className="prose prose-lg prose-invert max-w-none text-sm">
                 <div className="overflow-x-auto">
-                    <table className="min-w-full table-auto border-collapse">
-                        <thead>
-                            <tr>
-                                <th className="px-4 py-2 text-left border-b w-80">Name</th>
-                                <th className="px-4 py-2 text-left border-b">Author</th>
-                                <th className="px-4 py-2 text-left border-b">Difficulty (1-5)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td className="px-4 py-2 border-b w-7/12">Clean Code: A Handbook of Agile Software Craftsmanship</td>
-                                <td className="px-4 py-2 border-b">Robert C. Martin</td>
-                                <td className="px-4 py-2 border-b">⭐</td>
-                            </tr>
-                            <tr>
-                                <td className="px-4 py-2 border-b w-7/12">Adaptive Code via C#: Class and Interface Design, Design Patterns, and SOLID Principles: Agile coding with design patterns and SOLID principles</td>
-                                <td className="px-4 py-2 border-b">Gary McLean Hall</td>
-                                <td className="px-4 py-2 border-b">⭐⭐</td>
-                            </tr>
-                            <tr>
-                                <td className="px-4 py-2 border-b w-7/12">Clean Architecture: A Craftsman's Guide to Software Structure and Design: A Craftsman's Guide to Software Structure and Design</td>
-                                <td className="px-4 py-2 border-b">Robert C. Martin</td>
-                                <td className="px-4 py-2 border-b">⭐⭐⭐⭐</td>
-                            </tr>
-                            <tr>
-                                <td className="px-4 py-2 border-b w-7/12">Domain-driven Design: Tackling Complexity in the Heart of Software</td>
-                                <td className="px-4 py-2 border-b">Eric Evans</td>
-                                <td className="px-4 py-2 border-b">⭐⭐⭐⭐⭐</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                    {data ? (
+                        <DataTable columns={columns} data={data} />
+                    ) : (
+                        <p>Loading data...</p>
+                    )}
                 </div>
 
             </div>
