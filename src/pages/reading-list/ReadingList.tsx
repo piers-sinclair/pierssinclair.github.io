@@ -8,8 +8,8 @@ const ReadingList: React.FC = () => {
             <h1 className="text-5xl font-bold mb-4 text-gray-100">Reading List</h1>
             <hr className="border-gray-700 mb-8" />
             These are the books I recommend for Software Engineers looking to improve their code.
-            <br/>
-            <br/>
+            <br />
+            <br />
             They are in the order I would read them.
 
             <div className="prose prose-lg prose-invert max-w-none text-sm">
@@ -24,17 +24,22 @@ const ReadingList: React.FC = () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td className="px-4 py-2 border-b w-80">Clean Code: A Handbook of Agile Software Craftsmanship</td>
+                                <td className="px-4 py-2 border-b w-7/12">Clean Code: A Handbook of Agile Software Craftsmanship</td>
                                 <td className="px-4 py-2 border-b">Robert C. Martin</td>
                                 <td className="px-4 py-2 border-b">⭐</td>
                             </tr>
                             <tr>
-                                <td className="px-4 py-2 border-b w-80">Clean Architecture: A Craftsman's Guide to Software Structure and Design: A Craftsman's Guide to Software Structure and Design</td>
+                                <td className="px-4 py-2 border-b w-7/12">Adaptive Code via C#: Class and Interface Design, Design Patterns, and SOLID Principles: Agile coding with design patterns and SOLID principles</td>
+                                <td className="px-4 py-2 border-b">Gary McLean Hall</td>
+                                <td className="px-4 py-2 border-b">⭐⭐</td>
+                            </tr>
+                            <tr>
+                                <td className="px-4 py-2 border-b w-7/12">Clean Architecture: A Craftsman's Guide to Software Structure and Design: A Craftsman's Guide to Software Structure and Design</td>
                                 <td className="px-4 py-2 border-b">Robert C. Martin</td>
                                 <td className="px-4 py-2 border-b">⭐⭐⭐⭐</td>
                             </tr>
                             <tr>
-                                <td className="px-4 py-2 border-b w-80">Domain-Driven Design</td>
+                                <td className="px-4 py-2 border-b w-7/12">Domain-driven Design: Tackling Complexity in the Heart of Software</td>
                                 <td className="px-4 py-2 border-b">Eric Evans</td>
                                 <td className="px-4 py-2 border-b">⭐⭐⭐⭐⭐</td>
                             </tr>
