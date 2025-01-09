@@ -15,7 +15,7 @@ import { fetchPostMetadata } from "./postUtils";
   
   const baseUrl = "https://www.pierssinclair.com";
   
-  let feed = new Feed({
+  const feed = new Feed({
     title: "Piers Sinclair's Blog",
     description: "A feed of my blog posts",
     id: baseUrl,
