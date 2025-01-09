@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Home from "./pages/home/Home";
 import Post from "./pages/post/Post";
 import Footer from "./components/footer/Footer";
+import ReadingList from "./pages/reading-list/ReadingList";
 
 const App: React.FC = () => {
   const [redirects, setRedirects] = useState<{ from: string; to: string }[]>([]);
@@ -21,6 +22,7 @@ const App: React.FC = () => {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/reading-list" element={<ReadingList />} />
           <Route path="/about/:slug" element={<Post />} />
           <Route path="/post/:slug" element={<Post />} />
           {redirects.map((redirect) => (
