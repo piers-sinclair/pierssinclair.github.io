@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from './button';
 import { ArrowUpDown } from 'lucide-react';
+import './sortable-header-button.css';
 
 interface SortableHeaderButtonProps {
   column: any;
@@ -9,13 +9,13 @@ interface SortableHeaderButtonProps {
 
 const SortableHeaderButton: React.FC<SortableHeaderButtonProps> = ({ column, title }) => {
   return (
-    <Button
-      variant="ghost"
+    <div
+      className="sortable-header-button"
       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
     >
-      {title}
-      <ArrowUpDown className="ml-2 h-4 w-4" />
-    </Button>
+      <span className="sortable-header-title">{title}</span>
+      <ArrowUpDown className="sortable-header-icon ml-2 h-4 w-4" />
+    </div>
   );
 };
 
