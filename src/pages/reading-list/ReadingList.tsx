@@ -5,7 +5,7 @@ const ReadingList: React.FC = () => {
         <div className="container mx-auto py-12 max-w-screen-md">
             <h1 className="text-5xl font-bold mb-4 text-gray-100">Reading List</h1>
             <hr className="border-gray-700 mb-8" />
-            These are the books I recommend for Software Engineers looking to improve their code.
+            These are the books I recommend for Backend Software Engineers looking to improve their code.
             <br />
             <br />
             They are in the order I would read them.
