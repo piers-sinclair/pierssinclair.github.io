@@ -1,6 +1,96 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { ColumnDef } from "@tanstack/react-table"
+import { DataTable } from "@/components/ui/data-table";
+import { ArrowUpDown } from "lucide-react"
+import { Button } from "@/components/ui/button";
+
+export type Book = {
+    order: number
+    name: string
+    author: string
+    difficulty: string
+}
+
+export const columns: ColumnDef<Book>[] = [
+    {
+        accessorKey: "order",
+        header:({ column }) => {
+            return (
+              <Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+              >
+                Order
+                <ArrowUpDown className="ml-2 h-4 w-4" />
+              </Button>
+            )
+          },
+    },
+    {
+        accessorKey: "name",
+        header: ({ column }) => {
+            return (
+              <Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+              >
+                Name
+                <ArrowUpDown className="ml-2 h-4 w-4" />
+              </Button>
+            )
+          },
+    },
+    {
+        accessorKey: "author",
+        header: "Author",
+    },
+    {
+        accessorKey: "difficulty",
+        header: "Difficulty (1-5)",
+    },
+]
+
+async function getData(): Promise<Book[]> {
+    return [
+        {
+            order: 1,
+            name: "Clean Code: A Handbook of Agile Software Craftsmanship",
+            author: "Robert C. Martin",
+            difficulty: "⭐",
+        },
+        {
+            order: 2,
+            name: "Adaptive Code: Agile coding with design patterns and SOLID principles",
+            author: "Gary McLean Hall",
+            difficulty: "⭐⭐",
+        },
+        {
+            order: 3,
+            name: "Clean Architecture: A Craftsman's Guide to Software Structure and Design",
+            author: "Robert C. Martin",
+            difficulty: "⭐⭐⭐⭐",
+        },
+        {
+            order: 4,
+            name: "Domain-driven Design: Tackling Complexity in the Heart of Software",
+            author: "Eric Evans",
+            difficulty: "⭐⭐⭐⭐⭐",
+        }
+    ]
+}
 
 const ReadingList: React.FC = () => {
+    const [data, setData] = useState<any>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await getData();
+            setData(result);
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <div className="container mx-auto py-12 max-w-screen-md">
             <h1 className="text-5xl font-bold mb-4 text-gray-100">Reading List</h1>
@@ -9,9 +99,16 @@ const ReadingList: React.FC = () => {
             <br />
             <br />
             They are in the order I would read them.
-
+            <br />
+            <br />
             <div className="prose prose-lg prose-invert max-w-none text-sm">
                 <div className="overflow-x-auto">
+
+                {data ? (
+            <DataTable columns={columns} data={data} />
+        ) : (
+            <p>Loading data...</p>
+        )}
                     <table className="min-w-full table-auto border-collapse">
                         <thead>
                             <tr>

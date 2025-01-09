@@ -9,13 +9,6 @@ import Footer from "./components/footer/Footer";
 import ReadingList from "./pages/reading-list/ReadingList";
 
 const App: React.FC = () => {
-  const [redirects, setRedirects] = useState<{ from: string; to: string }[]>([]);
-
-  useEffect(() => {
-    fetch("/posts/post-redirects.json")
-      .then((response) => response.json())
-      .then((data) => setRedirects(data));
-  }, []);
   return (
     <Router>
       <div className="bg-zinc-900 text-gray-300 min-h-screen">
@@ -25,9 +18,6 @@ const App: React.FC = () => {
           <Route path="/reading-list" element={<ReadingList />} />
           <Route path="/about/:slug" element={<Post />} />
           <Route path="/post/:slug" element={<Post />} />
-          {redirects.map((redirect) => (
-            <Route key={redirect.from} path={redirect.from} element={<Navigate to={redirect.to} />} />
-          ))}
         </Routes>
         <Footer />
       </div>
