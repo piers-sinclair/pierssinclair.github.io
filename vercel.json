@@ -22,12 +22,12 @@
             "permanent": true
         },
         {
-            "source": "/system-design%2C/azure%2C/software-architecture%2C/cloud-architecture%2C/solution-architecture/2024/06/12/System-Design-in-Azure-for-Clients-URL-Shortener.html",
+            "source": "/system-design,/azure,/software-architecture,/cloud-architecture,/solution-architecture/2024/06/12/System-Design-in-Azure-for-Clients-URL-Shortener.html",
             "destination": "/post/2024-06-09-System-Design-in-Azure-for-Clients-URL-Shortener",
             "permanent": true
         },
         {
-            "source": "/system-design%2C/azure%2C/software-architecture%2C/cloud-architecture%2C/solution-architecture/2024/06/23/System-Design-in-Azure-for-clients-Video-Streaming-Service.html",
+            "source": "/system-design,/azure,/software-architecture,/cloud-architecture,/solution-architecture/2024/06/23/System-Design-in-Azure-for-clients-Video-Streaming-Service.html",
             "destination": "/post/2024-06-15-System-Design-in-Azure-for-clients-Video-Streaming-Service",
             "permanent": true
         }
