@@ -30,6 +30,16 @@
             "source": "/system-design,/azure,/software-architecture,/cloud-architecture,/solution-architecture/2024/06/23/System-Design-in-Azure-for-clients-Video-Streaming-Service.html",
             "destination": "/post/2024-06-15-System-Design-in-Azure-for-clients-Video-Streaming-Service",
             "permanent": true
+        },
+        {
+            "source": "/china-market/2021/07/14/Tapping-Into-The-China-Market.html",
+            "destination": "/post/2021-07-14-Tapping-Into-The-China-Market",
+            "permanent": true
+        },
+        {
+            "source": "/china-market/2021/07/21/Getting-Started-With-Ant-Design.html",
+            "destination": "/post/2021-07-21-Getting-Started-With-Ant-Design",
+            "permanent": true
         }
     ]
 }
