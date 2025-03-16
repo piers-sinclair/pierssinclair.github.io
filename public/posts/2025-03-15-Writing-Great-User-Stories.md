@@ -181,7 +181,7 @@ Through understanding the user story and documenting all requirements, the devel
 #### 3.2.2 Speaking up
 It's impossible to anticipate every feature's requirements and pitfalls upfront. Developers gain a unique, detailed perspective of a feature when implementing it. Engineers must speak up when they see an issue, roadblock, or new idea. 
 
-By flagging problems with the business, developers achieve better outcomes, create credibility with the business and build trust with the business stakeholders. Conversely, the developer who doesn't speak up may see their feature done quicker, but it will result in significant technical debt, something the business did not expect, or a feature that is much worse than it could have been. Ultimately, the business will notice these issues over time and lose faith in the developer's work.
+By flagging problems with the business, developers achieve better outcomes, create credibility with the business and build trust with the business stakeholders. Conversely, the developer who doesn't speak up may see their feature done quicker, but it will result in significant technical debt, a feature with unexpected behaviour, or a feature that is much worse than it could have been. Ultimately, the business will notice these issues over time and lose faith in the developer's work.
 
 ### 3.3 Pulling together the business And development
 So far, the responsibilities of business stakeholders and developers have been established. But how can those responsibilities be aligned? This alignment is where the "ready" tag again comes in handy. By having a strong advocate for the "ready" tag and strictly following its principles, the team will build alignment naturally before the Sprint.
