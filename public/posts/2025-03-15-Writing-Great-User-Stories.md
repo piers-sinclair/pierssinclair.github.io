@@ -59,13 +59,7 @@ The description and acceptance criteria should be kept clean because they are th
 
 Let's revisit our example with all of these details filled out:
 
-| **Title** | Add pay button to shopping cart |
-|---------------------|------------|
-| **Description** | On [piers-sinclair.com/shopping-cart](https://piers-sinclair.com/shopping-cart)<br> we need a button to pay. <br><br>The button should look like the screenshot below. |
-| **Acceptance Criteria** | **AC1:** The button matches the design in the mockup below.<br> **AC2:** The button displays the standard success/failure message on click.<br> **AC3:** The button displays the standard processing indicator during background work.<br> **AC4:** The button calls the payment process from user story #123. |
-| **Screenshots** | ![Figure: The new pay button to be added.](/assets/images/2025-03-15-Writing-Great-User-Stories/1.png) |
-| **More Context** | - We previously implemented a similar payment button for individual items. See user story #124<br> - Taylor knows a lot about this topic as they architected the payment process. |
-
+![Figure: The new pay button to be added.](/assets/images/2025-03-15-Writing-Great-User-Stories/1.png) 
 
 Notice how much clearer the expectations are? Imagine a developer implementing the first one compared with the second one. With the first one, at best, they have a lengthy call with the Product Owner to understand the requirements, and at worst, you end up with something completely different from the expected outcome!
 
