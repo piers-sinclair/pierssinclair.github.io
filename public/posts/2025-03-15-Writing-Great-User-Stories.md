@@ -78,7 +78,7 @@ How can we do that? We can mandate that no ticket should go into Sprint until th
 Adhering to the above can be difficult. It requires a strong will and complete buy-in from the team. The process will fail if you start letting in user stories that don't meet the "ready" tag. That's why the best approach is to get aligned with everyone on the team about this tag and encourage everyone to speak up if a "ready" tag is inappropriate. In particular, the Product Owner and Scrum Master should take careful lead to check in with all team members about a user story and ensure that no user stories are flying under the radar.
 
 ## 2. Spend time condensing details to the bare minimum
-Incorporating processes that flesh out user stories can be a huge time sink, especially when the whole team needs to give buy-in. That's why it's crucial to create concise user stories. Unfortunately, it is typical for a user story to contain many irrelevant details, making reading it a cognitive nightmare. Here's an example:
+While capturing the correct details is critical, ensuring the story remains concise and focused is equally essential. Overly verbose stories can slow teams down and confuse them. Unfortunately, it is typical for a user story to contain many irrelevant details, making reading it a cognitive nightmare. Here's an example:
 
 | **Title** | Add logic for paying for the items requested by a user when the user presses a payment button on the website  |
 |---------------------|------------|
@@ -182,4 +182,5 @@ Writing good user stories is a challenging, time-consuming process that requires
 
 Key advocates on the team must champion fully fleshing out the details of user stories, keeping them as concise as possible, and ensuring alignment among the business and engineers. With the proper guidance, teams can transform themselves from an inefficient mess to a well-oiled machine.
 
-Will you be the advocate who transforms your team's user stories?
+Your team’s success starts with better user stories.
+Will you be the one to lead the change?
