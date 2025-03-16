@@ -23,9 +23,7 @@ There are three things I recommend doing to avoid these issues:
 ## 1. Spend Time Fleshing Out The Details
 Too often, I see a user story with only a title or some small scribbled notes in the description. Here's an example:
 
-| **Title** | Add pay button to shopping cart |
-|---------------------|------------|
-| **Description** | We need a button to pay. |
+![](/assets/images/2025-03-15-Writing-Great-User-Stories/1.png) 
 
 It sounds simple. But there are so many missing details. 
 - Where should the button go? 
@@ -59,7 +57,7 @@ The description and acceptance criteria should be kept clean because they are th
 
 Let's revisit our example with all of these details filled out:
 
-![Figure: The new pay button to be added.](/assets/images/2025-03-15-Writing-Great-User-Stories/1.png) 
+![](/assets/images/2025-03-15-Writing-Great-User-Stories/2.png) 
 
 Notice how much clearer the expectations are? Imagine a developer implementing the first one compared with the second one. With the first one, at best, they have a lengthy call with the Product Owner to understand the requirements, and at worst, you end up with something completely different from the expected outcome!
 
@@ -74,10 +72,8 @@ Adhering to the above can be difficult. It requires a strong will and complete b
 ## 2. Spend time condensing details to the bare minimum
 While capturing the correct details is critical, ensuring the story remains concise and focused is equally essential. Overly verbose stories can slow teams down and confuse them. Unfortunately, it is typical for a user story to contain many irrelevant details, making reading it a cognitive nightmare. Here's an example:
 
-| **Title** | Add logic for paying for the items requested by a user when the user presses a payment button on the website  |
-|---------------------|------------|
-| **Description** | GIVEN I am a user of piers-sinclair.com<br>WHEN I want to pay for a specific set of items<br>AND I press any pay button on piers-sinclair.com<br>THEN the system should have logic to process my payment by summing all the items requested according to the process architected by Taylor in #125<br>AND the user's card should be charged with the value calculated from the payment process. |
-| **Acceptance Criteria** | **AC1:** Payments are processed according to Taylor's design in #125. This design was created as part of the initial focus groups conducted with users. <br>**AC2:** The payment process is generic and could be applied in many different places across the system   |
+![](/assets/images/2025-03-15-Writing-Great-User-Stories/3.png) 
+
 
 ### 2.1 Keep it concise
 The team should start writing a user story with a concise definition. In doing so, the team will understand what's expected in the user story quicker, saving time during refinement and development as the user story is revisited. A bit of extra effort upfront to make a concise user story saves exponentially more effort in understanding it later.
@@ -86,6 +82,8 @@ The team should start writing a user story with a concise definition. In doing s
 There are several things to look out for when streamlining user story descriptions. Foremost are redundant words. The team should reduce the description to as few words as possible without losing meaning. That's also why the "more context" section is necessary. The description should convey the problem as lean as possible, but sometimes there is valuable information that helps implement the feature but isn't directly relevant to the problem. There is far more leeway for lengthy content in "more context" because the developer will already understand the problem statement and acceptance criteria. 
 
 Another thing I like to remove is patterns like Given-When Then. In my experience, these patterns often add little value to a user story, increase cognitive load, and are used as crutches for writing poor user stories. I have found that because it is an inflexible pattern, it forces the writer down a path unsuitable for every user story. For example, how often is the "Given" part useful? It frequently results in meaningless phrases like "Given I am a customer of the system". I suspect this might be a controversial viewpoint, but I believe most user stories can be conveyed concisely using plain English.
+
+Another way to improve brevity and clarity is to add an example to the description. By adding an example it better solidifies the concept in a reader's mind and can reduce overexplanation in other areas.
 
 Let's see how we can improve the example from earlier:
 
@@ -105,11 +103,14 @@ From
 > GIVEN I am a user of piers-sinclair.com<br>WHEN I want to pay for a specific set of items<br>AND I press any pay button on piers-sinclair.com<br>THEN the system should have logic to process my payment by summing all the items requested according to the process architected by Taylor in #125<br>AND the user's card should be charged with the value calculated from the payment process. 
 
 To
-> When payment is requested for items, we need to implement the logic defined by Taylor in #125
+> To process payments for requested items, we need to implement the logic defined by Taylor in #125
+> 
+> For example, when pressing "pay" on the shopping cart it will run this logic.
 
 - We have removed Given-When-Then because it added significant complexity. 
 - We have removed several redundant or unnecessary words. 
 - We have removed references to the user's card because this is an unnecessary extra detail that is implied.
+- We have tied our description to an example, for better illustration of the abstract payments concept.
 
 #### 2.2.3 Acceptance Criteria
 From
@@ -122,11 +123,8 @@ We've removed redundant words and the part about focus groups. This part isn't p
 
 Here's the final product:
 
-| **Title** | Add payment logic for requested items |
-|---------------------|------------|
-| **Description** | When payment is requested for items, we need to implement the logic defined by Taylor in #125 |
-| **Acceptance Criteria** | **AC1:** Payments are processed according to Taylor's design in #125. <br>**AC2:** The payment process is reusable system-wide.  |
-| **More Context** | Taylor's design was created from user focus groups.  |
+![](/assets/images/2025-03-15-Writing-Great-User-Stories/4.png) 
+
 
 Isn't that easier to read?
 
