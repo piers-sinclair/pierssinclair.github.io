@@ -21,7 +21,7 @@ User stories are the backbone of any project, yet teams often fail to give them 
 There are three things I recommend doing to avoid these issues:
 1. Spend time fleshing out the details
 2. Spend time condensing details to the bare minimum
-3. Get buy-in from the key business stakeholders AND the developers
+3. Get buy-in from the key business stakeholders and the developers
 
 ## 1. Spend time fleshing out the details
 Too often, I see a user story with only a title or some small scribbled notes in the description. Here's an example:
@@ -129,10 +129,14 @@ To
 
 #### 2.2.3 Acceptance criteria
 From
-> **AC1:** Payments are processed according to Taylor's design in #125. This design was created as part of the initial focus groups conducted with users. <br>**AC2:** The payment process is generic and could be applied in many different places across the system.
+> 1. Payments are processed according to Taylor's design in #125. This design was created as part of the initial focus groups conducted with users.
+> 
+> 2. The payment process is generic and could be applied in many different places across the system  
 
 To
-> **AC1:** Payments are processed according to Taylor's design in #125. <br>**AC2:** The payment process is reusable system-wide.
+> 1. Payments are processed according to Taylor's design in #125.
+> 2. The payment process is reusable system-wide.
+
 
 We've removed redundant words and the part about focus groups. This part isn't particularly relevant to acceptance criteria, but it could be helpful context so we can move it to "more context".
 
@@ -191,4 +195,5 @@ Writing good user stories is a challenging, time-consuming process that requires
 Key advocates on the team must champion fully fleshing out the details of user stories, keeping them as concise as possible, and ensuring alignment among the business and engineers. With the proper guidance, teams can transform themselves from an inefficient mess to a well-oiled machine.
 
 Your team’s success starts with better user stories.
+
 Will you be the one to lead the change?
