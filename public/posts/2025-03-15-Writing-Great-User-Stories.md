@@ -52,7 +52,7 @@ The description is the problem statement. It should contain no more, no less.
 Acceptance criteria are the contract between the developer and the business. They outline all expectations. Anything not covered in the acceptance criteria should not be expected to be completed.
 
 #### 1.1.3 Screenshots (if relevant)
-If the functionality being built affects the UI, screenshots are a powerful storytelling tool. As the old proverb says, "A picture is worth a thousand words."
+Screenshots are a powerful storytelling tool if the functionality being built affects the UI. As the old proverb says, "A picture is worth a thousand words."
 
 #### 1.1.4 More Context
 The description and acceptance criteria should be kept clean because they are the developers' first port of call when they want to understand the task's expectations. However, additional details, like notes or gotchas, are often not part of the problem statement or contract. It's a good idea to avoid adding these details to the description and acceptance criteria because they reduce the team's ability to understand the issue quickly.
@@ -67,15 +67,15 @@ Let's revisit our example with all of these details filled out:
 | **More Context** | - We previously implemented a similar payment button for individual items. See user story #124<br> - Taylor knows a lot about this topic as they architected the payment process. |
 
 
-Notice how much clearer the expectations are? Imagine a developer going to implement the first one compared with the second one. With the first one, at best, they have a lengthy call with the Product Owner to understand the requirements, and at worst, you end up with something completely different from the expected outcome!
+Notice how much clearer the expectations are? Imagine a developer implementing the first one compared with the second one. With the first one, at best, they have a lengthy call with the Product Owner to understand the requirements, and at worst, you end up with something completely different from the expected outcome!
 
 ### 1.2 How can you ensure time is dedicated to this process?
-The above process sounds logical, but reality often gets in the way. Distractions occur, and it's all too easy for an unrefined story to slip through the cracks. To avoid this issue, I recommend embedding the process into your planning and refinement processes.
+The above process sounds logical, but reality often gets in the way. Distractions occur, and it's too easy for an unrefined story to slip through the cracks. I recommend avoiding this issue by embedding the process into your planning and refinement.
 
 How can we do that? We can mandate that no ticket should go into Sprint until the entire team approves it. To facilitate this approval, add a "ready" tag, which indicates that the team has fully refined this user story and everyone agrees it has all the details required to be worked on. Then, when it comes to Sprint Planning, if a user story has no "ready" tag, it either has to be refined before being put in the Sprint, or it is not allowed to be added to the Sprint. Building this "ready" tag into backlog refinement meetings is also helpful. When you do refinement, take the next few highest-priority user stories from the backlog and refine them until they can have the ready tag. Not only will this improve the user stories, but it will also improve the flow and clarity of the backlog and its ceremonies.
 
 ### 1.3 How can adherence to these processes be enforced?
-Adhering to the above can be difficult. It requires a strong will and complete buy-in from the team. The whole process will fail if you start letting in user stories that don't meet the "ready" tag. That's why the best approach is to get aligned with everyone on the team about this tag and encourage everyone to speak up if a "ready" tag is not appropriate. In particular, the Product Owner and Scrum Master should take careful lead to check in with all team members about a user story and ensure that no user stories are flying under the radar.
+Adhering to the above can be difficult. It requires a strong will and complete buy-in from the team. The process will fail if you start letting in user stories that don't meet the "ready" tag. That's why the best approach is to get aligned with everyone on the team about this tag and encourage everyone to speak up if a "ready" tag is inappropriate. In particular, the Product Owner and Scrum Master should take careful lead to check in with all team members about a user story and ensure that no user stories are flying under the radar.
 
 ## 2. Spend time condensing details to the bare minimum
 Incorporating processes that flesh out user stories can be a huge time sink, especially when the whole team needs to give buy-in. That's why it's crucial to create concise user stories. Unfortunately, it is typical for a user story to contain many irrelevant details, making reading it a cognitive nightmare. Here's an example:
@@ -86,7 +86,7 @@ Incorporating processes that flesh out user stories can be a huge time sink, esp
 | **Acceptance Criteria** | **AC1:** Payments are processed according to Taylor's design in #125. This design was created as part of the initial focus groups conducted with users. <br>**AC2:** The payment process is generic and could be applied in many different places across the system   |
 
 ### 2.1 Keep it concise
-It's vital that the team starts writing a user story with as concise a definition as possible. In doing so, the team will understand what's expected in the user story quicker, saving time during refinement and development as the user story is revisited. A bit of extra effort upfront to make a concise user story saves exponentially more effort in understanding it later.
+The team should start writing a user story with a concise definition. In doing so, the team will understand what's expected in the user story quicker, saving time during refinement and development as the user story is revisited. A bit of extra effort upfront to make a concise user story saves exponentially more effort in understanding it later.
 
 ### 2.2 What to look out for?
 There are several things to look out for when streamlining user story descriptions. Foremost are redundant words. The team should reduce the description to as few words as possible without losing meaning. That's also why the "more context" section is necessary. The description should convey the problem as lean as possible, but sometimes there is valuable information that helps implement the feature but isn't directly relevant to the problem. There is far more leeway for lengthy content in "more context" because the developer will already understand the problem statement and acceptance criteria. 
@@ -143,12 +143,12 @@ Having well-written user stories is only half the battle. They mean the team can
 Business personnel (e.g. the Product Owner) are responsible for ensuring that all their requirements have been covered and resolving any questions the engineering team might have about expectations and functionality. Acceptance criteria and availability are the two fundamental pillars here. 
 
 #### 3.1.1 Acceptance Criteria
-Acceptance criteria form the contract between the engineers and the business. The Product Owner needs to ensure that all expected changes, no matter how small, are documented in the acceptance criteria. If the acceptance criteria are missing key expectations or contain irrelevant information, they will undermine their credibility and cause the team to avoid trusting the user stories assigned to them. 
+Acceptance criteria form the contract between the engineers and the business. The Product Owner needs to ensure that all expected changes are documented in the acceptance criteria, no matter how small. If the acceptance criteria are missing key expectations or contain irrelevant information, they will undermine their credibility and cause the team to avoid trusting the user stories assigned to them. 
 
-It's also unrealistic to expect the acceptance criteria to be immovable. That's why it is crucial to communicate changes to the team verbally and through comments on the user story. The user story acceptance criteria should also be changed to reflect the *current understanding*, removing all references to previous understanding.
+It's also unrealistic to expect the acceptance criteria to be immovable. That's why it is crucial to communicate changes to the team verbally and through comments on the user story. The user story acceptance criteria should also be changed to reflect the *current understanding*, removing all references to the previous understanding.
 
 #### 3.1.2 Availability
-Availability is another key factor for business personnel. The engineers are almost certainly going to discover unexpected roadblocks, missing details, or new improvements. When they stumble upon these, it is crucial that the business personnel are there to answer questions; otherwise, the developers will be blocked or risk implementing something that isn't aligned with the business.
+Availability is another key factor for business personnel. The engineers will almost certainly discover unexpected roadblocks, missing details, or new improvements. When they stumble upon these, the business personnel must be there to answer questions; otherwise, the developers will be blocked or risk implementing something that isn't aligned with the business.
 
 ### 3.2 The Development Side
 Developers have the following responsibilities for ensuring alignment with the business:
@@ -156,7 +156,7 @@ Developers have the following responsibilities for ensuring alignment with the b
 - Speaking up
 
 #### 3.2.1 Understanding and documenting
-Developers should ensure they fully understand and document expectations for a user story before adding it to the Sprint. It's all too easy to ignore user stories until they appear in the Sprint, which can cause all sorts of dysfunctions. 
+Developers should ensure they fully understand and document expectations for a user story before adding it to the Sprint. It's too easy to ignore user stories until they appear in the Sprint, which can cause all sorts of dysfunctions. 
 - What if there are missing requirements that you identify through your technical lens?
 - What if the business has not considered all technical problems or effort required?
 - What if it's not technically possible, or a spike is required to investigate options?
@@ -167,19 +167,19 @@ The developer should seek to understand the technical requirements and the busin
 Through understanding the user story and documenting all requirements, the developer gains clarity on what exactly is required and has evidence to support their case if requirements change. This documentation leads to greater alignment, happier business staff and developer protection.
 
 #### 3.2.2 Speaking up
-It's impossible to anticipate every feature's requirements and pitfalls upfront. Developers gain a unique, detailed perspective of a feature when they implement it. That's why it's vital for an engineer to speak up when they see an issue, roadblock, or new idea. 
+It's impossible to anticipate every feature's requirements and pitfalls upfront. Developers gain a unique, detailed perspective of a feature when implementing it. Engineers must speak up when they see an issue, roadblock, or new idea. 
 
-By flagging problems with the business, developers achieve better outcomes, create credibility with the business and build trust with the business stakeholders. Conversely, the developer who doesn't speak up may see their feature done quicker, but it will result in something the business did not expect, significant technical debt or a feature that is much worse than it could have been. Ultimately, the business will notice these issues over time and lose faith in the developer's work.
+By flagging problems with the business, developers achieve better outcomes, create credibility with the business and build trust with the business stakeholders. Conversely, the developer who doesn't speak up may see their feature done quicker, but it will result in significant technical debt, something the business did not expect, or a feature that is much worse than it could have been. Ultimately, the business will notice these issues over time and lose faith in the developer's work.
 
 ### 3.3 Pulling Together The Business And Development
 So far, the responsibilities of business stakeholders and developers have been established. But how can those responsibilities be aligned? This alignment is where the "ready" tag again comes in handy. By having a strong advocate for the "ready" tag and strictly following its principles, the team will build alignment naturally before the Sprint.
 
-In addition to the "ready" tag, a post-completion handshake can do wonders for ensuring alignment. Developers should seek to demonstrate their feature to the Product Owner so they can get feedback and check that it meets all requirements. Any changes can be taken as a new user story, but the process shows that the developer cares about the work, and the Product Owner gets the opportunity to ensure the feature meets their expectations.
+In addition to the "ready" tag, a post-completion handshake can do wonders for ensuring alignment. Developers should seek to demonstrate their feature to the Product Owner so they can get feedback and check that it meets all requirements. Any changes can be made as a new user story. Yet, the process shows that the developer cares about the work, and the product owner gets the opportunity to ensure the feature meets their expectations.
 
 ## 4. Summary
 
-Writing good user stories is a challenging, time-consuming process that requires great willpower to execute well. Yet, when done poorly, it can have disastrous consequences for a software team.
+Writing good user stories is a challenging, time-consuming process that requires strong willpower to execute well. Yet, when done poorly, it can have disastrous consequences for a software team.
 
-Key advocates on the team must champion fully fleshing out the details of user stories, keeping them as concise as possible, and ensuring alignment among the business and engineers. With the right guidance on these matters, teams can transform themselves from an inefficient mess to a well-oiled machine.
+Key advocates on the team must champion fully fleshing out the details of user stories, keeping them as concise as possible, and ensuring alignment among the business and engineers. With the proper guidance, teams can transform themselves from an inefficient mess to a well-oiled machine.
 
 Will you be the advocate who transforms your team's user stories?
