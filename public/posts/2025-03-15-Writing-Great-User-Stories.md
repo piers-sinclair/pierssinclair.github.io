@@ -21,8 +21,9 @@ There are 3 things I recommend doing to avoid these issues:
 ## 1. Spend Time Fleshing Out The Details
 Too often, I see a user story which has only a title, or it has some small scribbled notes in the description. Here's an example:
 
-Title: Add pay button to shopping cart
-Description: We need a button to pay.
+| **Title**          | Add pay button to shopping cart |
+|---------------------|------------|
+| **Description**    | We need a button to pay. |
 
 It sounds simple right? But there are so many missing details. 
 - Where should the button go? 
@@ -56,25 +57,13 @@ The description and acceptance criteria should be kept clean because they are th
 
 Let's revisit our example with all of these details filled out:
 
-Title: Add pay button to shopping cart
-Description: 
-On https://piers-sinclair.com/shopping-cart 
-we need a button to pay.
+| **Title**          | Add pay button to shopping cart |
+|---------------------|------------|
+| **Description**    | On [piers-sinclair.com/shopping-cart](https://piers-sinclair.com/shopping-cart)<br> we need a button to pay. <br><br>The button should look like the screenshot below. |
+| **Acceptance Criteria** | **AC1:** The button matches the design in the mockup below.<br> **AC2:** The button displays the standard success/failure message on click.<br> **AC3:** The button displays the standard processing indicator during background work.<br> **AC4:** The button calls the payment process from user story #123. |
+| **Screenshots**    | ![Figure: The new pay button to be added.](/assets/images/2025-03-15-Writing-Great-User-Stories/1.png) |
+| **More Context**   | - We previously implemented a similar payment button on the individual items. See user story #124<br> - Taylor knows a lot about this topic as they architected the payment process. |
 
-The button should look like the screenshot below.
-
-##### Acceptance Criteria
-AC1: The button matches the design in the mockup below
-AC2: The button displays the standard success/failure message on click
-AC3: The button displays the standard processing indicator while background work is happening
-AC4: The button calls the payment process implemented in user story #123
-
-##### Screenshots
-![Shopping Cart Example](/assets/images/2025-03-15-Writing-Great-User-Stories/1.png)
-
-##### More context
-- We previously implemented a similar payment button on the individual items. See user story #124
-- Taylor knows a lot about this topic as they architected the payment process.
 
 Notice how much clearer it is what the expectations are? Imagine a developer going to implement the first one compared with the second one. With the first one, at best they have a lengthy call with the Product Owner to understand the requirements and at worst you end up with something completely different to the expected outcome!
 
@@ -87,7 +76,12 @@ How can we do that? By creating a rule that no ticket should go into the Sprint 
 Adhering to the above can be difficult. It requires a strong will and complete buy-in from the team. If you start letting user stories in which don't meet the "ready" tag, the whole process will fall down. That's why the best approach is to get aligned with everyone on the team about this tag and encourage everyone to speak up if a "ready" tag is not appropriate. In particular, the Product Owner and Scrum Master should take careful lead to check-in with all team members about a user story and ensure that no user stories are flying under the radar.
 
 ## 2. Spend time condensing details to the bare minimum
-Following processes that flesh out user stories can cause a huge time sink, espescially when the whole team needs to give buy-in. That's why representing user story information concisely is so crucial. Unfortunately, it is all to common for a user story to contain far too many irrelevant words and details that make reading it a cognitive nightmare.
+Following processes that flesh out user stories can cause a huge time sink, espescially when the whole team needs to give buy-in. That's why representing user story information concisely is so crucial. Unfortunately, it is all to common for a user story to contain far too many irrelevant words and details that make reading it a cognitive nightmare. Here's an example:
+
+| **Title**          | Add logic for paying for the items requested by a user when the user presses a payment button on the website  |
+|---------------------|------------|
+| **Description**    | GIVEN I am a user of piers-sinclair.com<br>WHEN I want to pay for a specific set of items<br>AND I press any pay button on piers-sinclair.com<br>THEN the system should have logic to process my payment by summing all the items requested according to the process architected by Taylor in #125<br>AND the user's card should be charged with the value calculated from the payment process. |
+| **Acceptance Criteria** | **AC1:** Payments are processed according to Taylor's design in #125. This design was created as part of the initial focus groups conducted with users. <br>**AC2:** The payment process is generic and could be applied in many different places across the system   |
 
 ### 2.1 Keep it concise
 It's vital that as the team writes a user story they start with a concise definition with as few words as possible. In doing so, the team will be able to understand what's expected in the user story quicker saving time getting alignment from others. It will also reduce time spent understanding the user story during development as the engineer revisits the user story requirements. A bit of extra effort upfront to make a concise user story saves exponentially more effort understanding the ticket later.
@@ -96,6 +90,49 @@ It's vital that as the team writes a user story they start with a concise defini
 There are several things to look out for when trying to streamline user story descriptions. Foremost are redundant words. The team should try to reduce the description to as few words as possible without losing meaning. That's also why the "more context" section is important, the description should convey the problem as lean as possible but sometimes there is valuable information that helps implement the feature but isn't directly relevant to the problem. There is far more leeway for lengthy content in "more context" because the developer will already have a clear grasp on the problem statement and acceptance criteria. 
 
 Another thing I like to remove is patterns like given when then. In my experience, these patterns often add little value to a user story, increase cognitive load and are used as a crutch for writing poor user stories. I suspect this might be a controversial viewpoint, but I believe that most user stories can be conveyed in a far more concise manner using plain english.
+
+Let's see how we can improve the example from earlier:
+
+#### 2.2.1 Title
+From
+> Add logic for paying for the items requested by a user when the user presses a payment button on the website
+
+To
+> Add payment logic for requested items
+
+We've removed references to the user, buttons, and website because they aren't particularly relevant to the process.
+
+We've kept requested items because it's indicating that the payment relates to a set of items provided by the system.
+
+#### 2.2.2 Description
+From
+> GIVEN I am a user of piers-sinclair.com<br>WHEN I want to pay for a specific set of items<br>AND I press any pay button on piers-sinclair.com<br>THEN the system should have logic to process my payment by summing all the items requested according to the process architected by Taylor in #125<br>AND the user's card should be charged with the value calculated from the payment process. 
+
+To
+> When payment is requested for items we need to implement the logic defined by Taylor in #125
+
+- We have removed Given-When-Then which is adding significant complexity. 
+- We have removed several redundant or unnecessary words. 
+- We have removed references to the user's card because this is unnecessary extra detail which is implied.
+
+#### 2.2.3 Acceptance Criteria
+From
+> **AC1:** Payments are processed according to Taylor's design in #125. This design was created as part of the initial focus groups conducted with users. <br>**AC2:** The payment process is generic and could be applied in many different places across the system.
+
+To
+> **AC1:** Payments are processed according to Taylor's design in #125. <br>**AC2:** The payment process is reusable system-wide.
+
+Again we've removed redundant words. We've also removed the part about focus groups. This part isn't particularly relevant to acceptance criteria, but could be useful context so we can move it to more context.
+
+Here's the final product:
+
+| **Title**          | Add payment logic for requested items |
+|---------------------|------------|
+| **Description**    | When payment is requested for items we need to implement the logic defined by Taylor in #125 |
+| **Acceptance Criteria** | **AC1:** Payments are processed according to Taylor's design in #125. <br>**AC2:** The payment process is reusable system-wide.  |
+| **More Context** | Taylor's design was created from focus groups with users.  |
+
+Isn't that a lot more straightforward and easy to read?
 
 ## 3. Get buy-in from the key business stakeholders AND the developers
 Having well written user stories is only half the battle. It means the team can now easily understand and excute on user stories. However, to ensure a truly effective team, alignment between the business and developers is an absolute must. There are 2 sides to this story.
