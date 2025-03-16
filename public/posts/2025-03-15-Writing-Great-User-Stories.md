@@ -8,7 +8,10 @@ author: Piers Sinclair
 published: true
 ---
 
-Imagine you're a developer assigned a user story that says: "Add pay button to shopping cart." What could go wrong? You might think it's not a big deal, but you'd be surprised at the negative impacts.
+Imagine you're a developer assigned a user story that says: 
+> Add pay button to shopping cart.
+ 
+What could go wrong? You might think it's not a big deal, but you'd be surprised at the negative impacts.
 
 User stories are the backbone of any project, yet teams often fail to give them the right time, care and attention to detail to produce outstanding outcomes. Poor user stories lead to a host of problems, including:
 - Increased time waste as developers are unclear about expectations
@@ -50,7 +53,8 @@ The description is the problem statement. It should contain no more, no less.
 Acceptance criteria are the contract between the developer and the business. They outline all expectations. Anything not covered in the acceptance criteria should not be expected to be completed.
 
 #### 1.1.3 Screenshots (if relevant)
-Screenshots are a powerful storytelling tool if the functionality being built affects the UI. As the old proverb says, "A picture is worth a thousand words."
+Screenshots are a powerful storytelling tool if the functionality being built affects the UI. As the old proverb says:
+> A picture is worth a thousand words.
 
 #### 1.1.4 More Context
 The description and acceptance criteria should be kept clean because they are the developers' first port of call when they want to understand the task's expectations. However, additional details, like notes or gotchas, are often not part of the problem statement or contract. It's a good idea to avoid adding these details to the description and acceptance criteria because they reduce the team's ability to understand the issue quickly.
