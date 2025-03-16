@@ -88,7 +88,7 @@ The team should start writing a user story with a concise definition. In doing s
 ### 2.2 What to look out for?
 There are several things to look out for when streamlining user story descriptions. Foremost are redundant words. The team should reduce the description to as few words as possible without losing meaning. That's also why the "more context" section is necessary. The description should convey the problem as lean as possible, but sometimes there is valuable information that helps implement the feature but isn't directly relevant to the problem. There is far more leeway for lengthy content in "more context" because the developer will already understand the problem statement and acceptance criteria. 
 
-Another thing I like to remove is patterns like Given-When Then. In my experience, these patterns often add little value to a user story, increase cognitive load, and are used as crutches for writing poor user stories. I have found that because it is an inflexible pattern, it forces the writer down a path unsuitable for every user story. For example, how often is the "Given" part useful? It frequently results in meaningless phrases like "Given I am a customer of the system". I suspect this might be a controversial viewpoint, but I believe most user stories can be conveyed concisely using plain English.
+Another thing I like to remove is patterns like Given-When Then. In my experience, these patterns often add little value to a user story, increase cognitive load, and are used as crutches for writing user stories. I have found that because it is an inflexible pattern, it forces the writer down a path unsuitable for every user story. For example, how often is the "Given" part useful? It frequently results in meaningless phrases like "Given I am a customer of the system". I suspect this might be a controversial viewpoint, but I believe most user stories can be conveyed concisely using plain English.
 
 Another way to improve brevity and clarity is to add an example to the description. By adding an example it better solidifies the concept in a reader's mind and can reduce overexplanation in other areas.
 
@@ -107,7 +107,15 @@ We've kept the requested items because it indicates that the payment relates to 
 
 #### 2.2.2 Description
 From
-> GIVEN I am a user of piers-sinclair.com<br>WHEN I want to pay for a specific set of items<br>AND I press any pay button on piers-sinclair.com<br>THEN the system should have logic to process my payment by summing all the items requested according to the process architected by Taylor in #125<br>AND the user's card should be charged with the value calculated from the payment process. 
+> GIVEN I am a user of piers-sinclair.com
+> 
+> WHEN I want to pay for a specific set of items
+> 
+> AND I press any pay button on piers-sinclair.com
+> 
+> THEN the system should have logic to process my payment by summing all the items requested according to the process architected by Taylor in #125
+> 
+> AND the user's card should be charged with the value calculated from the payment process.
 
 To
 > To process payments for requested items, we need to implement the logic defined by Taylor in #125
