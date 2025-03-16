@@ -175,3 +175,9 @@ So far, the responsibilities of business and developers have been established. B
 In addition to the "ready" tag a post completion handshake can do wonders for ensuring alignment. Developers should seek to demonstrate their feature to the Product Owner so they can get feedback and check that it meets all requirements. Any changes can be taken as a new user story, but the process shows that the developer cares about the work and the Product Owner gets the opportunity to ensure the feature meets their expectations.
 
 ## 4. Summary
+
+Writing good user stories is a challenging, time consuming process which takes great willpower to execute well. Yet, when done poorly, it has disastrous consequences for a software team.
+
+It is crucial that there are key advocates on the team who can champion fully fleshing out the details of user stories, keeping them as concise as possible and ensuring alignment among the business and engineers. With the right guidance on these matters teams can transform themselves from an inefficient mess to a well-oiled machine.
+
+Could you be the advocate your team needs?
