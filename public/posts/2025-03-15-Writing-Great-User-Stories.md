@@ -27,6 +27,7 @@ There are three things I recommend doing to avoid these issues:
 Too often, I see a user story with only a title or some small scribbled notes in the description. Here's an example:
 
 ![](/assets/images/2025-03-15-Writing-Great-User-Stories/1.png) 
+**Figure: A user story lacking in detail**
 
 It sounds simple. But there are so many missing details. 
 - Where should the button go? 
@@ -62,6 +63,7 @@ The description and acceptance criteria should be kept clean because they are th
 Let's revisit our example with all of these details filled out:
 
 ![](/assets/images/2025-03-15-Writing-Great-User-Stories/2.png) 
+**Figure: A user story with just the right amount of detail**
 
 Notice how much clearer the expectations are? Imagine a developer implementing the first one compared with the second one. With the first one, at best, they have a lengthy call with the Product Owner to understand the requirements, and at worst, you end up with something completely different from the expected outcome!
 
@@ -77,6 +79,7 @@ Adhering to the above can be difficult. It requires a strong will and complete b
 While capturing the correct details is critical, ensuring the story remains concise and focused is equally essential. Overly verbose stories can slow teams down and confuse them. Unfortunately, it is typical for a user story to contain many irrelevant details, making reading it a cognitive nightmare. Here's an example:
 
 ![](/assets/images/2025-03-15-Writing-Great-User-Stories/3.png) 
+**Figure: A payments user story with lots of unnecessary information**
 
 
 ### 2.1 Keep it concise
@@ -128,6 +131,7 @@ We've removed redundant words and the part about focus groups. This part isn't p
 Here's the final product:
 
 ![](/assets/images/2025-03-15-Writing-Great-User-Stories/4.png) 
+**Figure: A payments story that is concise**
 
 
 Isn't that easier to read?
