@@ -15,11 +15,21 @@ User stories are the backbone of any project, and yet often teams fail to give t
 
 There are 3 things I recommend doing to avoid these issues:
 1. Spend time fleshing out the details
-2. Spend time condensing those details to the bare minimum
+2. Spend time condensing details to the bare minimum
 3. Get buy-in from the key business stakeholders AND the developers
 
 ## 1. Spend Time Fleshing Out The Details
-Too often, I see a user story which has only a title, or it has some small scribbled notes in the description.
+Too often, I see a user story which has only a title, or it has some small scribbled notes in the description. Here's an example:
+
+Title: Add pay button to shopping cart
+Description: We need a button to pay.
+
+It sounds simple right? But there are so many missing details. 
+- Where should the button go? 
+- What colour should the button be? 
+- What text should the button have? 
+- Which page is the shopping cart?
+- Should the button have the functionality to pay, or is that another ticket?
 
 It's crucial to spend time as a team figuring out what the details are. Failure to do so will cause confusion amongst the team and result in significant rework.
 
@@ -44,6 +54,30 @@ If the functionality being built affects the UI, then screenshots are a powerful
 #### 1.1.4 More Context
 The description and acceptance criteria should be kept clean because they are the developers first port of call when they want to understand the expectations in the task. However, there are often additional details that are not part of the problem statement or contract, like notes or gotchas. It's a good idea to avoid adding these details to the description and acceptance criteria because they reduce the team's ability to quickly understand the issue.
 
+Let's revisit our example with all of these details filled out:
+
+Title: Add pay button to shopping cart
+Description: 
+On https://piers-sinclair.com/shopping-cart 
+we need a button to pay.
+
+The button should look like the screenshot below.
+
+##### Acceptance Criteria
+AC1: The button matches the design in the mockup below
+AC2: The button displays the standard success/failure message on click
+AC3: The button displays the standard processing indicator while background work is happening
+AC4: The button calls the payment process implemented in user story #123
+
+##### Screenshots
+![Shopping Cart Example](/assets/images/2025-03-15-Writing-Great-User-Stories/1.png)
+
+##### More context
+- We previously implemented a similar payment button on the individual items. See user story #124
+- Taylor knows a lot about this topic as they architected the payment process.
+
+Notice how much clearer it is what the expectations are? Imagine a developer going to implement the first one compared with the second one. With the first one, at best they have a lengthy call with the Product Owner to understand the requirements and at worst you end up with something completely different to the expected outcome!
+
 ### 1.2 How can you ensure time is dedicated to this process?
 The above process probably sounds logical, but sadly reality often gets in the way. Distractions occur and it's all too easy for an unrefined story to slip through the cracks. To avoid this issue I recommend embedding the process into your planning and refinement processes.
 
@@ -52,7 +86,7 @@ How can we do that? By creating a rule that no ticket should go into the Sprint 
 ### 1.3 How can adherehance to these processes be enforced?
 Adhering to the above can be difficult. It requires a strong will and complete buy-in from the team. If you start letting user stories in which don't meet the "ready" tag, the whole process will fall down. That's why the best approach is to get aligned with everyone on the team about this tag and encourage everyone to speak up if a "ready" tag is not appropriate. In particular, the Product Owner and Scrum Master should take careful lead to check-in with all team members about a user story and ensure that no user stories are flying under the radar.
 
-## 2. Spend time condensing those details to the bare minimum
+## 2. Spend time condensing details to the bare minimum
 Following processes that flesh out user stories can cause a huge time sink, espescially when the whole team needs to give buy-in. That's why representing user story information concisely is so crucial. Unfortunately, it is all to common for a user story to contain far too many irrelevant words and details that make reading it a cognitive nightmare.
 
 ### 2.1 Keep it concise
@@ -62,7 +96,6 @@ It's vital that as the team writes a user story they start with a concise defini
 There are several things to look out for when trying to streamline user story descriptions. Foremost are redundant words. The team should try to reduce the description to as few words as possible without losing meaning. That's also why the "more context" section is important, the description should convey the problem as lean as possible but sometimes there is valuable information that helps implement the feature but isn't directly relevant to the problem. There is far more leeway for lengthy content in "more context" because the developer will already have a clear grasp on the problem statement and acceptance criteria. 
 
 Another thing I like to remove is patterns like given when then. In my experience, these patterns often add little value to a user story, increase cognitive load and are used as a crutch for writing poor user stories. I suspect this might be a controversial viewpoint, but I believe that most user stories can be conveyed in a far more concise manner using plain english.
-
 
 ## 3. Get buy-in from the key business stakeholders AND the developers
 Having well written user stories is only half the battle. It means the team can now easily understand and excute on user stories. However, to ensure a truly effective team, alignment between the business and developers is an absolute must. There are 2 sides to this story.
@@ -103,3 +136,5 @@ By flagging problems with the business, developers achieve better outcomes, crea
 So far, the responsibilities of business and developers have been established. But how can those responsibilities be brought together? This is where the "ready" tag again comes in very handy. By having a strong advocate for the "ready" tag and strictly following it's principles the team will build alignment naturally prior to the Sprint.
 
 In addition to the "ready" tag a post completion handshake can do wonders for ensuring alignment. Developers should seek to demonstrate their feature to the Product Owner so they can get feedback and check that it meets all requirements. Any changes can be taken as a new user story, but the process shows that the developer cares about the work and the Product Owner gets the opportunity to ensure the feature meets their expectations.
+
+## 4. Summary
