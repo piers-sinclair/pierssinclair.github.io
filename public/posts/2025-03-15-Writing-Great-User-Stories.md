@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 📖 Writing Good User Stories
+title: 📖 Writing Great User Stories
 date:  2024-03-15 01:00:00 +1000
 categories: dotnet
 tags: agile, scrum, project-management
@@ -64,6 +64,42 @@ There are several things to look out for when trying to streamline user story de
 Another thing I like to remove is patterns like given when then. In my experience, these patterns often add little value to a user story, increase cognitive load and are used as a crutch for writing poor user stories. I suspect this might be a controversial viewpoint, but I believe that most user stories can be conveyed in a far more concise manner using plain english.
 
 
-
-
 ## 3. Get buy-in from the key business stakeholders AND the developers
+Having well written user stories is only half the battle. It means the team can now easily understand and excute on user stories. However, to ensure a truly effective team, alignment between the business and developers is an absolute must. There are 2 sides to this story.
+
+### 3.1 The Business Side
+It is the responsibility of business personnel (e.g. the Product Owner) to ensure that all their requirements have been covered and to resolve any questions the engineering team might have about expectations and functionality. Acceptance criteria and availability are the 2 fundamental pillars here. 
+
+#### 3.1.1 Acceptance Criteria
+Acceptance criteria forms the contract between the engineers and the business. The Product Owner needs to ensure that all expected changes are documented in the acceptance criteria, no matter how small. If the acceptance criteria is missing key expectations or contains irrelevant information it will undermine the credibility of the acceptance criteria and cause the team to avoid trusting the user stories assigned to them. 
+
+It's also unrealistic to expect the acceptance criteria to be an immovable object, that's why when the acceptance criteria do change it is important to communicate the change to the team both verbally and through comments on the user story. The user story acceptance criteria should also be changed and reflect the *current understanding*, removing all references to previous understanding.
+
+#### 3.1.2 Availability
+Availability is another key factor for business personnel. The engineers are almost certainly going to discover unexpected roadblocks, missing details or new improvements. When they stumble upon these, it is crucial that the busiess personnel are there to answer questions, otherwise the developers will be blocked or risk going about implementing something that isn't aligned with the business.
+
+### 3.2 The Development Side
+Developers have the following responsibilities for ensuring alignment with the business:
+- Understanding and Documenting
+- Speaking up
+
+#### 3.2.1 Understanding and documenting
+Developers should ensure they fully understand and document expectations for a user story before it's added to the Sprint. It's all to easy to ignore user stories until they come up in the Sprint. This causes all sorts of disfunctions. 
+- What if there are missing requirements that you identify through your technical lens?
+- What if the business has not considered all technical problems, or effort level?
+- What if it's not technically possible, or a spike is required to investigate options?
+- What if there are blockers preventing work on this user story?
+
+The developer should seek to understand not only the technical requirements but also the business process that ties into the feature. If a developer does not understand the business case of what they are implementing, they cannot hope to implement it correctly or identify potential problems with the proposed implementation.
+
+Through understanding the user story and documenting all requirements, the developer gains clarity on what exactly is required and has evidence to support their case if requirements change in the future. This leads to greater alignment, happier business staff and protection for developers.
+
+#### 3.2.2 Speaking up
+It's impossible to anticipate all requirements and issues that might occur relating to every feature up front. Developers gain a unique, detailed perspective of a feature when they go to implement it. That's why it's vital for an engineer to speak up when they see an issue, roadblock or new idea. 
+
+By flagging problems with the business, developers achieve better outcomes, create credibility with the business and build trust with the business stakeholders. Conversely, the developer who doesn't speak up may see their feature done quicker, but the result will be something the business did not expect, significant technical debt or a feature which is much worse than it could have been. Ultimately the business will notice these issues over time and lose faith in the developers work.
+
+### 3.3 Pulling Together The Business And Development
+So far, the responsibilities of business and developers have been established. But how can those responsibilities be brought together? This is where the "ready" tag again comes in very handy. By having a strong advocate for the "ready" tag and strictly following it's principles the team will build alignment naturally prior to the Sprint.
+
+In addition to the "ready" tag a post completion handshake can do wonders for ensuring alignment. Developers should seek to demonstrate their feature to the Product Owner so they can get feedback and check that it meets all requirements. Any changes can be taken as a new user story, but the process shows that the developer cares about the work and the Product Owner gets the opportunity to ensure the feature meets their expectations.
