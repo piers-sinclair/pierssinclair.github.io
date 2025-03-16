@@ -5,7 +5,7 @@ date:  2024-03-15 01:00:00 +1000
 categories: dotnet
 tags: agile, scrum, project-management
 author: Piers Sinclair
-published: false
+published: true
 ---
 
 Imagine you're a developer assigned a user story that says: "Add pay button to shopping cart." What could go wrong? You might think it's not a big deal, but you'd be surprised at the negative impacts.
