@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 📖 Writing Great User Stories
-date:  2024-03-15 01:00:00 +1000
+date:  2025-03-15 01:00:00 +1000
 categories: dotnet
 tags: agile, scrum, project-management
 author: Piers Sinclair
