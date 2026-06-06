@@ -8,7 +8,7 @@ author: Piers Sinclair
 published: true
 ---
 
-Three people want a command-line tool I built on the side, and each of them wants it a different way. A .NET developer wants `dotnet tool install -g`. A Mac user wants `brew install`. A Windows user wants `winget install`. They expect the same binary, the same version, working the same way, and none of them care that those are three completely different package ecosystems with three different submission processes.
+I built a small CLI, and I wanted three different kinds of people to be able to install it. A .NET developer reaches for `dotnet tool install -g`. A Mac user wants `brew install`. A Windows user wants `winget install`. They expect the same binary, the same version, working the same way, and none of them care that those are three completely different package ecosystems with three different submission processes.
 
 The only thing I want to do to ship to all of them is bump one number.
 
