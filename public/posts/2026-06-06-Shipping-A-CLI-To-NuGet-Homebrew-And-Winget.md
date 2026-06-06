@@ -133,6 +133,8 @@ Three publish targets means three credentials, and a release pipeline is a tempt
 
 If any one of them leaks, the damage is one package or one repo, not my whole account. For a hobby CLI that is mild paranoia. For anything a company ships it is the baseline. The time to scope a token tightly is before you have a reason to.
 
+A few things this pipeline deliberately doesn't do yet, and I'd rather name them than pretend. The binaries aren't code-signed or notarised, so Windows SmartScreen and macOS Gatekeeper will warn on them, and there's no build provenance a user could verify. The third-party Actions are pinned to version tags rather than commit hashes, which is convenient but means I'm trusting those tags not to be moved under me. For a tool this size I've accepted those trade-offs, but they're the first things I'd harden before shipping anything like this at work.
+
 ### The takeaway
 
 Distribution is a feature. It decides whether anyone actually runs the thing you built, and it deserves the same care as the code. Automate it once, make it safe to re-run, and treat everything you publish as generated output rather than something you maintain by hand.
