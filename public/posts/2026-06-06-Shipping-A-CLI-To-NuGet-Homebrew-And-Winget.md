@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 📦 Shipping One CLI to NuGet, Homebrew and winget From a Single Version Bump
+title: 📦 Shipping One CLI to NuGet, Homebrew and WinGet From a Single Version Bump
 date:  2026-06-06 01:00:00 +1000
 categories: dotnet
 tags: dotnet, cli, ci-cd, devops, distribution, github-actions, homebrew, winget, nuget
@@ -35,7 +35,7 @@ The thing that makes this manageable is that the CLI is a single .NET project th
 
 `PackAsTool` makes `dotnet pack` produce a NuGet global tool, which covers the .NET crowd for free. For everyone else I publish self-contained, single-file executables per platform. No runtime to install, no `dotnet` on the machine. One `cpool.exe` (or `cpool`) that just runs.
 
-Homebrew and winget don't host binaries themselves. They host a recipe that points at a binary somewhere else. So the real artifact for both is one GitHub Release with five zips attached: `win-x64`, `win-arm64`, `osx-arm64`, `osx-x64`, `linux-x64`. winget points at the two Windows zips, Homebrew at the three for macOS and Linux. Build them once and each package manager is just metadata sitting on top.
+Homebrew and WinGet don't host binaries themselves. They host a recipe that points at a binary somewhere else. So the real artifact for both is one GitHub Release with five zips attached: `win-x64`, `win-arm64`, `osx-arm64`, `osx-x64`, `linux-x64`. WinGet points at the two Windows zips, Homebrew at the three for macOS and Linux. Build them once and each package manager is just metadata sitting on top.
 
 ### The pipeline is triggered by the version, not a tag
 
@@ -103,11 +103,11 @@ Pushing the formula is not the same as the formula working, so a smoke-test work
 
 Homebrew is live. `brew install cpool` works today.
 
-### winget: the one a human still has to approve
+### WinGet: the one a human still has to approve
 
-winget is the holdout, and it's the channel I'm least sure of as I write this. You don't publish to winget the way you push to NuGet. You open a pull request against [`microsoft/winget-pkgs`](https://github.com/microsoft/winget-pkgs), a single enormous repo that Microsoft owns, and wait for their review to merge it.
+WinGet is the holdout, and it's the channel I'm least sure of as I write this. You don't publish to WinGet the way you push to NuGet. You open a pull request against [`microsoft/winget-pkgs`](https://github.com/microsoft/winget-pkgs), a single enormous repo that Microsoft owns, and wait for their review to merge it.
 
-There's a catch I didn't appreciate at first. The action I wanted to lean on, `winget-releaser`, only updates a package that already exists in that repo. It takes the previous version's manifest as a base and bumps it to the new one. A package that has never been on winget has nothing to bump from, so the very first version has to go in by hand. I'm doing that now with Microsoft's `wingetcreate`, which generates the initial manifest and opens that first pull request for me.
+There's a catch I didn't appreciate at first. The action I wanted to lean on, `winget-releaser`, only updates a package that already exists in that repo. It takes the previous version's manifest as a base and bumps it to the new one. A package that has never been on WinGet has nothing to bump from, so the very first version has to go in by hand. I'm doing that now with Microsoft's `wingetcreate`, which generates the initial manifest and opens that first pull request for me.
 
 Once that first version is accepted, the automation takes over for every release after it:
 
@@ -119,7 +119,7 @@ Once that first version is accepted, the automation takes over for every release
     token: ${{ secrets.WINGET_TOKEN }}
 ```
 
-That generates the new manifest (a zip installer with a `portable` nested type and a `PortableCommandAlias` of `cpool` so the command lands on PATH) and opens the version-bump PR with real hashes. I haven't watched it run for real yet, and I can't until the package exists, so winget is the one channel I won't call done.
+That generates the new manifest (a zip installer with a `portable` nested type and a `PortableCommandAlias` of `cpool` so the command lands on PATH) and opens the version-bump PR with real hashes. I haven't watched it run for real yet, and I can't until the package exists, so WinGet is the one channel I won't call done.
 
 That is just how multi-channel distribution works. The channels you fully control update in seconds. The ones gatekept by a third party move on their schedule, not yours, and sometimes they make you do the first step by hand. I would still rather submit one version manually and automate the rest than hand-write a manifest every release, but automated and instant are not the same thing.
 
@@ -149,4 +149,4 @@ Distribution is a feature. It decides whether anyone actually runs the thing you
 
 The whole pipeline is in the [cardpool repo](https://github.com/piers-sinclair/cardpool) if you want to lift it for your own .NET CLI.
 
-I still go back and forth on whether it was worth it. A `dotnet tool install -g` only reaches developers, and plenty of the people who actually use this don't write code, so Homebrew and winget are what make it reachable for everyone else. That's why I went with all three. For a tool this small it might be overkill, and I'm not sure I got the call right.
+A `dotnet tool install -g` only reaches developers. Homebrew and WinGet are how everyone else installs software. If the people who actually use a tool don't write code, those two channels aren't optional — they're the point. That's why I went with all three.
