@@ -123,7 +123,7 @@ That gap is the honest reality of multi-channel distribution: the channels you f
 
 ### Three tokens, least privilege
 
-Three publish targets means three credentials, and a release pipeline is a juicy thing to compromise — it pushes signed-ish artifacts to places people install from. So none of them are broad:
+Three publish targets means three credentials, and a release pipeline is a tempting thing to compromise — it pushes artifacts to places people install from without looking. So none of them are broad:
 
 | Secret | Scope |
 |--------|-------|
