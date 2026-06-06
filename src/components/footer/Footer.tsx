@@ -9,7 +9,7 @@ function Footer() {
           <div className="w-full text-center">
             <ul className="contact-list space-y-2">
               <li className="text-lg font-bold">Piers Sinclair</li>
-              <li className="text-sm">Lead Software Engineer</li>
+              <li className="text-sm">Engineering Manager</li>
             </ul>
           </div>
 
