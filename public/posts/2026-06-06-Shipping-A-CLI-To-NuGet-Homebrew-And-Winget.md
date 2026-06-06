@@ -133,6 +133,10 @@ Three publish targets means three credentials, and a release pipeline is a tempt
 
 If any one of them leaks, the damage is one package or one repo, not my whole account. For a hobby CLI that is mild paranoia. For anything a company ships it is the baseline. The time to scope a token tightly is before you have a reason to.
 
+### How it got built
+
+I should be upfront that I wrote most of cardpool, the CLI and this pipeline included, with Claude Code. It handled the mechanical parts well, like the five publish profiles and the `awk` that swaps in the real hashes. The decisions took longer than the typing did: triggering on the version file instead of a tag, making the release safe to re-run, keeping the tap as generated output. That's the part I'd want to be judged on anyway.
+
 ### The takeaway
 
 Distribution is a feature. It decides whether anyone actually runs the thing you built, and it deserves the same care as the code. Automate it once, make it safe to re-run, and treat everything you publish as generated output rather than something you maintain by hand.
