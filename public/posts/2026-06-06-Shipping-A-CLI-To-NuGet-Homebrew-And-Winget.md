@@ -8,7 +8,7 @@ author: Piers Sinclair
 published: true
 ---
 
-Three people want a command-line tool I built on the side, and each of them wants it a different way. A .NET developer wants `dotnet tool install -g`. A Mac user wants `brew install`. A Windows user wants `winget install`. They expect the same binary, the same version, working the same way — and none of them care that those are three completely different package ecosystems with three different submission processes.
+Three people want a command-line tool I built on the side, and each of them wants it a different way. A .NET developer wants `dotnet tool install -g`. A Mac user wants `brew install`. A Windows user wants `winget install`. They expect the same binary, the same version, working the same way, and none of them care that those are three completely different package ecosystems with three different submission processes.
 
 The only thing I want to do to ship to all of them is bump one number.
 
@@ -18,11 +18,11 @@ Here's the commit that releases [cardpool](https://github.com/piers-sinclair/car
 <Version>1.2.3</Version>
 ```
 
-That's it. Merge that to `main` and the rest happens on its own. I built most of cardpool — the CLI and this pipeline both — with Claude Code, so the work was never typing the YAML; it was deciding what the YAML should be. This post is the machinery behind that line, and the one package manager that still refuses to be fully automated.
+That's it. Merge that to `main` and the rest happens on its own. This post is the machinery behind that line, and the one package manager that still refuses to be fully automated.
 
 ### One project, three artifacts
 
-The trick that makes this manageable is that the CLI is a single .NET project that knows how to be packaged three different ways. The `.csproj`:
+The thing that makes this manageable is that the CLI is a single .NET project that knows how to be packaged three different ways. The `.csproj`:
 
 ```xml
 <OutputType>Exe</OutputType>
@@ -33,13 +33,13 @@ The trick that makes this manageable is that the CLI is a single .NET project th
 <Version>1.2.3</Version>
 ```
 
-`PackAsTool` makes `dotnet pack` produce a NuGet global tool — that covers the .NET crowd for free. For everyone else I publish self-contained, single-file executables per platform. No runtime to install, no `dotnet` on the machine. One `cpool.exe` (or `cpool`) that just runs.
+`PackAsTool` makes `dotnet pack` produce a NuGet global tool, which covers the .NET crowd for free. For everyone else I publish self-contained, single-file executables per platform. No runtime to install, no `dotnet` on the machine. One `cpool.exe` (or `cpool`) that just runs.
 
-Homebrew and winget don't actually *host* binaries — they host *recipes* that point at binaries. So the real distribution artifact for both is a GitHub Release with five zips attached: `win-x64`, `win-arm64`, `osx-arm64`, `osx-x64`, `linux-x64`. Build those once and both package managers are just metadata on top.
+Homebrew and winget don't actually host binaries. They host recipes that point at binaries. So the real distribution artifact for both is a GitHub Release with five zips attached: `win-x64`, `win-arm64`, `osx-arm64`, `osx-x64`, `linux-x64`. Build those once and both package managers are just metadata sitting on top.
 
 ### The pipeline is triggered by the version, not a tag
 
-Most release pipelines trigger on a pushed tag. I trigger on the *file* that holds the version:
+Most release pipelines trigger on a pushed tag. I trigger on the file that holds the version:
 
 ```yaml
 on:
@@ -49,9 +49,9 @@ on:
       - 'src/CardPool.Cli/CardPool.Cli.csproj'
 ```
 
-I don't want to remember to tag. I want the version to live in exactly one place — the project file that already has to be correct for NuGet anyway — and have everything else derive from it.
+I don't want to remember to tag anything. I want the version to live in exactly one place, the project file that already has to be correct for NuGet, and have everything else derive from it.
 
-The catch with this approach: that path filter fires on *any* push that touches the csproj, not just version bumps. Add a package reference, edit the description, and the release job wakes up. So the first job's only purpose is to decide whether there's actually anything to do:
+The catch is that the path filter fires on any push that touches the csproj, not just version bumps. Add a package reference or edit the description and the release job wakes up. So the first job's only purpose is to decide whether there's actually anything to do:
 
 ```yaml
 VERSION=$(grep -oP '(?<=<Version>)[^<]+' src/CardPool.Cli/CardPool.Cli.csproj)
@@ -63,7 +63,7 @@ else
 fi
 ```
 
-If a release for that version already exists, stop. That one check is what makes the whole pipeline idempotent — I can re-run it, push unrelated csproj edits, or retry a half-failed run, and it will never double-publish. Idempotency isn't a nice-to-have in a release pipeline; it's the difference between "re-run the job" and "manually clean up a botched release at 11pm".
+If a release for that version already exists, stop. That single check is what lets me re-run the pipeline without thinking about it. I can retry a half-finished run, or push an unrelated csproj edit, and it will never publish the same version twice.
 
 When it does decide to release, the build is a boring loop:
 
@@ -75,13 +75,13 @@ When it does decide to release, the build is a boring loop:
     done
 ```
 
-Zip each output, `softprops/action-gh-release` creates the tagged Release with the zips attached, `dotnet nuget push --skip-duplicate` ships NuGet. NuGet is now done. The Release being *published* is the event the other two package managers listen for.
+Zip each output, `softprops/action-gh-release` creates the tagged Release with the zips attached, and `dotnet nuget push --skip-duplicate` ships NuGet. NuGet is now done. The Release being published is the event the other two package managers wait for.
 
 ### Homebrew: never hand-edit the tap
 
 A Homebrew tap is just a git repo full of Ruby formula files. The naive way to maintain one is to open it after each release and paste in the new version and SHA256 hashes by hand. That is exactly the kind of manual, error-prone step I'm trying to delete.
 
-So the formula lives in *cardpool's* repo as the single source of truth, with placeholder hashes:
+So the formula lives in cardpool's own repo as the single source of truth, with placeholder hashes:
 
 ```ruby
 if OS.mac? && Hardware::CPU.arm?
@@ -97,15 +97,15 @@ SHA_OSX_ARM64=$(get_sha256 "${BASE}/cpool-osx-arm64.zip")
 # ...awk swaps each placeholder for the real hash, then commits to the tap repo
 ```
 
-The rule I hold to: **the tap is an output, never an input.** I never edit `homebrew-cpool` directly. If the install logic or description changes, it changes in `packaging/homebrew/cpool.rb` here and takes effect on the next release. The tap is generated, the same way `dist/` is.
+The rule I hold to is that the tap is an output, never an input. I never edit `homebrew-cpool` directly. If the install logic or the description changes, it changes in `packaging/homebrew/cpool.rb` here and takes effect on the next release. The tap is generated, the same way `dist/` is.
 
-And because "it pushed" isn't the same as "it works", a smoke-test workflow runs straight after and actually `brew install`s the formula on both macOS and Linux runners. If the hash is wrong or the zip layout changed, I find out from a red check, not from a user.
+Pushing the formula is not the same as the formula working, so a smoke-test workflow runs straight after and actually installs `cpool` from the tap on both macOS and Linux runners. If a hash is wrong or the zip layout changed, I find out from a red check, not from a user.
 
 Homebrew is live. `brew install cpool` works today.
 
 ### winget: the one a human still has to approve
 
-winget is the holdout. You don't publish to winget — you open a pull request against [`microsoft/winget-pkgs`](https://github.com/microsoft/winget-pkgs), a single enormous repo Microsoft owns, and wait for their bot (and sometimes a human) to review and merge it.
+winget is the holdout. You don't publish to winget. You open a pull request against [`microsoft/winget-pkgs`](https://github.com/microsoft/winget-pkgs), a single enormous repo that Microsoft owns, and wait for their bot, and sometimes a human, to review and merge it.
 
 The submission itself is automated:
 
@@ -117,13 +117,13 @@ The submission itself is automated:
     token: ${{ secrets.WINGET_TOKEN }}
 ```
 
-That generates the manifest — a zip installer with a `portable` nested type and a `PortableCommandAlias: cpool` so the command lands on PATH — and opens the PR with real hashes. But then it sits in someone else's queue. As I write this, NuGet and Homebrew are live and the winget PR is still working its way through review.
+That generates the manifest (a zip installer with a `portable` nested type and a `PortableCommandAlias` of `cpool` so the command lands on PATH) and opens the PR with real hashes. Then it sits in someone else's queue. As I write this, NuGet and Homebrew are live and the winget PR is still working its way through review.
 
-That gap is the honest reality of multi-channel distribution: the channels you fully control update in seconds, and the ones gatekept by a third party move on their schedule, not yours. I'd rather have an automated PR waiting in a queue than be hand-writing YAML manifests, but it's a useful reminder that "automated" and "instant" aren't the same word.
+That gap is just how multi-channel distribution works. The channels you fully control update in seconds. The ones gatekept by a third party move on their schedule, not yours. I would still rather have an automated PR waiting in a queue than hand-write YAML manifests, but automated and instant are not the same thing.
 
 ### Three tokens, least privilege
 
-Three publish targets means three credentials, and a release pipeline is a tempting thing to compromise — it pushes artifacts to places people install from without looking. So none of them are broad:
+Three publish targets means three credentials, and a release pipeline is a tempting thing to compromise, because it pushes artifacts to places people install from without looking. So none of the tokens are broad:
 
 | Secret | Scope |
 |--------|-------|
@@ -131,20 +131,12 @@ Three publish targets means three credentials, and a release pipeline is a tempt
 | `WINGET_TOKEN` | classic PAT, `public_repo` only |
 | `HOMEBREW_TAP_TOKEN` | fine-grained PAT, the tap repo only, Contents read/write |
 
-If any single one leaks, the blast radius is one package or one repo, not my whole account. For a hobby CLI that's mild paranoia; for anything your company ships it's table stakes. The time to scope tokens tightly is before you need the lesson.
-
-### Who actually wrote this
-
-Worth being straight about, because it's the most interesting part: I built most of this with Claude Code.
-
-> The agent wrote the five publish profiles and the `awk` hash-stamping in seconds. What it didn't do was decide to trigger on the version file instead of a tag, that the release had to be idempotent, or that the tap should be generated output rather than hand-maintained. That's the part that still matters — knowing which YAML you actually want, and why, not typing it.
-
-The grunt work is cheap now. The judgement about what "correct" looks like, and pushing back when the first answer isn't it, is the entire job.
+If any one of them leaks, the damage is one package or one repo, not my whole account. For a hobby CLI that is mild paranoia. For anything a company ships it is the baseline. The time to scope a token tightly is before you have a reason to.
 
 ### The takeaway
 
-Distribution is a feature. It's the feature that decides whether anyone actually runs the thing you built, and it's worth the same engineering rigour as the code — automate it once, make it idempotent, and treat every published artifact as generated output rather than something you maintain by hand.
+Distribution is a feature. It decides whether anyone actually runs the thing you built, and it deserves the same care as the code. Automate it once, make it safe to re-run, and treat everything you publish as generated output rather than something you maintain by hand.
 
 The whole pipeline is in the [cardpool repo](https://github.com/piers-sinclair/cardpool) if you want to lift it for your own .NET CLI.
 
-One genuine question I keep going back and forth on: for a small tool, is shipping to all three channels worth it, or is a single `dotnet tool install -g` (or a `curl | sh`) enough, and the rest is vanity? I went wide. I'm not certain I was right.
+I still go back and forth on one thing. For a tool this small, is shipping to all three channels actually worth it, or would a single `dotnet tool install -g` have been enough and the rest is vanity? I went wide. I'm not sure I was right.
