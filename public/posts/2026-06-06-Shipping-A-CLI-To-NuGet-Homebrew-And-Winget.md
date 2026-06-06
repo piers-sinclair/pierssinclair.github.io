@@ -105,9 +105,11 @@ Homebrew is live. `brew install cpool` works today.
 
 ### winget: the one a human still has to approve
 
-winget is the holdout. You don't publish to winget. You open a pull request against [`microsoft/winget-pkgs`](https://github.com/microsoft/winget-pkgs), a single enormous repo that Microsoft owns, and wait for their bot, and sometimes a human, to review and merge it.
+winget is the holdout, and it's the channel I'm least sure of as I write this. You don't publish to winget the way you push to NuGet. You open a pull request against [`microsoft/winget-pkgs`](https://github.com/microsoft/winget-pkgs), a single enormous repo that Microsoft owns, and wait for their review to merge it.
 
-The submission itself is automated:
+There's a catch I didn't appreciate at first. The action I wanted to lean on, `winget-releaser`, only updates a package that already exists in that repo. It takes the previous version's manifest as a base and bumps it to the new one. A package that has never been on winget has nothing to bump from, so the very first version has to go in by hand. I'm doing that now with Microsoft's `wingetcreate`, which generates the initial manifest and opens that first pull request for me.
+
+Once that first version is accepted, the automation takes over for every release after it:
 
 ```yaml
 - uses: vedantmgoyal9/winget-releaser@v2
@@ -117,9 +119,9 @@ The submission itself is automated:
     token: ${{ secrets.WINGET_TOKEN }}
 ```
 
-That generates the manifest (a zip installer with a `portable` nested type and a `PortableCommandAlias` of `cpool` so the command lands on PATH) and opens the PR with real hashes. Then it sits in someone else's queue. As I write this, NuGet and Homebrew are live and the winget PR is still working its way through review.
+That generates the new manifest (a zip installer with a `portable` nested type and a `PortableCommandAlias` of `cpool` so the command lands on PATH) and opens the version-bump PR with real hashes. I haven't watched it run for real yet, and I can't until the package exists, so winget is the one channel I won't call done.
 
-That gap is just how multi-channel distribution works. The channels you fully control update in seconds. The ones gatekept by a third party move on their schedule, not yours. I would still rather have an automated PR waiting in a queue than hand-write YAML manifests, but automated and instant are not the same thing.
+That is just how multi-channel distribution works. The channels you fully control update in seconds. The ones gatekept by a third party move on their schedule, not yours, and sometimes they make you do the first step by hand. I would still rather submit one version manually and automate the rest than hand-write a manifest every release, but automated and instant are not the same thing.
 
 ### Three tokens, least privilege
 
