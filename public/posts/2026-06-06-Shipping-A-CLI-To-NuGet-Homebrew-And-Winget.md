@@ -139,4 +139,4 @@ Distribution is a feature. It decides whether anyone actually runs the thing you
 
 The whole pipeline is in the [cardpool repo](https://github.com/piers-sinclair/cardpool) if you want to lift it for your own .NET CLI.
 
-I still go back and forth on one thing. For a tool this small, is shipping to all three channels actually worth it, or would a single `dotnet tool install -g` have been enough and the rest is vanity? I went wide. I'm not sure I was right.
+I still go back and forth on whether it was worth it. A `dotnet tool install -g` only reaches developers, and plenty of the people who actually use this don't write code, so Homebrew and winget are what make it reachable for everyone else. That's why I went with all three. For a tool this small it might be overkill, and I'm not sure I got the call right.
