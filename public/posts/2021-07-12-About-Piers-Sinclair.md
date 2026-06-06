@@ -13,16 +13,16 @@ Hey All,
 
 Welcome to my blog!
 
-I'm a Lead Software Engineer with a background in fullstack web development with .NET, SQL and Azure. Over the years, I've taken on various roles including Tech Lead, Product Owner, and Scrum Master. This diverse experience has given me a broad perspective on project delivery.
+I build the engineering cultures that ship products people actually use.
 
-I've led projects automating Annual Review processes, enhanced recruitment pipelines as a Product Owner, and served as Scrum Master on Content Management Systems (CMS), Invoicing Systems, and Learning Management Systems (LMS).
+I'm an Engineering Manager with over a decade in software, now focused on the hard parts of leading teams: hiring the right people, setting technical direction, and making sure good engineers stay and grow. My background is in .NET, SQL, and Azure, and I still get into the code — because engineering managers who can't read a pull request lose the room fast.
 
-Mentoring junior developers is a passion of mine. I've designed and delivered a structured internship program focused on full-stack development with Angular and .Net. I also coach developers during Sprint Reviews and Code Reviews, promoting continuous learning.
+Across my career I've scaled engineering organisations from 50 to 100+ people — building hiring pipelines from scratch, establishing structure and process, directing teams across multiple regions, and making architectural decisions that had to hold as the headcount doubled. I've done my best work in environments that are fast-moving and high-ownership.
 
-I excel in identifying process improvements and implementing effective solutions. For example, I improved a company's candidate testing procedure, significantly reducing the time to hire. I've also helped stakeholders develop efficient task delegation strategies.
+On the people side: I build hiring pipelines, run technical interviews, and develop engineers at every level. I've run structured development programs that have uplifted 30+ engineers — graduates, career-changers, and experienced developers who needed a path forward. Watching someone grow from new graduate to system owner, or from senior IC to tech lead, is the part of the job I find most rewarding.
 
-In addition to my Scrum expertise, I handle tasks that ensure smooth operations, from streamlining communication to refining company standards. My dedication to efficiency is evident in every task I undertake.
+On the technical side: I architect solutions, review code, and make build-vs-buy calls. I've introduced modular monolith patterns, led migrations from legacy systems to modern .NET and React stacks, pushed Agentic AI tooling into delivery workflows before it was obvious, and shaped technical practice across 50+ engineers. My blog is where I think out loud about engineering — the building, the leading, and the trade-offs in between.
 
-With conversational proficiency in Chinese, I've successfully led IT teams in China, transforming business strategies and increasing profitability. This adds an extra dimension to my consulting capabilities, especially for businesses looking to expand or improve operations in China.
+I'm interested in the questions that sit at the intersection of engineering leadership and product: how standards get set and held, how teams decide what to build and what to skip, and how to keep technical quality from becoming the thing that slows you down instead of the thing that speeds you up.
 
-I'm excited to share insights and dive into various topics with you! 😃
+I'm excited to share insights and explore various topics with you! 😃
