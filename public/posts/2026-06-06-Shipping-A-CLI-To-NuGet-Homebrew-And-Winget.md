@@ -75,7 +75,7 @@ When it does decide to release, the build is a boring loop:
     done
 ```
 
-Zip each output, `softprops/action-gh-release` creates the tagged Release with the zips attached, and `dotnet nuget push --skip-duplicate` ships NuGet. NuGet is now done. The Release being published is the event the other two package managers wait for.
+Zip each output, a GitHub Action (`softprops/action-gh-release`) creates the tagged Release with the zips attached, and `dotnet nuget push --skip-duplicate` ships NuGet. NuGet is now done. The Release being published is the event the other two package managers wait for.
 
 ### Homebrew: never hand-edit the tap
 
