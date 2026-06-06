@@ -149,4 +149,4 @@ Distribution is a feature. It decides whether anyone actually runs the thing you
 
 The whole pipeline is in the [cardpool repo](https://github.com/piers-sinclair/cardpool) if you want to lift it for your own .NET CLI.
 
-A `dotnet tool install -g` only reaches developers. Homebrew and WinGet are how everyone else installs software. If the people who actually use a tool don't write code, those two channels aren't optional — they're the point. That's why I went with all three.
+Whether all three channels is the right call depends on your audience. `dotnet tool install -g` only reaches developers — if the people who actually use your tool don't write code, Homebrew and WinGet aren't optional. The setup cost is real, but with automation the ongoing cost is close to zero. For a tool this small I'm still not certain it was worth it, but those are the trade-offs I weighed.
