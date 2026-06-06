@@ -35,7 +35,7 @@ The thing that makes this manageable is that the CLI is a single .NET project th
 
 `PackAsTool` makes `dotnet pack` produce a NuGet global tool, which covers the .NET crowd for free. For everyone else I publish self-contained, single-file executables per platform. No runtime to install, no `dotnet` on the machine. One `cpool.exe` (or `cpool`) that just runs.
 
-Homebrew and winget don't actually host binaries. They host recipes that point at binaries. So the real distribution artifact for both is a GitHub Release with five zips attached: `win-x64`, `win-arm64`, `osx-arm64`, `osx-x64`, `linux-x64`. Build those once and both package managers are just metadata sitting on top.
+Homebrew and winget don't host binaries themselves. They host a recipe that points at a binary somewhere else. So the real artifact for both is one GitHub Release with five zips attached: `win-x64`, `win-arm64`, `osx-arm64`, `osx-x64`, `linux-x64`. winget points at the two Windows zips, Homebrew at the three for macOS and Linux. Build them once and each package manager is just metadata sitting on top.
 
 ### The pipeline is triggered by the version, not a tag
 
@@ -141,7 +141,7 @@ The binaries aren't signed. Signing is a stamp that proves who published an app 
 
 The other gap is in the automation. I point at the third-party tools in my workflows by a moving label like `@v2` instead of one exact version. The part most people don't realise is that a label like `@v2` can be repointed at any time, including by whoever ends up in control of the tool behind it. That isn't hypothetical. In early 2025 a widely used Action called `tj-actions/changed-files` was [hijacked exactly this way](https://www.theregister.com/2025/03/17/supply_chain_attack_github/): its version tags were quietly moved to point at malicious code, and it leaked secrets out of more than 23,000 projects' build pipelines before anyone caught it. Pinning each tool to a specific frozen version, an exact commit rather than a moving label, would have side-stepped that, and I haven't done it here yet.
 
-For a tool this size I've accepted these trade-offs, but they're the first things I'd harden before shipping anything like this at work.
+For a tool this size I've accepted these trade-offs, but they're the first things I'd harden before shipping anything like this for commercial use.
 
 ### The takeaway
 
